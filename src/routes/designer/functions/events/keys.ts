@@ -1,13 +1,14 @@
 import { get } from 'svelte/store';
 
-import pkg from 'is-windows';
-const isWindows = pkg;
-
-import { isShifted, setIsShifted, isCtrl, setIsCtrl, setMode, isSelectMode } from '../../store';
-
-console.log(isWindows);
-
-let isMac = !isWindows;
+import {
+	isShifted,
+	setIsShifted,
+	isCtrl,
+	setIsCtrl,
+	setMode,
+	isSelectMode,
+	isMac
+} from '../../store';
 
 export const handleKeyDown = (e: any) => {
 	if (e.keyCode === 16 && !get(isShifted)) {
@@ -21,11 +22,11 @@ export const handleKeyDown = (e: any) => {
 	}
 
 	// if ctrl is pressed, set isCtrl to true
-	if (e.keyCode === 17 && !get(isCtrl) && !isMac && get(isSelectMode)) {
+	if (e.keyCode === 17 && !get(isCtrl) && !get(isMac) && get(isSelectMode)) {
 		setIsCtrl(true);
 	}
 	// if command on mac is pressed
-	if (e.keyCode === 91 && isMac && get(isSelectMode)) {
+	if (e.keyCode === 91 && get(isMac) && get(isSelectMode)) {
 		setIsCtrl(true);
 	}
 
@@ -44,10 +45,10 @@ export const handleKeyUp = (e: any) => {
 		if (!body) return;
 		body.style.cursor = 'default';
 	}
-	if (e.keyCode === 17 && get(isCtrl) && !isMac) {
+	if (e.keyCode === 17 && get(isCtrl) && !get(isMac)) {
 		setIsCtrl(false);
 	}
-	if (e.keyCode === 91 && isMac) {
+	if (e.keyCode === 91 && get(isMac)) {
 		setIsCtrl(false);
 	}
 };

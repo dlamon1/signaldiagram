@@ -34,13 +34,26 @@
 
 	const getUseragent = () => {
 		const useragent = ['Chrome'];
-		// const useragent = navigator.userAgent;
+
 		if (useragent.indexOf('Chrome') !== -1) {
 			$isChrome = true;
 		}
 	};
 
 	getUseragent();
+
+	import { onMount } from 'svelte';
+
+	import { isMac } from './store';
+
+	onMount(() => {
+		console.log('this mounted');
+		let os = navigator.userAgent.slice(13).split(';');
+
+		if (os[0] === 'Macintosh') {
+			$isMac = true;
+		}
+	});
 </script>
 
 <div id="container">
