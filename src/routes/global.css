@@ -1,0 +1,52 @@
+html,
+body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  border-style: solid;
+  background-color: rgb(37, 37, 37);
+
+}
+
+body {
+  color: #333;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+}
+
+button {
+  cursor: pointer;
+  transition: background-color 0.05s, color 0.05s;
+  font-size: 1em;
+  font-weight: 700;
+  border-radius: 1px;
+  border-width: 1px;
+}
+
+button:hover {
+  background-color: rgb(97, 97, 97);
+  border-width: 1px;
+  border-color: chartreuse;
+  border-style: solid;
+  color: rgb(255, 255, 255);
+}
+
+label {
+  padding-right: 10px;
+  cursor: pointer;
+}
+label:hover {
+  /* outline: 1.5px solid rgba(0, 0, 0, 0.445); */
+}
+
+.divider {
+  height: 0.2px;
+  background-color: rgb(110, 110, 110);
+  margin-top: 10px;
+}
