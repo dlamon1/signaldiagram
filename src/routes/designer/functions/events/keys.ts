@@ -1,5 +1,7 @@
 import { get } from "svelte/store";
 
+import {isWindows} from 'is-windows'
+
 import {
   isShifted,
   setIsShifted,
@@ -9,8 +11,11 @@ import {
   isSelectMode,
 } from "../../store";
 
-// const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
-const isMac = true
+console.log(isWindows);
+
+
+let isMac = !isWindows
+
 
 export const handleKeyDown = (e: any) => {
   if (e.keyCode === 16 && !get(isShifted)) {

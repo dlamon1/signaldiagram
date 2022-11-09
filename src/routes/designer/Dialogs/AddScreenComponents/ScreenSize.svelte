@@ -82,7 +82,6 @@
 					return tileType.make === make;
 				})
 				.map((tileType: any) => {
-					console.log(tileType);
 					let label = tileType.model + ' - ' + tileType.pixelWidth + ' x ' + tileType.pixelHeight;
 
 					return {
@@ -92,6 +91,16 @@
 				})
 		);
 		let res = Array.from(modelsSet);
+
+		res.sort((a, b) => {
+			if (a.label < b.label) {
+				return -1;
+			}
+			if (a.label > b.label) {
+				return 1;
+			}
+			return 0;
+		});
 
 		return res;
 	};
