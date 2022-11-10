@@ -47,7 +47,6 @@
 	import { isMac } from './store';
 
 	onMount(() => {
-		console.log('this mounted');
 		let os = navigator.userAgent.slice(13).split(';');
 
 		if (os[0] === 'Macintosh') {
