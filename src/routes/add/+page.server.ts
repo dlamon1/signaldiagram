@@ -1,8 +1,30 @@
-import { ConnectionPoolClosedEvent, MongoClient } from 'mongodb';
+import { invalid, redirect } from '@sveltejs/kit';
+
+import { MongoClient } from 'mongodb';
+import dotenv from 'dotenv';
+dotenv.config();
+
+const checkKey = (key: string) => {
+	const keyString = process.env['ADD_PANEL_KEYS'];
+	const keyArray = keyString?.split(',');
+
+	if (keyArray?.includes(key)) {
+		return true;
+	} else {
+		return false;
+	}
+};
 
 export const actions = {
 	default: async ({ cookies, request }) => {
 		const data = await request.formData();
+
+		let keyIsValid = checkKey(data.get('key'));
+		console.log('key is: ', keyIsValid);
+
+		if (!keyIsValid) {
+			return invalid(401);
+		}
 
 		let newTile = {
 			make: data.get('make'),

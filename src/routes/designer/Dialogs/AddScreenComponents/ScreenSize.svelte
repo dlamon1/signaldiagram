@@ -127,7 +127,6 @@
 		});
 
 		model = modelObj[0].model;
-
 		width = modelObj[0].pixelWidth;
 		height = modelObj[0].pixelHeight;
 		widthMM = modelObj[0].mmWidth;
@@ -148,11 +147,11 @@
 		/>
 	</div>
 
-	<div class="select">
+	<div class="input-wrapper" style="margin-top: 15px; color: black">
 		<Select class="asdf" items={makes} {value} placeholder="Make" on:select={handleSelectMake} />
 	</div>
 
-	<div class="select">
+	<div class="input-wrapper" style="margin-top: 15px; color: black">
 		<Select class="asdf" items={models} {value} placeholder="Make" on:select={handleSelectModel} />
 	</div>
 
@@ -203,8 +202,10 @@
 		font-weight: 600;
 		margin-bottom: 1rem;
 		color: #ffffff;
-		align-self: center;
 		width: 100%;
+		align-content: center;
+		justify-content: center;
+		display: flex;
 	}
 	.title {
 		display: flex;
@@ -236,7 +237,7 @@
 	#dimensions-container {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
-		margin-top: 5px;
+		margin-block: -14px;
 	}
 
 	#dimensions-container input {

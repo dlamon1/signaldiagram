@@ -1,30 +1,11 @@
 <script>
-	// const addTile = async (e) => {
-	// 	e.preventDefault();
-	// 	let res = await fetch('../api/tiles', {
-	// 		method: 'post',
-	// 		headers: {
-	// 			'content-type': 'application/json'
-	// 		},
-	// 		body: JSON.stringify(newTile)
-	// 	});
-	// };
-
 	import { enhance } from '$app/forms';
-
-	let newTile = {
-		make: 'Roe',
-		model: 'CB3',
-		pixelWidth: 50,
-		pixelHeight: 10,
-		mmWidth: 20,
-		mmHeight: 30
-	};
 </script>
 
 <div class="page">
 	<div class="container">
 		<form method="POST" use:enhance>
+			<input placeholder="Key" name="key" />
 			<input placeholder="Make" name="make" />
 			<input placeholder="Model" name="model" />
 			<input placeholder="Pixel Width" name="pixelWidth" />
