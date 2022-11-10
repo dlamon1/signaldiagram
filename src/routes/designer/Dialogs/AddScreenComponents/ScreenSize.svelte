@@ -7,8 +7,6 @@
 
 	import Select from 'svelte-select';
 
-	let selectedModel;
-
 	let inputRef: HTMLInputElement;
 
 	const selectAll = (event: Event) => {
@@ -27,22 +25,17 @@
 	let title = '';
 
 	const addScreen = () => {
-		if (
-			columns > 0 &&
-			rows > 0 &&
-			selectedModel.pixelWidth > 0 &&
-			selectedModel.pixelHeight > 0 &&
-			selectedModel.mmWidth > 0 &&
-			selectedModel.mmHeight > 0
-		) {
+		if (columns > 0 && rows > 0 && width > 0 && height > 0 && widthMM > 0 && heightMM > 0) {
 			let newScreen = new Screen(
 				columns,
 				rows,
-				selectedModel.pixelWidth,
-				selectedModel.pixelHeight,
-				selectedModel.mmWidth,
-				selectedModel.mmHeight,
-				title
+				width,
+				height,
+				widthMM,
+				heightMM,
+				title,
+				make,
+				model
 			);
 
 			$screens.push(newScreen);
@@ -64,6 +57,8 @@
 	let items = [];
 
 	let make = '';
+
+	let model = '';
 
 	const getArrayOfMakes = () => {
 		let makesSet = new Set(
@@ -127,11 +122,16 @@
 	};
 
 	const handleSelectModel = (e: any) => {
-		let model = $tileTypes.filter((tileType: any) => {
+		let modelObj = $tileTypes.filter((tileType: any) => {
 			return tileType._id === e.detail.value;
 		});
 
-		selectedModel = model[0];
+		model = modelObj[0].model;
+
+		width = modelObj[0].pixelWidth;
+		height = modelObj[0].pixelHeight;
+		widthMM = modelObj[0].mmWidth;
+		heightMM = modelObj[0].mmHeight;
 	};
 </script>
 
@@ -167,6 +167,27 @@
 			<input type="number" bind:value={rows} min="1" on:focus={(event) => selectAll(event)} />
 		</div>
 	</div>
+
+	<div class="input-wrapper">
+		Width(px):
+		<input type="number" bind:value={width} min="1" on:focus={(event) => selectAll(event)} />
+	</div>
+
+	<div class="input-wrapper">
+		Height(px):
+		<input type="number" bind:value={height} min="1" on:focus={(event) => selectAll(event)} />
+	</div>
+
+	<div class="input-wrapper">
+		Width(mm):
+		<input type="number" bind:value={widthMM} min="1" on:focus={(event) => selectAll(event)} />
+	</div>
+
+	<div class="input-wrapper">
+		Height(mm):
+		<input type="number" bind:value={heightMM} min="1" on:focus={(event) => selectAll(event)} />
+	</div>
+
 	<div class="submit-wrapper">
 		<button on:click={addScreen}>Submit</button>
 	</div>

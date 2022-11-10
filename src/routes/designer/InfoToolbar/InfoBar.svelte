@@ -1,68 +1,81 @@
 <script lang="ts">
-  import LineCounter from "./InfoBar.LineCounter.svelte";
-  import Links from "./InfoBar.Links.svelte";
+	import LineCounter from './InfoBar.LineCounter.svelte';
+	import Links from './InfoBar.Links.svelte';
 
-  import { isAddScreenDialogOpen, screens, currentScreenIndex } from "../store";
+	import { isAddScreenDialogOpen, screens, currentScreenIndex } from '../store';
 
-  const selectPanel = (i: number) => {
-    $currentScreenIndex = i;
-  };
+	const selectPanel = (i: number) => {
+		$currentScreenIndex = i;
+	};
 </script>
 
 <div class="container">
-  <button class="dialog" on:click={() => ($isAddScreenDialogOpen = true)}>
-    Add Screen
-  </button>
+	<button class="dialog" on:click={() => ($isAddScreenDialogOpen = true)}> Add Screen </button>
 
-  <div class="divider" />
+	<div class="divider" />
 
-  {#each $screens as screen, i}
-    <button
-      class="screen-button"
-      on:click={() => selectPanel(i)}
-      class:selected={i == $currentScreenIndex}
-    >
-      {screen.name}
-    </button>
-  {/each}
+	{#each $screens as screen, i}
+		<button
+			class="screen-button"
+			on:click={() => selectPanel(i)}
+			class:selected={i == $currentScreenIndex}
+		>
+			<div class="title">
+				{screen.name}
+			</div>
+			<div class="subtitle">
+				{screen.make} -
+				{screen.model}
+			</div>
+		</button>
+	{/each}
 
-  <LineCounter />
+	<LineCounter />
 
-  <div class="spacer" />
+	<div class="spacer" />
 
-  <Links />
+	<Links />
 </div>
 
 <style>
-  .selected {
-    background-color: rgb(42, 109, 255);
-    color: white;
-    border-color: chartreuse;
-    border-width: 1px;
-    border-style: solid;
-  }
-  .screen-button {
-    height: 40px;
-    margin-top: 5px;
-  }
+	.title {
+		font-size: 0.9rem;
+		font-weight: 800;
+	}
+	.subtitle {
+		margin-top: 3px;
+		font-size: 0.6rem;
+		font-weight: 500;
+	}
+	.selected {
+		background-color: rgb(42, 109, 255);
+		color: white;
+		border-color: chartreuse;
+		border-width: 1px;
+		border-style: solid;
+	}
+	.screen-button {
+		height: 40px;
+		margin-top: 5px;
+	}
 
-  .dialog {
-    height: 40px;
-  }
+	.dialog {
+		height: 40px;
+	}
 
-  .spacer {
-    flex: 1;
-  }
+	.spacer {
+		flex: 1;
+	}
 
-  .container {
-    width: calc(100% - 10px);
-    height: calc(100vh - 10px);
-    color: #f7f7f7;
-    font-size: 1em;
-    font-weight: 500;
-    display: flex;
-    flex-direction: column;
-    user-select: none;
-    margin: 5px;
-  }
+	.container {
+		width: calc(100% - 10px);
+		height: calc(100vh - 10px);
+		color: #f7f7f7;
+		font-size: 1em;
+		font-weight: 500;
+		display: flex;
+		flex-direction: column;
+		user-select: none;
+		margin: 5px;
+	}
 </style>
