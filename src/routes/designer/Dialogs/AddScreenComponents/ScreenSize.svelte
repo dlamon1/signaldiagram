@@ -7,8 +7,6 @@
 
 	import Select from 'svelte-select';
 
-	let selectedModel;
-
 	let inputRef: HTMLInputElement;
 
 	const selectAll = (event: Event) => {
@@ -27,23 +25,8 @@
 	let title = '';
 
 	const addScreen = () => {
-		if (
-			columns > 0 &&
-			rows > 0 &&
-			selectedModel.pixelWidth > 0 &&
-			selectedModel.pixelHeight > 0 &&
-			selectedModel.mmWidth > 0 &&
-			selectedModel.mmHeight > 0
-		) {
-			let newScreen = new Screen(
-				columns,
-				rows,
-				selectedModel.pixelWidth,
-				selectedModel.pixelHeight,
-				selectedModel.mmWidth,
-				selectedModel.mmHeight,
-				title
-			);
+		if (columns > 0 && rows > 0 && width > 0 && height > 0 && widthMM > 0 && heightMM > 0) {
+			let newScreen = new Screen(columns, rows, width, height, widthMM, heightMM, title);
 
 			$screens.push(newScreen);
 
@@ -131,7 +114,10 @@
 			return tileType._id === e.detail.value;
 		});
 
-		selectedModel = model[0];
+		width = model[0].pixelWidth;
+		height = model[0].pixelHeight;
+		widthMM = model[0].mmWidth;
+		heightMM = model[0].mmHeight;
 	};
 </script>
 
@@ -167,6 +153,27 @@
 			<input type="number" bind:value={rows} min="1" on:focus={(event) => selectAll(event)} />
 		</div>
 	</div>
+
+	<div class="input-wrapper">
+		Width(px):
+		<input type="number" bind:value={width} min="1" on:focus={(event) => selectAll(event)} />
+	</div>
+
+	<div class="input-wrapper">
+		Height(px):
+		<input type="number" bind:value={height} min="1" on:focus={(event) => selectAll(event)} />
+	</div>
+
+	<div class="input-wrapper">
+		Width(mm):
+		<input type="number" bind:value={widthMM} min="1" on:focus={(event) => selectAll(event)} />
+	</div>
+
+	<div class="input-wrapper">
+		Height(mm):
+		<input type="number" bind:value={heightMM} min="1" on:focus={(event) => selectAll(event)} />
+	</div>
+
 	<div class="submit-wrapper">
 		<button on:click={addScreen}>Submit</button>
 	</div>
