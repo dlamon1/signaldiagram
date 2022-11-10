@@ -26,7 +26,17 @@
 
 	const addScreen = () => {
 		if (columns > 0 && rows > 0 && width > 0 && height > 0 && widthMM > 0 && heightMM > 0) {
-			let newScreen = new Screen(columns, rows, width, height, widthMM, heightMM, title);
+			let newScreen = new Screen(
+				columns,
+				rows,
+				width,
+				height,
+				widthMM,
+				heightMM,
+				title,
+				make,
+				model
+			);
 
 			$screens.push(newScreen);
 
@@ -47,6 +57,8 @@
 	let items = [];
 
 	let make = '';
+
+	let model = '';
 
 	const getArrayOfMakes = () => {
 		let makesSet = new Set(
@@ -110,14 +122,16 @@
 	};
 
 	const handleSelectModel = (e: any) => {
-		let model = $tileTypes.filter((tileType: any) => {
+		let modelObj = $tileTypes.filter((tileType: any) => {
 			return tileType._id === e.detail.value;
 		});
 
-		width = model[0].pixelWidth;
-		height = model[0].pixelHeight;
-		widthMM = model[0].mmWidth;
-		heightMM = model[0].mmHeight;
+		model = modelObj[0].model;
+
+		width = modelObj[0].pixelWidth;
+		height = modelObj[0].pixelHeight;
+		widthMM = modelObj[0].mmWidth;
+		heightMM = modelObj[0].mmHeight;
 	};
 </script>
 
