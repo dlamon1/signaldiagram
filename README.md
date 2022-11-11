@@ -14,4 +14,4 @@ Please post bugs to the forum on the issues tab above
 
 ### Pull Requests
 
-Pull Requests are welcome! Feel free to contact me directly with questions at devon@leadled.io
+Pull Requests are welcome! Contact me directly with questions at devon@leadled.io
