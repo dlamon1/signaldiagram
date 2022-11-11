@@ -15,26 +15,23 @@ const checkKey = (key: string) => {
 	}
 };
 
+// @ts-ignore
+export const load = ({ fetch }) => {
+	const fetchTiles = async () => {
+		const tiles = await fetch('../api/requested-tiles');
+		const data = await tiles.json();
+
+		return data;
+	};
+
+	return {
+		tiles: fetchTiles()
+	};
+};
+
 export const actions = {
 	default: async ({ cookies, request }) => {
-		const data = await request.formData();
-
-		let keyIsValid = checkKey(data.get('key'));
-		console.log('key is: ', keyIsValid);
-
-		if (!keyIsValid) {
-			return invalid(401);
-		}
-
-		let newTile = {
-			make: data.get('make'),
-			model: data.get('model'),
-			pixelWidth: +data.get('pixelWidth'),
-			pixelHeight: +data.get('pixelHeight'),
-			mmWidth: +data.get('mmWidth'),
-			mmHeight: +data.get('mmHeight')
-		};
-		// const make = data.get('make');
+		let res;
 		// @ts-ignore
 		const uri = process.env['DB_URI'];
 		const options = {
@@ -49,10 +46,54 @@ export const actions = {
 
 		const db = dbConnection.db(env);
 
-		const collection = db.collection('tile-types');
+		const data = await request.formData();
 
-		const res = await collection.insertOne(newTile);
+		let keyIsValid = checkKey(data.get('key'));
 
-		return JSON.parse(JSON.stringify(res));
+		if (!keyIsValid) {
+			res = await addRequestedTile(data, db);
+
+			return JSON.parse(JSON.stringify(res));
+		} else {
+			res = await addNewTile(data, db);
+		}
+
+		return { success: true, body: JSON.parse(JSON.stringify(res)) };
 	}
+};
+
+const addRequestedTile = async (data, db) => {
+	let newTile = {
+		make: data.get('make'),
+		model: data.get('model'),
+		pixelWidth: +data.get('pixelWidth'),
+		pixelHeight: +data.get('pixelHeight'),
+		mmWidth: +data.get('mmWidth'),
+		mmHeight: +data.get('mmHeight'),
+		key: +data.get('key')
+	};
+
+	const collection = db.collection('requested-tile-types');
+
+	const res = await collection.insertOne(newTile);
+
+	return res;
+};
+
+const addNewTile = async (data, db) => {
+	let newTile = {
+		make: data.get('make'),
+		model: data.get('model'),
+		pixelWidth: +data.get('pixelWidth'),
+		pixelHeight: +data.get('pixelHeight'),
+		mmWidth: +data.get('mmWidth'),
+		mmHeight: +data.get('mmHeight'),
+		key: +data.get('key')
+	};
+
+	const collection = db.collection('tile-types');
+
+	const res = await collection.insertOne(newTile);
+
+	return res;
 };

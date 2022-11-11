@@ -1,23 +1,142 @@
 <script>
+	// @ts-nocheck
+	import { toast, SvelteToast } from '@zerodevx/svelte-toast';
+
 	import { enhance } from '$app/forms';
+
+	import { requestedTileTypes } from '../store';
+
+	export let data;
+
+	let _requestedTileTypes = [];
+
+	const sortAndStoreTiles = (tiles) => {
+		//sort tiles by tiles.make and then tiles.model
+		tiles.sort((a, b) => {
+			if (a.make < b.make) {
+				return -1;
+			}
+			if (a.make > b.make) {
+				return 1;
+			}
+			if (a.model < b.model) {
+				return -1;
+			}
+			if (a.model > b.model) {
+				return 1;
+			}
+			return 0;
+		});
+
+		$requestedTileTypes = tiles;
+		$requestedTileTypes = $requestedTileTypes;
+	};
+
+	sortAndStoreTiles(data.tiles);
+
+	const toggleKey = () => {
+		key = !key;
+	};
+
+	$: _requestedTileTypes = $requestedTileTypes;
+
+	let key = false;
 </script>
+
+<div on:click={toggleKey} class="key" />
 
 <div class="page">
 	<div class="container">
-		<form method="POST" use:enhance>
-			<input placeholder="Key" name="key" />
-			<input placeholder="Make" name="make" />
-			<input placeholder="Model" name="model" />
-			<input placeholder="Pixel Width" name="pixelWidth" />
-			<input placeholder="Pixel Height" name="pixelHeight" />
-			<input placeholder="MM Width" name="mmWidth" />
-			<input placeholder="MM Height" name="mmHeight" />
+		<div class="title">Request New Tile Type</div>
+		<br />
+		<form
+			method="POST"
+			use:enhance={() => {
+				return async ({ result, update }) => {
+					const res = await fetch('../api/requested-tiles');
+
+					const tiles = await res.json();
+
+					toast.push('Tile Added', {
+						theme: {
+							'--toastColor': 'mintcream',
+							'--toastBackground': 'rgba(72,187,120,0.9)',
+							'--toastBarBackground': '#2F855A',
+							'--toastBarHeight': 0
+						}
+					});
+
+					sortAndStoreTiles(tiles);
+
+					update();
+				};
+			}}
+		>
+			{#if key}
+				<input placeholder="Key" name="key" />
+			{/if}
+			<input placeholder="Make" name="make" type="string" />
+			<input placeholder="Model" name="model" type="string" />
+			<input placeholder="Pixel Width" name="pixelWidth" type="number" />
+			<input placeholder="Pixel Height" name="pixelHeight" type="number" />
+			<input placeholder="MM Width" name="mmWidth" type="number" />
+			<input placeholder="MM Height" name="mmHeight" type="number" />
+			<br />
 			<button> Submit</button>
 		</form>
+	</div>
+	<div class="container">
+		<div class="title">Requested Tile Types</div>
+		<br />
+		<div class="list-container">
+			{#each $requestedTileTypes as tile}
+				<div class="list-item">
+					<div>
+						{tile.make} - {tile.model}
+					</div>
+					<div class="pixels">
+						{tile.pixelWidth}px x {tile.pixelHeight}px
+					</div>
+					<div class="mm">
+						{tile.mmWidth}mm x {tile.mmHeight}mm
+					</div>
+				</div>
+			{/each}
+		</div>
 	</div>
 </div>
 
 <style>
+	.key {
+		position: absolute;
+		width: 50px;
+		height: 50px;
+	}
+	.list-container {
+		overflow: scroll;
+	}
+	.pixels {
+		font-size: 12px;
+		font-weight: 600;
+	}
+	.mm {
+		font-size: 12px;
+		font-weight: 600;
+	}
+	.list-item {
+		font-weight: 600;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+		padding: 10px;
+		color: rgb(227, 206, 181);
+	}
+
+	.title {
+		font-weight: 600;
+		color: bisque;
+	}
 	button {
 		padding: 5px;
 		padding-inline: 50px;
@@ -35,17 +154,18 @@
 		width: 100vw;
 		height: 100vh;
 		display: flex;
-		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
 	.container {
-		background-color: aqua;
+		margin: 50px;
+		background-color: rgb(20, 20, 20);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		padding: 30px;
 		border-radius: 4px;
+		max-height: 50vh;
 	}
 </style>
