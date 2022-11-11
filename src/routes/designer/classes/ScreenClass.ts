@@ -6,7 +6,7 @@ import { Panels } from './PanelsClass';
 import { SignalLines } from './SignalLinesClass';
 import { SnapPoints } from './SnapPointsClass';
 
-import { screens } from '../store';
+import { screens } from '../store.designer';
 
 export class Screen implements ScreenObj {
 	panels = null;

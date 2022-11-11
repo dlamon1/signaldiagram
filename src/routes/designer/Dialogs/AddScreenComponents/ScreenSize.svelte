@@ -3,7 +3,9 @@
 
 	import { Screen } from '../../classes/ScreenClass';
 
-	import { isAddScreenDialogOpen, screens, currentScreenIndex, tileTypes } from '../../store';
+	import { isAddScreenDialogOpen, screens, currentScreenIndex } from '../../store.designer';
+
+	import { approvedTileTypes } from '../../../store.global';
 
 	import Select from 'svelte-select';
 
@@ -62,7 +64,7 @@
 
 	const getArrayOfMakes = () => {
 		let makesSet = new Set(
-			$tileTypes.map((tileType: any) => {
+			$approvedTileTypes.map((tileType: any) => {
 				return tileType.make;
 			})
 		);
@@ -83,7 +85,7 @@
 
 	const getArrayOfModels = (make: any) => {
 		let modelsSet = new Set(
-			$tileTypes
+			$approvedTileTypes
 				.filter((tileType: any) => {
 					return tileType.make === make;
 				})
@@ -122,7 +124,7 @@
 	};
 
 	const handleSelectModel = (e: any) => {
-		let modelObj = $tileTypes.filter((tileType: any) => {
+		let modelObj = $approvedTileTypes.filter((tileType: any) => {
 			return tileType._id === e.detail.value;
 		});
 

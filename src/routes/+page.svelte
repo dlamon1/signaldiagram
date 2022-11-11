@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 
-	import { isMac } from './designer/store';
+	import { isMac } from './designer/store.designer';
 
 	onMount(() => {
 		let os = navigator.userAgent.slice(13).split(';');

@@ -6,9 +6,11 @@ import {
 	isCtrl,
 	setIsCtrl,
 	setMode,
-	isSelectMode,
-	isMac
-} from '../../store.designer';
+	isSelectMode
+} from '../../store.gloabal';
+
+// const isMac = navigator.platform.toUpperCase().indexOf("MAC") >= 0;
+const isMac = true;
 
 export const handleKeyDown = (e: any) => {
 	if (e.keyCode === 16 && !get(isShifted)) {
@@ -22,11 +24,11 @@ export const handleKeyDown = (e: any) => {
 	}
 
 	// if ctrl is pressed, set isCtrl to true
-	if (e.keyCode === 17 && !get(isCtrl) && !get(isMac) && get(isSelectMode)) {
+	if (e.keyCode === 17 && !get(isCtrl) && !isMac && get(isSelectMode)) {
 		setIsCtrl(true);
 	}
 	// if command on mac is pressed
-	if (e.keyCode === 91 && get(isMac) && get(isSelectMode)) {
+	if (e.keyCode === 91 && isMac && get(isSelectMode)) {
 		setIsCtrl(true);
 	}
 
@@ -45,10 +47,10 @@ export const handleKeyUp = (e: any) => {
 		if (!body) return;
 		body.style.cursor = 'default';
 	}
-	if (e.keyCode === 17 && get(isCtrl) && !get(isMac)) {
+	if (e.keyCode === 17 && get(isCtrl) && !isMac) {
 		setIsCtrl(false);
 	}
-	if (e.keyCode === 91 && get(isMac)) {
+	if (e.keyCode === 91 && isMac) {
 		setIsCtrl(false);
 	}
 };

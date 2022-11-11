@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let data;
+	import { onMount } from 'svelte';
 
 	import Toolbar from './EditToolbar/Toolbar.svelte';
 	import ExportDialog from './Dialogs/Exports.svelte';
@@ -20,15 +20,12 @@
 		isChrome,
 		gZoomWrapperRef,
 		currentScreenIndex,
-		tileTypes
-	} from './store';
+		isMac
+	} from './store.designer';
 
 	import HandleColorLabelUpdates from './Handlers/Handle.ColorLabelUpdates.svelte';
 	import HandleSelectionTab from './Handlers/Handle.SelectionTab.svelte';
 	import InfoBar from './InfoToolbar/InfoBar.svelte';
-
-	$tileTypes = data.tiles;
-	$tileTypes = $tileTypes;
 
 	$gZoomWrapperRef = null;
 
@@ -41,10 +38,6 @@
 	};
 
 	getUseragent();
-
-	import { onMount } from 'svelte';
-
-	import { isMac } from './store';
 
 	onMount(() => {
 		let os = navigator.userAgent.slice(13).split(';');

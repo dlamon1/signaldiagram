@@ -15,8 +15,6 @@ import type { Writable } from 'svelte/store';
 
 export const isMac: Writable<boolean> = writable(false);
 
-export const tileTypes: Writable<any> = writable([]);
-
 export const isChrome: Writable<boolean> = writable(false);
 
 export const screens: Writable<ScreenObj[]> = writable([]);

@@ -1,74 +1,74 @@
 <script lang="ts">
-  import {
-    colorState,
-    snapPointLabel,
-    lineWidthState,
-    screens,
-    currentScreenIndex,
-  } from "../store";
+	import {
+		colorState,
+		snapPointLabel,
+		lineWidthState,
+		screens,
+		currentScreenIndex
+	} from '../store.designer';
 
-  const updateSelectedSnapPointsLabel = (label: string) => {
-    const screen = $screens[$currentScreenIndex];
-    screen?.snapPoints.array.forEach((snapPoint, i) => {
-      if (snapPoint.isSelected) {
-        snapPoint.label = label;
-      }
-    }),
-      ($screens = $screens);
-  };
+	const updateSelectedSnapPointsLabel = (label: string) => {
+		const screen = $screens[$currentScreenIndex];
+		screen?.snapPoints.array.forEach((snapPoint, i) => {
+			if (snapPoint.isSelected) {
+				snapPoint.label = label;
+			}
+		}),
+			($screens = $screens);
+	};
 
-  $: {
-    updateSelectedSnapPointsLabel($snapPointLabel);
-  }
+	$: {
+		updateSelectedSnapPointsLabel($snapPointLabel);
+	}
 
-  const updatePanelColorState = () => {
-    const screen = $screens[$currentScreenIndex];
+	const updatePanelColorState = () => {
+		const screen = $screens[$currentScreenIndex];
 
-    screen?.panels.array.forEach((panel) => {
-      if (panel.isSelected) {
-        $colorState.panel = panel.color;
-        $lineWidthState = panel.lineWidth;
-      }
-    });
-    $screens = $screens;
-  };
+		screen?.panels.array.forEach((panel) => {
+			if (panel.isSelected) {
+				$colorState.panel = panel.color;
+				$lineWidthState = panel.lineWidth;
+			}
+		});
+		$screens = $screens;
+	};
 
-  $: {
-    let t = [$screens];
+	$: {
+		let t = [$screens];
 
-    updatePanelColorState();
-  }
+		updatePanelColorState();
+	}
 
-  const updateSnapPointColorState = () => {
-    const screen = $screens[$currentScreenIndex];
+	const updateSnapPointColorState = () => {
+		const screen = $screens[$currentScreenIndex];
 
-    screen?.snapPoints.array.forEach((snapPoint, i) => {
-      if (snapPoint.isSelected) {
-        $colorState.snapPoint = snapPoint.color;
-      }
-    }),
-      ($screens = $screens);
-  };
+		screen?.snapPoints.array.forEach((snapPoint, i) => {
+			if (snapPoint.isSelected) {
+				$colorState.snapPoint = snapPoint.color;
+			}
+		}),
+			($screens = $screens);
+	};
 
-  // $: {
-  //   let t = [$snapPointsClass];
-  //   $snapPointsClass && updateSnapPointColorState();
-  // }
+	// $: {
+	//   let t = [$snapPointsClass];
+	//   $snapPointsClass && updateSnapPointColorState();
+	// }
 
-  const updateSignalLineColorState = () => {
-    const screen = $screens[$currentScreenIndex];
+	const updateSignalLineColorState = () => {
+		const screen = $screens[$currentScreenIndex];
 
-    screen?.signalLines.array.forEach((signalLine, i) => {
-      if (signalLine.isSelected) {
-        $colorState.signalLine = signalLine.color;
-      }
-    }),
-      ($screens = $screens);
-  };
+		screen?.signalLines.array.forEach((signalLine, i) => {
+			if (signalLine.isSelected) {
+				$colorState.signalLine = signalLine.color;
+			}
+		}),
+			($screens = $screens);
+	};
 
-  // $: {
-  //   let t = [$signalLinesClass];
+	// $: {
+	//   let t = [$signalLinesClass];
 
-  //   updateSignalLineColorState();
-  // }
+	//   updateSignalLineColorState();
+	// }
 </script>

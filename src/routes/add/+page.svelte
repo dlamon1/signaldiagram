@@ -4,41 +4,11 @@
 
 	import { enhance } from '$app/forms';
 
-	import { requestedTileTypes } from '../store';
-
-	export let data;
-
-	let _requestedTileTypes = [];
-
-	const sortAndStoreTiles = (tiles) => {
-		//sort tiles by tiles.make and then tiles.model
-		tiles.sort((a, b) => {
-			if (a.make < b.make) {
-				return -1;
-			}
-			if (a.make > b.make) {
-				return 1;
-			}
-			if (a.model < b.model) {
-				return -1;
-			}
-			if (a.model > b.model) {
-				return 1;
-			}
-			return 0;
-		});
-
-		$requestedTileTypes = tiles;
-		$requestedTileTypes = $requestedTileTypes;
-	};
-
-	sortAndStoreTiles(data.tiles);
+	import { requestedTileTypes, approvedTileTypes } from '../store.global';
 
 	const toggleKey = () => {
 		key = !key;
 	};
-
-	$: _requestedTileTypes = $requestedTileTypes;
 
 	let key = false;
 
@@ -66,11 +36,51 @@
 		let tileHeight = document.getElementsByName('mmHeight')[0];
 		tileHeight.setAttribute('value', tile.mmHeight);
 	};
+
+	const sortAndStoreTiles = (tiles) => {
+		tiles.sort((a, b) => {
+			if (a.make < b.make) {
+				return -1;
+			}
+			if (a.make > b.make) {
+				return 1;
+			}
+			if (a.model < b.model) {
+				return -1;
+			}
+			if (a.model > b.model) {
+				return 1;
+			}
+			return 0;
+		});
+
+		return tiles;
+	};
 </script>
 
 <div on:click={toggleKey} class="key" />
 
 <div class="page">
+	<div class="container">
+		<div class="title">Current Tile Types</div>
+		<br />
+		<div class="list-container">
+			{#each $approvedTileTypes as tile}
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<div class="list-item" on:click={(e) => fillForm(tile)}>
+					<div>
+						{tile.make} - {tile.model}
+					</div>
+					<div class="pixels">
+						{tile.pixelWidth}px x {tile.pixelHeight}px
+					</div>
+					<div class="mm">
+						{tile.mmWidth}mm x {tile.mmHeight}mm
+					</div>
+				</div>
+			{/each}
+		</div>
+	</div>
 	<div class="container">
 		<div class="title">Request New Tile Type</div>
 		<br />
@@ -91,7 +101,8 @@
 						}
 					});
 
-					sortAndStoreTiles(tiles);
+					$requestedTileTypes = sortAndStoreTiles(tiles);
+					$requestedTileTypes = $requestedTileTypes;
 
 					update();
 				};

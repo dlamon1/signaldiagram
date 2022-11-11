@@ -19,3 +19,19 @@ export const GET = async () => {
 
 	return new Response(JSON.stringify(resArray), { status: 200 });
 };
+
+export const POST = async ({ request }) => {
+	const obj = await request.json();
+
+	const dbConnection = await clientPromise;
+
+	const env = process.env['ENVIRONMENT'];
+
+	const db = dbConnection.db(env);
+
+	const collection = db.collection('requested-tile-types');
+
+	const res = await collection.insertOne(obj);
+
+	return new Response(JSON.stringify(res), { status: 200 });
+};
