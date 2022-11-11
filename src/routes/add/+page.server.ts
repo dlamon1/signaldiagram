@@ -1,7 +1,7 @@
 import { invalid, redirect } from '@sveltejs/kit';
 
 import { MongoClient } from 'mongodb';
-import dotenv from 'dotenv';
+import * as dotenv from 'dotenv';
 dotenv.config();
 
 const checkKey = (key: string) => {

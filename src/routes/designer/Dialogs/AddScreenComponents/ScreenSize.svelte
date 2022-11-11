@@ -98,7 +98,7 @@
 		);
 		let res = Array.from(modelsSet);
 
-		res.sort((a, b) => {
+		res.sort((a: any, b: any) => {
 			if (a.label < b.label) {
 				return -1;
 			}
