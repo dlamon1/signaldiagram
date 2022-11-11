@@ -13,16 +13,9 @@
     </div>
     <br>
     <div>
-      If you would like to see a Tile Type added please send your request to support@leadled.io
-    </div>
-    <br>
-    <div>
-      Alternatively, you can request a key code to add them yourself. 
+      If you would like a Tile Type added please click the button below.
     </div>
     `;
-
-	let dbText =
-		'Signal Diagram now has a database. If you would like to have a Tile Type added please send your request to support@leadled.io. Alternatively, you can request a key and then add your own Tile Types by clicking the "Add Tile Type" button.';
 
 	onMount(() => {
 		setTimeout(() => {
@@ -33,7 +26,8 @@
 					'--toastBackground': 'rgba(72,187,120,0.9)',
 					'--toastBarBackground': '#2F855A',
 					'--toastBarHeight': 0
-				}
+				},
+				duration: 10000
 			});
 		}, 1000);
 	});
@@ -46,14 +40,13 @@
 <button class="dialog" on:click={() => ($isExportDialogOpen = true)}>Import / Export</button>
 
 <div class="link-wrapper">
-	<a href="/add" target="_blank"> Add a Tile Type</a>
+	<a href="/add" target="_blank" class="tile-type"> Add a Tile Type</a>
 </div>
 
 <div class="link-wrapper">
 	<!-- svelte-ignore security-anchor-rel-noreferrer -->
 	<a
 		title="Thank you for the help!"
-		use:tooltip
 		href="https://github.com/dlamon1/signaldiagram/issues"
 		target="_blank"
 		value="noreferrer"
@@ -67,6 +60,10 @@
 </div>
 
 <style>
+	.tile-type {
+		color: rgba(108, 254, 169, 0.9);
+		font-weight: 800;
+	}
 	.toast-wrapper {
 		--toastMinHeight: 5rem;
 		--toastPadding: 0 0.5rem;

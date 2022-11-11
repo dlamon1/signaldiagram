@@ -41,6 +41,31 @@
 	$: _requestedTileTypes = $requestedTileTypes;
 
 	let key = false;
+
+	const fillForm = (tile) => {
+		if (!key) {
+			return;
+		}
+
+		// get element by name
+		let make = document.getElementsByName('make')[0];
+		make.setAttribute('value', tile.make);
+
+		let model = document.getElementsByName('model')[0];
+		model.setAttribute('value', tile.model);
+
+		let pixelWidth = document.getElementsByName('pixelWidth')[0];
+		pixelWidth.setAttribute('value', tile.pixelWidth);
+
+		let pixelHeight = document.getElementsByName('pixelHeight')[0];
+		pixelHeight.setAttribute('value', tile.pixelHeight);
+
+		let tileWidth = document.getElementsByName('mmWidth')[0];
+		tileWidth.setAttribute('value', tile.mmWidth);
+
+		let tileHeight = document.getElementsByName('mmHeight')[0];
+		tileHeight.setAttribute('value', tile.mmHeight);
+	};
 </script>
 
 <div on:click={toggleKey} class="key" />
@@ -90,7 +115,8 @@
 		<br />
 		<div class="list-container">
 			{#each $requestedTileTypes as tile}
-				<div class="list-item">
+				<!-- svelte-ignore a11y-click-events-have-key-events -->
+				<div class="list-item" on:click={(e) => fillForm(tile)}>
 					<div>
 						{tile.make} - {tile.model}
 					</div>
