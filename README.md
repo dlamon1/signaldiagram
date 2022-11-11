@@ -1,38 +1,17 @@
-# create-svelte
+# Signal Diagram
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+### About
 
-## Creating a project
+Signal Diagram is a Svelte app designed to create signal and power diagrams for modular LED screen builds. It is completely free, requires no login, and stores no cookies from user sessions. PNG files can be download from the Export button in the toolbar. Saving a layout downloads a .json file. This file can be loaded into the app to recall a configuration.
 
-If you're seeing this, you've probably already done this step. Congrats!
+The production branch is hosted [here](https://www.signaldiagram.com).
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+Signal Diagram utilizes the [d3.js libarary](https://d3js.org/) to draw.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+### Reporting Bugs
 
-## Developing
+Please post bugs to the forum on the issues tab above
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Pull Requests
 
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Pull Requests are welcome! Feel free to contact me directly with questions at devon@leadled.io

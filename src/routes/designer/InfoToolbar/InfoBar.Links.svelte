@@ -34,7 +34,7 @@
 </script>
 
 <div class="toast-wrapper">
-	<SvelteToast target="new" options={{ initial: 0 }} />
+	<SvelteToast target="new" />
 </div>
 
 <button class="dialog" on:click={() => ($isExportDialogOpen = true)}>Import / Export</button>
