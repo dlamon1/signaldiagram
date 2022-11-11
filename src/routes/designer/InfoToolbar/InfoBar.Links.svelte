@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { tooltip } from '../Tooltips/tooltip';
 
+	const REPO_URL = 'https://github.com/dlamon1/signaldiagram-fullstack/issues';
+
 	import { isExportDialogOpen } from '../store';
 
 	import { toast, SvelteToast } from '@zerodevx/svelte-toast';
@@ -45,12 +47,7 @@
 
 <div class="link-wrapper">
 	<!-- svelte-ignore security-anchor-rel-noreferrer -->
-	<a
-		title="Thank you for the help!"
-		href="https://github.com/dlamon1/signaldiagram/issues"
-		target="_blank"
-		value="noreferrer"
-	>
+	<a title="Thank you for the help!" href={REPO_URL} target="_blank" value="noreferrer">
 		Report a Bug</a
 	>
 </div>
