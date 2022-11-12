@@ -6,7 +6,7 @@ Signal Diagram is a Svelte app designed to create signal and power diagrams for 
 
 The production branch is hosted [here](https://www.signaldiagram.com).
 
-Signal Diagram utilizes the [d3.js libarary](https://d3js.org/) to draw.
+Signal Diagram utilizes the [d3.js libarary](https://d3js.org/).
 
 ### Reporting Bugs
 
