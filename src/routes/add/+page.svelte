@@ -1,10 +1,10 @@
 <script>
 	// @ts-nocheck
-	import { toast, SvelteToast } from '@zerodevx/svelte-toast';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	import { enhance } from '$app/forms';
 
-	import { requestedTileTypes, approvedTileTypes } from '../store.global';
+	import { requestedTileTypes, approvedTileTypes, tileTypes } from '../store.global';
 
 	const toggleKey = () => {
 		key = !key;
@@ -17,7 +17,9 @@
 			return;
 		}
 
-		// get element by name
+		let id = document.getElementsByName('_id')[0];
+		tile._id && id.setAttribute('value', tile._id);
+
 		let make = document.getElementsByName('make')[0];
 		make.setAttribute('value', tile.make);
 
@@ -35,26 +37,6 @@
 
 		let tileHeight = document.getElementsByName('mmHeight')[0];
 		tileHeight.setAttribute('value', tile.mmHeight);
-	};
-
-	const sortAndStoreTiles = (tiles) => {
-		tiles.sort((a, b) => {
-			if (a.make < b.make) {
-				return -1;
-			}
-			if (a.make > b.make) {
-				return 1;
-			}
-			if (a.model < b.model) {
-				return -1;
-			}
-			if (a.model > b.model) {
-				return 1;
-			}
-			return 0;
-		});
-
-		return tiles;
 	};
 </script>
 
@@ -86,28 +68,36 @@
 		<br />
 		<form
 			method="POST"
-			use:enhance={() => {
+			use:enhance={({ data }) => {
+				// console.log(Object.fromEntries(data));
 				return async ({ result, update }) => {
-					const res = await fetch('../api/requested-tiles');
+					const res = await fetch('../api/tiles');
 
+					if (result.status == 401) {
+						toast.push('No', {
+							theme: {
+								'--toastColor': 'mintcream',
+								'--toastBackground': 'rgba(172,2,50,0.9)',
+								'--toastBarHeight': 0
+							}
+						});
+					} else {
+						toast.push('Tile Added', {
+							theme: {
+								'--toastColor': 'mintcream',
+								'--toastBackground': 'rgba(72,187,120,0.9)',
+
+								'--toastBarHeight': 0
+							}
+						});
+					}
 					const tiles = await res.json();
 
-					toast.push('Tile Added', {
-						theme: {
-							'--toastColor': 'mintcream',
-							'--toastBackground': 'rgba(72,187,120,0.9)',
-							'--toastBarBackground': '#2F855A',
-							'--toastBarHeight': 0
-						}
-					});
-
-					$requestedTileTypes = sortAndStoreTiles(tiles);
-					$requestedTileTypes = $requestedTileTypes;
-
-					update();
+					$tileTypes = tiles;
 				};
 			}}
 		>
+			<input hidden name="_id" />
 			{#if key}
 				<input placeholder="Key" name="key" />
 			{/if}
@@ -128,6 +118,9 @@
 			{#each $requestedTileTypes as tile}
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div class="list-item" on:click={(e) => fillForm(tile)}>
+					<div>
+						{tile._id}
+					</div>
 					<div>
 						{tile.make} - {tile.model}
 					</div>
