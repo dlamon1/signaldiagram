@@ -9,7 +9,7 @@
 
 	$tileTypes = data.tileTypes;
 
-	$: updateTileLists($tileTypes);
+	$: $tileTypes.length && updateTileLists($tileTypes);
 
 	const sortAndStoreTiles = (tiles) => {
 		tiles.sort((a, b) => {
