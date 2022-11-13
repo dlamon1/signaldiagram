@@ -121,9 +121,6 @@
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<div class="list-item" on:click={(e) => fillForm(tile)}>
 					<div>
-						{tile._id}
-					</div>
-					<div>
 						{tile.make} - {tile.model}
 					</div>
 					<div class="pixels">
