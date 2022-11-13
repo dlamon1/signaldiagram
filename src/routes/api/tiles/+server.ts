@@ -42,8 +42,6 @@ export const POST = async ({ request }) => {
 export const PATCH = async ({ request }) => {
 	const obj = await request.json();
 
-	console.log(obj);
-
 	const dbConnection = await clientPromise;
 
 	const env = process.env['ENVIRONMENT'];
@@ -56,8 +54,6 @@ export const PATCH = async ({ request }) => {
 	delete objIDRemoved._id;
 
 	const res = await collection.updateOne({ _id: new ObjectId(obj._id) }, { $set: objIDRemoved });
-
-	console.log(res);
 
 	return new Response(JSON.stringify(res), { status: 200 });
 };

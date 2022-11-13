@@ -54,7 +54,7 @@
 		function getSVGString(svgNode) {
 			svgNode.setAttribute('xlink', 'http://www.w3.org/1999/xlink');
 			var cssStyleText = getCSSStyles(svgNode);
-			console.log(cssStyleText);
+			// console.log(cssStyleText);
 			appendCSS(cssStyleText, svgNode);
 
 			var serializer = new XMLSerializer();
@@ -112,7 +112,7 @@
 			}
 
 			function appendCSS(cssText, element) {
-				console.log(cssText);
+				// console.log(cssText);
 				var styleElement = document.createElement('style');
 				styleElement.setAttribute('type', 'text/css');
 				styleElement.innerHTML = cssText;

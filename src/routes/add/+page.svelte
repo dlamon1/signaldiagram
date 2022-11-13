@@ -71,8 +71,6 @@
 			use:enhance={({ data }) => {
 				// console.log(Object.fromEntries(data));
 				return async ({ result, update }) => {
-					const res = await fetch('../api/tiles');
-
 					if (result.status == 401) {
 						toast.push('No', {
 							theme: {
@@ -90,10 +88,14 @@
 								'--toastBarHeight': 0
 							}
 						});
-					}
-					const tiles = await res.json();
+						const res = await fetch('../api/tiles');
 
-					$tileTypes = tiles;
+						const tiles = await res.json();
+
+						$tileTypes = tiles;
+
+						update();
+					}
 				};
 			}}
 		>
