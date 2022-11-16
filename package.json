@@ -12,6 +12,7 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"dependencies": {
+		"@zerodevx/svelte-toast": "^0.8.2",
 		"d3": "^7.6.1",
 		"dotenv": "^16.0.3",
 		"file-saver": "^2.0.5",
@@ -19,7 +20,7 @@
 		"mongodb": "^4.11.0",
 		"svelte-browser": "^0.4.6",
 		"svelte-select": "^4.4.7",
-		"@zerodevx/svelte-toast": "^0.8.2"
+		"zod": "^3.19.1"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "next",

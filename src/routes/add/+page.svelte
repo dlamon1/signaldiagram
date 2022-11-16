@@ -12,36 +12,53 @@
 
 	let key = false;
 
+	export let form;
+
 	const fillForm = (tile) => {
 		if (!key) {
 			return;
 		}
+		if (!form) {
+			form = {};
+			form.data = {};
+		}
+		form.data._id = tile._id;
+		form.data.make = tile.make;
+		form.data.model = tile.model;
+		form.data.pixelWidth = tile.pixelWidth;
+		form.data.pixelHeight = tile.pixelHeight;
+		form.data.mmWidth = tile.mmWidth;
+		form.data.mmHeight = tile.mmHeight;
+	};
 
-		let id = document.getElementsByName('_id')[0];
-		tile._id && id.setAttribute('value', tile._id);
+	const toastError = () => {
+		toast.push('No', {
+			theme: {
+				'--toastColor': 'mintcream',
+				'--toastBackground': 'rgba(172,2,50,0.9)',
+				'--toastBarHeight': 0
+			}
+		});
+	};
 
-		let make = document.getElementsByName('make')[0];
-		make.setAttribute('value', tile.make);
+	const toastSuccess = () => {
+		toast.push('Tile Added', {
+			theme: {
+				'--toastColor': 'mintcream',
+				'--toastBackground': 'rgba(72,187,120,0.9)',
 
-		let model = document.getElementsByName('model')[0];
-		model.setAttribute('value', tile.model);
-
-		let pixelWidth = document.getElementsByName('pixelWidth')[0];
-		pixelWidth.setAttribute('value', tile.pixelWidth);
-
-		let pixelHeight = document.getElementsByName('pixelHeight')[0];
-		pixelHeight.setAttribute('value', tile.pixelHeight);
-
-		let tileWidth = document.getElementsByName('mmWidth')[0];
-		tileWidth.setAttribute('value', tile.mmWidth);
-
-		let tileHeight = document.getElementsByName('mmHeight')[0];
-		tileHeight.setAttribute('value', tile.mmHeight);
+				'--toastBarHeight': 0
+			}
+		});
 	};
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <div on:click={toggleKey} class="key" />
 
+<!-- Approved Tile Types -->
+<!-- Approved Tile Types -->
+<!-- Approved Tile Types -->
 <div class="page">
 	<div class="container">
 		<div class="title">Current Tile Types</div>
@@ -63,56 +80,120 @@
 			{/each}
 		</div>
 	</div>
+
+	<!-- Form -->
+	<!-- Form -->
+	<!-- Form -->
 	<div class="container">
 		<div class="title">Request New Tile Type</div>
 		<br />
 		<form
 			method="POST"
 			use:enhance={({ data }) => {
-				// console.log(Object.fromEntries(data));
 				return async ({ result, update }) => {
 					if (result.status == 401) {
-						toast.push('No', {
-							theme: {
-								'--toastColor': 'mintcream',
-								'--toastBackground': 'rgba(172,2,50,0.9)',
-								'--toastBarHeight': 0
-							}
-						});
+						toastError();
 					} else {
-						toast.push('Tile Added', {
-							theme: {
-								'--toastColor': 'mintcream',
-								'--toastBackground': 'rgba(72,187,120,0.9)',
-
-								'--toastBarHeight': 0
-							}
-						});
+						toastSuccess();
 						const res = await fetch('../api/tiles');
-
 						const tiles = await res.json();
-
 						$tileTypes = tiles;
-
 						update();
 					}
 				};
 			}}
 		>
-			<input hidden name="_id" />
+			<input hidden name="_id" value={form?.data?._id ? form?.data?._id : ''} />
+
 			{#if key}
 				<input placeholder="Key" name="key" />
 			{/if}
-			<input placeholder="Make" name="make" type="string" />
-			<input placeholder="Model" name="model" type="string" />
-			<input placeholder="Pixel Width" name="pixelWidth" type="number" />
-			<input placeholder="Pixel Height" name="pixelHeight" type="number" />
-			<input placeholder="MM Width" name="mmWidth" type="number" />
-			<input placeholder="MM Height" name="mmHeight" type="number" />
+
+			<input
+				placeholder="Make"
+				name="make"
+				type="string"
+				class={form?.errors?.make ? 'input-error' : ''}
+				value={form?.data?.make ? form?.data?.make : ''}
+			/>
+			<label for="make" class="label">
+				{#if form?.errors?.make}
+					<span class="label-text-alt text-error">{form?.errors?.make[0]}</span>
+				{/if}
+			</label>
+
+			<input
+				placeholder="Model"
+				name="model"
+				type="string"
+				class={form?.errors?.model ? 'input-error' : ''}
+				value={form?.data?.model ? form?.data?.model : ''}
+			/>
+			<label for="model" class="label">
+				{#if form?.errors?.model}
+					<span class="label-text-alt text-error">{form?.errors?.model[0]}</span>
+				{/if}
+			</label>
+
+			<input
+				placeholder="Pixel Width"
+				name="pixelWidth"
+				type="number"
+				class={form?.errors?.pixelWidth ? 'input-error' : ''}
+				value={form?.data?.pixelWidth ? form?.data?.pixelWidth : ''}
+			/>
+			<label for="make" class="label">
+				{#if form?.errors?.pixelWidth}
+					<span class="label-text-alt text-error">{form?.errors?.pixelWidth[0]}</span>
+				{/if}
+			</label>
+
+			<input
+				placeholder="Pixel Height"
+				name="pixelHeight"
+				type="number"
+				class={form?.errors?.pixelHeight ? 'input-error' : ''}
+				value={form?.data?.pixelHeight ? form?.data?.pixelHeight : ''}
+			/>
+			<label for="make" class="label">
+				{#if form?.errors?.pixelHeight}
+					<span class="label-text-alt text-error">{form?.errors?.pixelHeight[0]}</span>
+				{/if}
+			</label>
+
+			<input
+				placeholder="MM Width"
+				name="mmWidth"
+				type="number"
+				class={form?.errors?.mmWidth ? 'input-error' : ''}
+				value={form?.data?.mmWidth ? form?.data?.mmWidth : ''}
+			/>
+			<label for="make" class="label">
+				{#if form?.errors?.mmWidth}
+					<span class="label-text-alt text-error">{form?.errors?.mmWidth[0]}</span>
+				{/if}
+			</label>
+
+			<input
+				placeholder="MM Height"
+				name="mmHeight"
+				type="number"
+				class={form?.errors?.mmHeight ? 'input-error' : ''}
+				value={form?.data?.mmHeight ? form?.data?.mmHeight : ''}
+			/>
+			{#if form?.errors?.mmHeight}
+				<span class="label-text-alt text-error">{form?.errors?.mmHeight[0]}</span>
+			{/if}
+
 			<br />
+
 			<button> Submit</button>
 		</form>
 	</div>
+
+	<!-- Requested Tile Type List -->
+	<!-- Requested Tile Type List -->
+	<!-- Requested Tile Type List -->
 	<div class="container">
 		<div class="title">Requested Tile Types</div>
 		<br />
@@ -136,6 +217,12 @@
 </div>
 
 <style>
+	.input-error {
+		border: 1px solid red;
+	}
+	span {
+		color: rgb(255, 126, 126);
+	}
 	.key {
 		position: absolute;
 		width: 50px;
@@ -172,6 +259,8 @@
 	}
 	input {
 		margin: 10px;
+		font-size: 1.1em;
+		/* width: 200px; */
 	}
 	form {
 		display: flex;
