@@ -14,6 +14,8 @@
 
 	export let form;
 
+	$: console.log(form);
+
 	const fillForm = (tile) => {
 		if (!key) {
 			return;
@@ -127,7 +129,7 @@
 				name="model"
 				type="string"
 				class={form?.errors?.model ? 'input-error' : ''}
-				value={form?.data?.model ? form?.data?.model : ''}
+				value={form?.data?.model ?? ''}
 			/>
 			<label for="model" class="label">
 				{#if form?.errors?.model}

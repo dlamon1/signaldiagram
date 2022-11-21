@@ -15,7 +15,7 @@ export interface PanelObj {
 	reverseIndex: number;
 	isHidden: boolean;
 	colorIndex: number;
-	getDimensions: () => { x: number; y: number };
+	getDimensions: () => { x: number; y: number; width: number; height: number };
 	setColor: (key: ColorObjKey, color: string) => void;
 	setIsSelected: (isSelected: boolean) => void;
 	setIsHovered: (isHovered: boolean) => void;

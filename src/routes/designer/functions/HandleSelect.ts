@@ -18,6 +18,7 @@ export const handleDragSelect = (event, xOrigin: number, yOrigin: number) => {
 	// check which objects are selecting
 	if (get(selection) === 'panels') {
 		const indexesOfPanelsInsideSelection = checkForSelectedPanels(x1, y1, x2, y2);
+
 		get(screens)[get(currentScreenIndex)].panels.selectPanels(indexesOfPanelsInsideSelection);
 		return;
 	}
@@ -61,12 +62,9 @@ export const checkForSelectedPanels = (
 	const indexesOfPanelsInsideSelection = [];
 
 	panels.forEach((panel) => {
-		if (
-			panel.getDimensions().x >= x1 &&
-			panel.getDimensions().x + panel.width <= x2 &&
-			panel.y >= y1 &&
-			panel.y + panel.height <= y2
-		) {
+		const { x, y, width, height } = panel.getDimensions();
+
+		if (x >= x1 && x + width <= x2 && y >= y1 && y + height <= y2) {
 			indexesOfPanelsInsideSelection.push(panel.i);
 		}
 	});

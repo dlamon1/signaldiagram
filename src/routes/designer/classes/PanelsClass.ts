@@ -275,7 +275,7 @@ export class Panel implements PanelObj {
 
 		let y = screen.height * this.row;
 
-		return { x, y };
+		return { x, y, width: +this.width, height: +this.height };
 	}
 
 	getCoordinateText() {
