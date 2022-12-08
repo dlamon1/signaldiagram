@@ -42,12 +42,10 @@ export const handleKeyDown = (e: any) => {
 
 	//if key is delete on mac
 	if (get(isMac) && e.keyCode === 8 && get(isSelectMode)) {
-		console.log('delete key pressed');
 		removeLine();
 	}
 
 	if (!get(isMac) && e.keyCode === 46 && get(isSelectMode)) {
-		console.log('delete key pressed');
 		removeLine();
 	}
 };

@@ -16,6 +16,8 @@
 
 	import { onMount } from 'svelte';
 
+	$: $canvasWrapperHeight && $canvasWrapperWidth && resizeSvg();
+
 	const deSelectAll = (e) => {
 		if ($isShifted) return;
 		$screens.forEach((screen) => {
@@ -30,7 +32,6 @@
 			.select('#canvas')
 			.append('svg')
 			.attr('id', 'svg')
-			.attr('id', 'svg')
 			.attr('class', 'top-level-svg')
 			.attr('width', $canvasWrapperWidth)
 			.attr('height', $canvasWrapperHeight)
@@ -41,18 +42,19 @@
 
 		$gZoomWrapperRef = $topLevelSvgRef
 			.append('g')
-			// .attr(
-			//   "width",
-			//   $screens[$currentScreenIndex].width *
-			//     $screens[$currentScreenIndex].columns
-			// )
-			// .attr(
-			//   "height",
-			//   $screens[$currentScreenIndex].height *
-			//     $screens[$currentScreenIndex].rows
-			// )
 			.attr('id', 'g-zoom-wrapper')
 			.attr('class', 'g-zoom-wrapper');
+	};
+
+	const resizeSvg = () => {
+		requestAnimationFrame(
+			// get element with id 'svg' and set its width and height
+			() => {
+				d3.select('.top-level-svg')
+					.attr('width', $canvasWrapperWidth)
+					.attr('height', $canvasWrapperHeight);
+			}
+		);
 	};
 
 	d3.select('body').on('keydown', handleKeyDown).on('keyup', handleKeyUp);

@@ -51,10 +51,6 @@
 <div id="container">
 	<HandleSelectionTab />
 
-	<div class="info">
-		<InfoBar />
-	</div>
-
 	<div
 		id="canvas-wrapper"
 		class="canvas-wrapper"
@@ -64,6 +60,10 @@
 		<div class="canvas" id="canvas">
 			<HandleColorLabelUpdates />
 		</div>
+	</div>
+
+	<div class="info">
+		<InfoBar />
 	</div>
 
 	<div class="toolbar">
@@ -104,11 +104,13 @@
 		background-color: rgb(58, 58, 58);
 		width: 250px;
 		height: 100%;
+		position: absolute;
 	}
 	.toolbar {
 		background-color: rgb(58, 58, 58);
 		width: 250px;
 		right: 0;
 		overflow: scroll;
+		position: absolute;
 	}
 </style>
