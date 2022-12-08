@@ -7,7 +7,10 @@ import {
 	setIsCtrl,
 	setMode,
 	isSelectMode,
-	isMac
+	isMac,
+	screens,
+	currentScreenIndex,
+	updateScreens
 } from '../../store.designer';
 
 export const handleKeyDown = (e: any) => {
@@ -36,6 +39,17 @@ export const handleKeyDown = (e: any) => {
 	if (e.keyCode === 83 && get(isShifted)) {
 		setMode('select');
 	}
+
+	//if key is delete on mac
+	if (get(isMac) && e.keyCode === 8 && get(isSelectMode)) {
+		console.log('delete key pressed');
+		removeLine();
+	}
+
+	if (!get(isMac) && e.keyCode === 46 && get(isSelectMode)) {
+		console.log('delete key pressed');
+		removeLine();
+	}
 };
 
 export const handleKeyUp = (e: any) => {
@@ -51,4 +65,19 @@ export const handleKeyUp = (e: any) => {
 	if (e.keyCode === 91 && get(isMac)) {
 		setIsCtrl(false);
 	}
+};
+
+const removeLine = () => {
+	const screen = get(screens)[get(currentScreenIndex)];
+	screen.signalLines.array.forEach((line, i) => {
+		if (line.isSelected) {
+			screen.signalLines.removeSignalLine(line);
+		}
+	});
+
+	updateScreens();
+	// need to call panels update here to
+	// trigger redraw, can not use signal lines
+	// because of the way the draw updates
+	// $panelsClass = $panelsClass;
 };
