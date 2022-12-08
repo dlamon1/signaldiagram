@@ -47,14 +47,11 @@
 	};
 
 	const resizeSvg = () => {
-		requestAnimationFrame(
-			// get element with id 'svg' and set its width and height
-			() => {
-				d3.select('.top-level-svg')
-					.attr('width', $canvasWrapperWidth)
-					.attr('height', $canvasWrapperHeight);
-			}
-		);
+		requestAnimationFrame(() => {
+			d3.select('.top-level-svg')
+				.attr('width', $canvasWrapperWidth)
+				.attr('height', $canvasWrapperHeight);
+		});
 	};
 
 	d3.select('body').on('keydown', handleKeyDown).on('keyup', handleKeyUp);

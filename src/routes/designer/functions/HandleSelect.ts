@@ -2,7 +2,7 @@ import { get } from 'svelte/store';
 import { isCtrl, selection, transform, currentScreenIndex, screens } from '../store.designer';
 
 export const handleDragSelect = (event, xOrigin: number, yOrigin: number) => {
-	let x1 = event.x - 250;
+	let x1 = event.x;
 	let y1 = event.y;
 	let x2 = xOrigin;
 	let y2 = yOrigin;

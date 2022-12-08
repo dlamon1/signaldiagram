@@ -44,7 +44,7 @@
 
 		// [tx + k * xo, ty + k * yo]
 
-		let x2 = (get(mousePosition).x - 250) / $transform.k - $transform.x / $transform.k;
+		let x2 = get(mousePosition).x / $transform.k - $transform.x / $transform.k;
 		let y2 = get(mousePosition).y / $transform.k - $transform.y / $transform.k;
 
 		if (destinationI) {

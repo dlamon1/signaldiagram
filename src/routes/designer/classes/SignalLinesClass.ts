@@ -153,13 +153,9 @@ export class SignalLines implements SignalLinesType {
 	}
 
 	removeSignalLine(line: SignalLineObj) {
-		console.log('before', this.array.length);
 		this.array = this.array.filter((signalLine) => {
 			return signalLine.i !== line.i;
 		});
-		console.log('removeSignalLine');
-
-		console.log('after', this.array.length);
 
 		updateScreens();
 	}
