@@ -5,8 +5,6 @@
 
 	export let data;
 
-	// console.log(data);
-
 	$tileTypes = data.tileTypes;
 
 	$: $tileTypes.length && updateTileLists($tileTypes);

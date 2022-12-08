@@ -93,6 +93,7 @@ export interface SnapPointObj {
 	yOffset: number;
 	getX: () => number;
 	getY: () => number;
+	getRadius: () => number;
 	getTranslateString: () => string;
 	setLabel: (label: string) => void;
 	setColorObj: (colorObj: ColorObj) => void;

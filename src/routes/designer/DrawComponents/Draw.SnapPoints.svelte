@@ -34,8 +34,6 @@
 	}
 
 	const drawSnapPointWrappers = () => {
-		// console.log("draw snap Points");
-
 		if (typeof $currentScreenIndex != 'number') {
 			return;
 		}
@@ -68,10 +66,7 @@
 			.append('path')
 			.merge($snapPointsGroupRef.select('path'))
 			.attr('d', (d) => {
-				let r = d.radius;
-				if ($isDrawMode) {
-					r = d.radius * 1.5;
-				}
+				let r = d.getRadius();
 				return drawPathCircle(r);
 			})
 			.style('point-events', $isDrawingSignalLine && 'none')
@@ -131,7 +126,7 @@
 			.attr('stroke', (d) => d.color.border)
 			.attr('stroke-width', (d) => d.strokeWidth)
 			.attr('d', '')
-			.attr('d', (d) => drawPathSquare(d.radius))
+			.attr('d', (d) => drawPathSquare(d.getRadius()))
 			.attr('fill', (d, i) => {
 				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].color
 					.background;
@@ -150,7 +145,7 @@
 			.attr('stroke', (d) => d.color.border)
 			.attr('stroke-width', (d) => d.strokeWidth)
 			.attr('d', '')
-			.attr('d', (d) => drawPathTriangle(d.radius))
+			.attr('d', (d) => drawPathTriangle(d.getRadius()))
 			.attr('fill', (d, i) => {
 				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].color
 					.background;
@@ -181,7 +176,7 @@
 			.attr('y', (d) => {
 				let obj = $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray];
 				if (obj.isTriangle) {
-					return obj.radius;
+					return obj.getRadius();
 				}
 				return 0;
 			})

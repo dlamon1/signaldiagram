@@ -28,5 +28,7 @@ export const load = ({ fetch }) => {
 		return sortAndStoreTiles(data);
 	};
 
-	return { tileTypes: fetchTileTypes() };
+	return {
+		tileTypes: fetchTileTypes()
+	};
 };

@@ -21,7 +21,6 @@
 	import type { SignalLineObj } from '../Types/ClassTypes';
 
 	$: {
-		// console.log("triggered");
 		let t = [
 			$isDrawingSignalLine,
 			$snapPointsQuantity,
@@ -108,6 +107,7 @@
 				if ($isDrawMode) return;
 				e.stopPropagation();
 				let i = e.path[0].__data__.i;
+
 				if ($isSelectMode && !$isDrawingSignalLine) {
 					$screens[$currentScreenIndex].signalLines.toggleSignalLine(i);
 					d3.select(this).attr('stroke', selectedColor);

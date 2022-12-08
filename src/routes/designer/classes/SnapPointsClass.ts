@@ -15,7 +15,8 @@ import {
 	setSelectedSnapPointIndexes,
 	screens,
 	currentScreenIndex,
-	updateScreens
+	updateScreens,
+	isDrawMode
 } from '../store.designer';
 
 export class SnapPoints implements SnapPointsType {
@@ -385,6 +386,22 @@ export class SnapPoint implements SnapPointObj {
 		this.y = y + panelY;
 		this.strokeWidth = this.radius / 2;
 		this.translateString = `translate(${this.x}, ${this.y})`;
+	}
+
+	getRadius() {
+		let smallBound = get(screens)[get(currentScreenIndex)].width;
+
+		if (get(screens)[get(currentScreenIndex)].height < smallBound) {
+			smallBound = get(screens)[get(currentScreenIndex)].height;
+		}
+
+		this.radius = smallBound / 8;
+
+		if (get(isDrawMode)) {
+			return this.radius * 1.5;
+		}
+
+		return this.radius;
 	}
 
 	toggleIsSelected() {

@@ -153,9 +153,15 @@ export class SignalLines implements SignalLinesType {
 	}
 
 	removeSignalLine(line: SignalLineObj) {
+		console.log('before', this.array.length);
 		this.array = this.array.filter((signalLine) => {
 			return signalLine.i !== line.i;
 		});
+		console.log('removeSignalLine');
+
+		console.log('after', this.array.length);
+
+		updateScreens();
 	}
 
 	selectSignalLine(i: number) {
@@ -182,6 +188,9 @@ export class SignalLines implements SignalLinesType {
 
 		snapPointsClass.deSelect();
 		panelsClass.deSelect();
+
+		console.log('i passed', i);
+		console.log('length', this.array.length);
 
 		const current = this.array[i].isSelected;
 

@@ -150,11 +150,11 @@
 	</div>
 
 	<div class="input-wrapper" style="margin-top: 15px; color: black">
-		<Select class="asdf" items={makes} {value} placeholder="Make" on:select={handleSelectMake} />
+		<Select items={makes} {value} placeholder="Make" on:select={handleSelectMake} />
 	</div>
 
 	<div class="input-wrapper" style="margin-top: 15px; color: black">
-		<Select class="asdf" items={models} {value} placeholder="Make" on:select={handleSelectModel} />
+		<Select items={models} {value} placeholder="Make" on:select={handleSelectModel} />
 	</div>
 
 	<div id="dimensions-container">
