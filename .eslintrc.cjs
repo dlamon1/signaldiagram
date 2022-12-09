@@ -9,7 +9,7 @@ module.exports = {
 		'svelte3/typescript': () => require('typescript')
 	},
 	rules: {
-		'vite-plugin-svelte/click-events-have-key-events': 'off'
+		'svelte/click-events-have-key-events': 'off'
 	},
 	parserOptions: {
 		sourceType: 'module',

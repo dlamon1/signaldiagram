@@ -15,11 +15,11 @@
 	{#if typeof $currentScreenIndex === 'number'}
 		<div class="divider" />
 
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
 		<div class="title-container">
 			<div
 				class="title"
 				on:click={() => ($selection = 'panels')}
-				on:keypress={() => ($selection = 'panels')}
 				class:selected={$selection === 'panels'}
 			>
 				Panels
@@ -27,7 +27,6 @@
 			<div
 				class="title"
 				on:click={() => ($selection = 'snappoints')}
-				on:keypress={() => ($selection = 'snappoints')}
 				class:selected={$selection === 'snappoints'}
 			>
 				Snap Points
@@ -35,7 +34,6 @@
 			<div
 				class="title"
 				on:click={() => ($selection = 'signallines')}
-				on:keypress={() => ($selection = 'signallines')}
 				class:selected={$selection === 'signallines'}
 			>
 				Signal Lines

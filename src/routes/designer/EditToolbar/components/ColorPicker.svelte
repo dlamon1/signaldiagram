@@ -19,7 +19,8 @@
 	$: background = $colorState[key][layer];
 </script>
 
-<div class="subtitle" on:click={() => (isOpen = !isOpen)} on:keypress={() => (isOpen = !isOpen)}>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="subtitle" on:click={() => (isOpen = !isOpen)}>
 	{element}
 	<div class="color-id-box" style:flex style:background />
 </div>

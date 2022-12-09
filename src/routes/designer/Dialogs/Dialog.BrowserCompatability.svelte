@@ -8,7 +8,8 @@
 </script>
 
 {#if isOpen && !$isChrome}
-	<div class="container" on:click|self={closeDialog} on:keypress|self={closeDialog}>
+	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<div class="container" on:click|self={closeDialog}>
 		<div class="dialog-container">
 			<div>This website only works in Chrome.</div>
 			<div class="close">Click to close</div>

@@ -1,9 +1,11 @@
 <script lang="ts">
+	import type { LayoutData } from './$types';
+
 	import './global.css';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
 	import { requestedTileTypes, approvedTileTypes, tileTypes } from '$lib/store.global';
 
-	export let data;
+	export let data: LayoutData;
 
 	$tileTypes = data.tileTypes;
 

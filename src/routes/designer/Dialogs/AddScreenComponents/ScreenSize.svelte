@@ -195,10 +195,6 @@
 </div>
 
 <style>
-	.select {
-		margin-top: 15px;
-	}
-
 	.loose {
 		font-size: 1.3rem;
 		font-weight: 600;
