@@ -9,6 +9,7 @@
 
 	const toggleDialog = () => {
 		$isAddScreenDialogOpen = !$isAddScreenDialogOpen;
+		console.log('toggling');
 	};
 </script>
 
@@ -16,7 +17,6 @@
 	<div
 		class="container"
 		on:click|self={toggleDialog}
-		on:keypress={toggleDialog}
 		transition:scale={{
 			duration: 130
 		}}

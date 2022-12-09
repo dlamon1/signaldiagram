@@ -8,6 +8,7 @@ body {
 	border-style: solid;
 	background-color: rgb(37, 37, 37);
 	border-width: 0px;
+	outline-color: rgba(108, 254, 169, 0.9);
 }
 
 body {
@@ -19,6 +20,7 @@ body {
 	font-size: 14px;
 	overflow: hidden;
 	border-width: 0px;
+	outline-color: rgba(108, 254, 169, 0.9);
 }
 
 button {
@@ -33,7 +35,8 @@ button {
 button:hover {
 	background-color: rgb(97, 97, 97);
 	border-width: 1px;
-	border-color: chartreuse;
+	border-color: rgba(108, 254, 169, 0.9);
+
 	border-style: solid;
 	color: rgb(255, 255, 255);
 }
@@ -50,4 +53,8 @@ label:hover {
 	height: 0.2px;
 	background-color: rgb(110, 110, 110);
 	margin-top: 10px;
+}
+
+input {
+	padding: 5px;
 }

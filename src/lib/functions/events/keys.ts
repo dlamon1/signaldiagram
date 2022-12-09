@@ -10,10 +10,13 @@ import {
 	isMac,
 	screens,
 	currentScreenIndex,
-	updateScreens
+	updateScreens,
+	isAddScreenDialogOpen
 } from '$lib/store.designer';
 
 export const handleKeyDown = (e: any) => {
+	if (isAddScreenDialogOpen) return;
+
 	if (e.keyCode === 16 && !get(isShifted)) {
 		setIsShifted(true);
 	}
