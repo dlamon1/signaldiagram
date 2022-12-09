@@ -14,8 +14,6 @@
 
 	export let form;
 
-	$: console.log(form);
-
 	const fillForm = (tile) => {
 		if (!key) {
 			return;

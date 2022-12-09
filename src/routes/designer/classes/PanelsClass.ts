@@ -160,9 +160,7 @@ export class Panels implements PanelsType {
 		setSelection('panels');
 	};
 
-	toggleHidePanels() {
-		console.log(this.selectedIndexes);
-	}
+	toggleHidePanels() {}
 
 	setColors(key: ColorObjKey, color: string) {
 		this.array.forEach((panel) => {

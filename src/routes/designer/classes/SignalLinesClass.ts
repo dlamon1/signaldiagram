@@ -185,16 +185,15 @@ export class SignalLines implements SignalLinesType {
 		snapPointsClass.deSelect();
 		panelsClass.deSelect();
 
-		console.log('i passed', i);
-		console.log('length', this.array.length);
+		const currentIndexInArray = this.array.findIndex((line) => line.i === i);
 
-		const current = this.array[i].isSelected;
+		const current = this.array[currentIndexInArray].isSelected;
 
 		if (!get(isCtrl)) {
 			this.array.forEach((sl) => sl.setIsSelected(false));
-			this.array[i].setIsSelected(!current);
+			this.array[currentIndexInArray].setIsSelected(!current);
 		}
-		this.array[i].setIsSelected(!current);
+		this.array[currentIndexInArray].setIsSelected(!current);
 
 		setSelection('signallines');
 	}
@@ -273,7 +272,6 @@ class SignalLine implements SignalLineObj {
 		this.lineWidth = screen.width < screen.height ? screen.width / 20 : screen.height / 20;
 		this.setDestinationPanelIndex();
 		this.setIndexesWithInPanel();
-		// console.log(origin, destinationSnapPointIndex);
 	}
 
 	getLineWidth() {

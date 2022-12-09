@@ -29,6 +29,8 @@
 			$screens
 		];
 
+		let l = $screens[$currentScreenIndex].signalLines.array.length;
+
 		typeof $currentScreenIndex === 'number' && drawSignalLines();
 	}
 
@@ -36,14 +38,19 @@
 		// Signal Line Wrapper
 		// Signal Line Wrapper
 		// Signal Line Wrapper
+
 		$linesGroupRef = $gZoomWrapperRef
 			.selectAll('g.signal-line')
-			.data($screens[$currentScreenIndex].signalLines.array, (d: SignalLineObj) => d.i);
+			.data($screens[$currentScreenIndex].signalLines.array, (d: SignalLineObj) => {
+				return d.i;
+			});
 
 		$linesGroupEnterRef = $linesGroupRef
 			.enter()
 			.append('g')
-			.attr('id', (d: SignalLineObj) => 'line-group' + d.i)
+			.attr('id', (d: SignalLineObj) => {
+				return 'line-group' + d.i;
+			})
 			.classed('signal-line', true);
 
 		$linesGroupEnterRef.merge($linesGroupRef).transition();
@@ -106,6 +113,7 @@
 			.on('click', function (e) {
 				if ($isDrawMode) return;
 				e.stopPropagation();
+
 				let i = e.path[0].__data__.i;
 
 				if ($isSelectMode && !$isDrawingSignalLine) {
@@ -117,7 +125,7 @@
 		// Line
 		// Line
 		// Line
-		let signalLineBase = $linesGroupEnterRef
+		$linesGroupEnterRef
 			.append('line')
 			.merge($linesGroupRef.select('line.line-base'))
 			.attr('id', (d) => 'line-base' + d.i)
