@@ -20,8 +20,6 @@
 	$: {
 		let t = [$selectedSnapPointIndexes];
 
-		console.log('here');
-
 		updateLocalOffsetValues();
 	}
 

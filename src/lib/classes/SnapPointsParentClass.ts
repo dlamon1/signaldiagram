@@ -113,7 +113,7 @@ export class SnapPoints implements SnapPointsType {
 			this.array[i].setIsSelected(true);
 		});
 
-		// setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
+		setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
 	};
 
 	toggleSnapPoints = (arrayOfIndexes: number[]) => {
@@ -137,7 +137,7 @@ export class SnapPoints implements SnapPointsType {
 			this.array[i].setIsSelected(true);
 		});
 
-		// setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
+		setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
 	};
 
 	selectSnapPoint = (e) => {
