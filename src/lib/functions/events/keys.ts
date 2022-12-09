@@ -15,7 +15,7 @@ import {
 } from '$lib/store.designer';
 
 export const handleKeyDown = (e: any) => {
-	if (isAddScreenDialogOpen) return;
+	if (get(isAddScreenDialogOpen)) return;
 
 	if (e.keyCode === 16 && !get(isShifted)) {
 		setIsShifted(true);

@@ -11,6 +11,12 @@ body {
 	outline-color: rgba(108, 254, 169, 0.9);
 }
 
+* {
+	--color-primary: rgba(108, 254, 169, 0.9);
+	--color-secondary: rgb(42, 109, 255);
+	--color-hover: rgba(108, 254, 169, 0.9);
+}
+
 body {
 	color: #333;
 	margin: 0px;
@@ -23,7 +29,7 @@ body {
 }
 
 body:focus {
-	color: rgba(195, 46, 58, 0.9);
+	color: var(--color-secondary);
 }
 
 button {
@@ -38,7 +44,7 @@ button {
 button:hover {
 	background-color: rgb(97, 97, 97);
 	border-width: 1px;
-	border-color: rgba(108, 254, 169, 0.9);
+	border-color: var(--color-hover);
 
 	border-style: solid;
 	color: rgb(255, 255, 255);
@@ -60,5 +66,5 @@ input {
 }
 
 input:focus {
-	outline-color: rgba(195, 46, 58, 0.9);
+	outline-color: var(--color-secondary);
 }

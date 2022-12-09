@@ -50,7 +50,7 @@
 		font-weight: 500;
 	}
 	.selected {
-		background-color: rgb(42, 109, 255);
+		background-color: var(--color-secondary);
 		color: white;
 		border-color: chartreuse;
 		border-width: 1px;

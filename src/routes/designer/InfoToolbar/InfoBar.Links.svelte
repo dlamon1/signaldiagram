@@ -1,7 +1,9 @@
 <script lang="ts">
 	import { tooltip } from '../Tooltips/tooltip';
 
-	const REPO_URL = 'https://github.com/dlamon1/signaldiagram-fullstack/issues';
+	const REPO_URL = 'https://github.com/dlamon1/signaldiagram-fullstack/';
+
+	const REPO_ISSUES_URL = 'https://github.com/dlamon1/signaldiagram-fullstack/issues';
 
 	import { isExportDialogOpen } from '$lib/store.designer';
 
@@ -48,8 +50,15 @@
 <div class="link-wrapper">
 	<!-- svelte-ignore security-anchor-rel-noreferrer -->
 	<a title="Thank you for the help!" href={REPO_URL} target="_blank" value="noreferrer">
-		Report a Bug</a
-	>
+		Contribute
+	</a>
+</div>
+
+<div class="link-wrapper">
+	<!-- svelte-ignore security-anchor-rel-noreferrer -->
+	<a title="Thank you for the help!" href={REPO_ISSUES_URL} target="_blank" value="noreferrer">
+		Report a Bug
+	</a>
 </div>
 
 <div class="link-wrapper">
@@ -58,7 +67,7 @@
 
 <style>
 	.tile-type {
-		color: rgba(108, 254, 169, 0.9);
+		color: var(--color-primary);
 		font-weight: 800;
 	}
 	.toast-wrapper {
@@ -69,11 +78,6 @@
 		--toastContainerBottom: calc(50vw - 8rem);
 		--toastContainerLeft: calc(50vw - 8rem);
 	}
-	.version {
-		margin-top: 10px;
-		align-self: center;
-		color: aqua;
-	}
 
 	.dialog {
 		height: 40px;
@@ -82,6 +86,10 @@
 	a {
 		color: #fff;
 		text-decoration: none;
+	}
+
+	a:hover {
+		color: var(--color-hover);
 	}
 	.link-wrapper {
 		margin-top: 10px;
