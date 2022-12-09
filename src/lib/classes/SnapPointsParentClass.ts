@@ -1,31 +1,35 @@
 import { get } from 'svelte/store';
-import type {
-	ColorObj,
-	LoadSnapPointObj,
-	SnapPointObj,
-	SnapPointsType,
-	ColorObjKey
-} from '$lib/types';
+
+import type { LoadSnapPointObj, SnapPointObj, SnapPointsType, ColorObjKey } from '$lib/types';
 
 import {
-	snapPointDirection,
-	snapPointsQuantity,
 	isCtrl,
 	setSelection,
 	setSelectedSnapPointIndexes,
 	screens,
 	currentScreenIndex,
-	updateScreens,
-	isDrawMode
+	updateScreens
 } from '$lib/store.designer';
+
+import { SnapPoint } from '$lib/classes';
 
 export class SnapPoints implements SnapPointsType {
 	array = [];
 	selectedSnapPointIndexes = [];
 	screenIndex = undefined;
+	radiusMultiplier = 1;
+	radius = 10;
 
 	constructor(screenIndex: number) {
 		this.screenIndex = screenIndex;
+	}
+
+	setRadius(value: number) {
+		//todo
+	}
+
+	setRadiusMultiplier(value: number) {
+		this.radiusMultiplier = value;
 	}
 
 	setArrayFromLoad(snapPointsArray: LoadSnapPointObj[]) {
@@ -109,7 +113,7 @@ export class SnapPoints implements SnapPointsType {
 			this.array[i].setIsSelected(true);
 		});
 
-		setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
+		// setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
 	};
 
 	toggleSnapPoints = (arrayOfIndexes: number[]) => {
@@ -133,7 +137,7 @@ export class SnapPoints implements SnapPointsType {
 			this.array[i].setIsSelected(true);
 		});
 
-		setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
+		// setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
 	};
 
 	selectSnapPoint = (e) => {
@@ -152,13 +156,28 @@ export class SnapPoints implements SnapPointsType {
 			this.array.forEach((p) => p.setIsSelected(false));
 		}
 
-		this.selectedSnapPointIndexes[i];
+		this.array[i].setIsSelected(!current);
+
+		this.array[i].isSelected && this.selectedSnapPointIndexes.push(i);
+
 		setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
 
-		this.array[i].setIsSelected(!current);
 		setSelection('snappoints');
 
 		updateScreens();
+	};
+
+	selectEvenOrOdd = (evenOrOdd) => {
+		this.selectedSnapPointIndexes = [];
+		this.array.forEach((p: SnapPointObj) => {
+			p.setIsSelected(false);
+			if (p.pointIndexWithinPanel == evenOrOdd) {
+				p.setIsSelected(true);
+				this.selectedSnapPointIndexes.push(p.pointIndexFullArray);
+			}
+			setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
+			updateScreens();
+		});
 	};
 
 	removeLabel = () => {
@@ -213,211 +232,5 @@ export class SnapPoints implements SnapPointsType {
 				panel.setYOffset(value);
 			}
 		});
-	}
-}
-
-export class SnapPoint implements SnapPointObj {
-	isSquare = false;
-	isCircle = false;
-	isTriangle = false;
-	label = 'A1';
-	isSelected = false;
-	isHovered = false;
-	color = {
-		background: '#777777',
-		font: '#ffffff',
-		border: '#000000'
-	};
-	translateString: string;
-	radius: number;
-	x: number;
-	y: number;
-	row: number;
-	column: number;
-	pointIndexWithinPanel: number;
-	panelIndex: number;
-	pointIndexFullArray: number;
-	strokeWidth: number;
-	isHidden: boolean;
-	xOffset = 0;
-	yOffset = 0;
-	screenIndex: number;
-
-	constructor(
-		row: number,
-		column: number,
-		pointIndexWithinPanel: number,
-		panelIndex: number,
-		pointIndexFullArray: number,
-		screenIndex: number
-	) {
-		this.screenIndex = screenIndex;
-		this.row = row;
-		this.column = column;
-		this.pointIndexWithinPanel = pointIndexWithinPanel;
-		this.panelIndex = panelIndex;
-		this.pointIndexFullArray = pointIndexFullArray;
-		this.createDimensions(row, column, pointIndexWithinPanel);
-	}
-
-	setIsHidden(isHidden: boolean) {
-		this.isHidden = isHidden;
-	}
-
-	getX() {
-		const parentPanel = get(screens)[get(currentScreenIndex)].panels.array[this.panelIndex];
-
-		const screen = get(screens)[get(currentScreenIndex)];
-
-		let x = screen.width / 2;
-
-		// if (get(snapPointDirection) === "horizontal") {
-		if (screen.snapPointDirection === 'horizontal') {
-			x = (screen.width / 3) * this.pointIndexWithinPanel;
-		}
-
-		if (screen.snapPointQuantity === 1) {
-			x = screen.width / 2;
-		}
-		return x + parentPanel.getDimensions().x + this.xOffset;
-	}
-
-	getY() {
-		const parentPanel = get(screens)[get(currentScreenIndex)].panels.array[this.panelIndex];
-
-		const screen = get(screens)[get(currentScreenIndex)];
-
-		let y = (screen.height / 3) * this.pointIndexWithinPanel;
-
-		if (screen.snapPointDirection === 'horizontal') {
-			y = screen.height / 2;
-		}
-
-		if (screen.snapPointQuantity === 1) {
-			y = screen.height / 2;
-		}
-
-		return y + parentPanel.getDimensions().y + this.yOffset;
-	}
-
-	setXOffset(value: number) {
-		this.xOffset = value;
-	}
-
-	setYOffset(value: number) {
-		this.yOffset = value;
-	}
-
-	getTranslateString() {
-		const x = this.getX();
-		const y = this.getY();
-
-		this.translateString = `translate(${x}, ${y})`;
-
-		return this.translateString;
-	}
-
-	removeLabel = () => {
-		this.label = '';
-	};
-
-	setLabel(label: string) {
-		this.label = label;
-	}
-
-	setColor(key: ColorObjKey, color: string) {
-		this.color[key] = color;
-	}
-
-	setColorObj(colorObj: ColorObj) {
-		this.color = colorObj;
-	}
-
-	setBackgroundColor(color: string) {
-		this.color.background = color;
-	}
-
-	setBorderColor(color: string) {
-		this.color.border = color;
-	}
-
-	setFontColor(color: string) {
-		this.color.font = color;
-	}
-
-	setIsSquare(boolean: boolean) {
-		this.isTriangle = false;
-		this.isSquare = boolean;
-		updateScreens();
-	}
-
-	setIsTriangle(boolean: boolean) {
-		this.isSquare = false;
-		this.isTriangle = boolean;
-		updateScreens();
-	}
-
-	createDimensions(row: number, column: number, pointIndexWithinPanel: number) {
-		const screen = get(screens)[this.screenIndex];
-
-		const panelX = screen.width * column;
-		const panelY = screen.height * row;
-
-		let x = screen.width / 2;
-		let y = (screen.height / 3) * pointIndexWithinPanel;
-
-		if (get(snapPointDirection) === 'horizontal') {
-			x = (screen.width / 3) * pointIndexWithinPanel;
-			y = screen.height / 2;
-		}
-
-		if (get(snapPointsQuantity) === 1) {
-			x = screen.width / 2;
-			y = screen.height / 2;
-		}
-
-		this.radius = screen.height / 10;
-
-		if (screen.width < screen.height) {
-			this.radius = screen.width / 10;
-		}
-
-		this.x = x + panelX;
-		this.y = y + panelY;
-		this.strokeWidth = this.radius / 2;
-		this.translateString = `translate(${this.x}, ${this.y})`;
-	}
-
-	getRadius() {
-		let smallBound = get(screens)[get(currentScreenIndex)].width;
-
-		if (get(screens)[get(currentScreenIndex)].height < smallBound) {
-			smallBound = get(screens)[get(currentScreenIndex)].height;
-		}
-
-		this.radius = smallBound / 8;
-
-		if (get(isDrawMode)) {
-			return this.radius * 1.5;
-		}
-
-		return this.radius;
-	}
-
-	toggleIsSelected() {
-		this.isSelected = !this.isSelected;
-	}
-
-	setIsSelected(boolean: boolean) {
-		this.isSelected = boolean;
-	}
-
-	setIsHovered(boolean: boolean) {
-		this.isHovered = boolean;
-	}
-
-	getLabelString() {
-		if (this.isHidden) return '';
-		return this.label;
 	}
 }

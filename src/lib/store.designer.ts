@@ -8,13 +8,18 @@ import type {
 	XYCoordinates,
 	ScreenObj,
 	DirectionObj,
-	XYandIndex,
-	PointCorner
+	SnapPointOffsets
 } from '$lib/types';
 
 import type * as d3 from 'd3';
 
 import type { Writable } from 'svelte/store';
+
+export const snapPointOffsets: Writable<SnapPointOffsets> = writable({
+	xOffset: 0,
+	yOffset: 0,
+	radiusMultiplier: 1
+});
 
 export const isMac: Writable<boolean> = writable(false);
 
@@ -24,6 +29,7 @@ export const screens: Writable<ScreenObj[]> = writable([]);
 export const updateScreens = () => {
 	screens.update(($value) => ($value = $value));
 };
+
 export const currentScreenIndex: Writable<number | null> = writable(null);
 
 export const topLevelSvgRef = writable(null);

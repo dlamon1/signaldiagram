@@ -8,7 +8,8 @@ import type {
 	SnapPointCoordinates,
 	SnapPointCoordinatesKey,
 	SnapPointDirection,
-	LoadSnapPointObj
+	LoadSnapPointObj,
+	SnapPointOffsets
 } from './types/SnapPointTypes';
 
 import type {
@@ -23,6 +24,7 @@ import type {
 import type { ScreenObj } from './types/ScreenTypes';
 
 export type {
+	SnapPointOffsets,
 	PanelsType,
 	PanelObj,
 	SignalLinesType,

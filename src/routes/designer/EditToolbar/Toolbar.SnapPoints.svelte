@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+
 	import {
 		textInputRef,
 		snapPointLabel,
@@ -15,23 +17,15 @@
 
 	import type { SnapPointObj } from '$lib/types';
 
-	const selectOnes = () => {
-		$screens[$currentScreenIndex].snapPoints.array.forEach((p: SnapPointObj) => {
-			p.setIsSelected(false);
-			if (p.pointIndexWithinPanel == 1) {
-				p.setIsSelected(true);
-			}
-			$screens = $screens;
-		});
-	};
-
 	$: {
 		let t = [$selectedSnapPointIndexes];
 
-		updateOffsetValues();
+		console.log('here');
+
+		updateLocalOffsetValues();
 	}
 
-	const updateOffsetValues = () => {
+	const updateLocalOffsetValues = () => {
 		xOffset = 0;
 		yOffset = 0;
 
@@ -43,24 +37,49 @@
 		});
 	};
 
-	const selectTwos = () => {
-		$screens[$currentScreenIndex].snapPoints.array.forEach((p: SnapPointObj) => {
-			p.setIsSelected(false);
-			if (p.pointIndexWithinPanel == 2) {
-				p.setIsSelected(true);
+	const currentOffsetValues = () => {
+		$screens[$currentScreenIndex].snapPoints.array.forEach((sp: SnapPointObj) => {
+			if (sp.isSelected) {
+				return {
+					xOffset: sp.xOffset,
+					yOffset: -sp.yOffset
+				};
 			}
-			$screens = $screens;
 		});
+		return {
+			xOffset: 0,
+			yOffset: 0
+		};
 	};
 
 	let sd = [];
 
-	let xOffset = 0;
-	let yOffset = 0;
+	let xOffset = currentOffsetValues().xOffset;
+	let yOffset = currentOffsetValues().yOffset;
+	let _radiusMultiplier = $screens[$currentScreenIndex].snapPoints.radiusMultiplier;
 
 	$: {
 		setOffsets(xOffset, -yOffset);
 	}
+
+	$: {
+		setRadiusMultiplier(_radiusMultiplier);
+	}
+
+	const resetXOffset = () => {
+		xOffset = 0;
+	};
+	const resetYOffset = () => {
+		yOffset = 0;
+	};
+	const resetRadiusMultiplier = () => {
+		_radiusMultiplier = 1;
+	};
+
+	const setRadiusMultiplier = (r: number) => {
+		$screens[$currentScreenIndex].snapPoints.setRadiusMultiplier(r);
+		$screens = $screens;
+	};
 
 	const setOffsets = (x: number, y: number) => {
 		$screens[$currentScreenIndex].snapPoints.setXOffsets(x);
@@ -91,8 +110,16 @@
 
 <div id="snappoints" in:fade={{ duration: 150 }} out:fade={{ duration: 0 }}>
 	<div class="crisscross">
-		<button class="criss-cross" on:click={selectOnes}>Select [0]</button>
-		<button class="criss-cross" on:click={selectTwos}>select [1]</button>
+		<button
+			class="criss-cross"
+			on:click={() => $screens[$currentScreenIndex].snapPoints.selectEvenOrOdd(1)}
+			>Select [0]</button
+		>
+		<button
+			class="criss-cross"
+			on:click={() => $screens[$currentScreenIndex].snapPoints.selectEvenOrOdd(2)}
+			>select [1]</button
+		>
 	</div>
 
 	<div class="divider" />
@@ -101,72 +128,87 @@
 		<SnapPointOptions />
 	</div>
 
-	{#if sd.length}
-		<div class="divider" />
+	<!-- {#if sd.length} -->
+	<div class="divider" />
 
-		<div id="label-input">
-			<div class="label-input-header">
-				Text:{' '}
-			</div>
-
-			<input
-				class="label-text-input"
-				maxlength="3"
-				bind:this={$textInputRef}
-				type="text"
-				bind:value={$snapPointLabel}
-			/>
+	<div id="label-input">
+		<div class="label-input-header">
+			Text:{' '}
 		</div>
 
-		<div class="divider" />
-
-		<ColorPicker
-			key={'snapPoint'}
-			layer={'background'}
-			element={'Background'}
-			isOpen={false}
-			classObj={$screens[$currentScreenIndex].snapPoints}
+		<input
+			class="label-text-input"
+			maxlength="3"
+			disabled={!sd.length}
+			bind:this={$textInputRef}
+			type="text"
+			bind:value={$snapPointLabel}
 		/>
-
-		<div class="divider" />
-
-		<ColorPicker
-			key={'snapPoint'}
-			layer={'font'}
-			element={'Font'}
-			isOpen={false}
-			classObj={$screens[$currentScreenIndex].snapPoints}
-		/>
-
-		<div class="divider" />
-	{/if}
-
-	<div id="input-wrapper" class="opacity-wrapper" style="margin-top: 10px;">
-		<label class="hovered">
-			X Offset
-			<input
-				type="range"
-				min={-$screens[$currentScreenIndex].width / 3}
-				max={$screens[$currentScreenIndex].width / 3}
-				step="1"
-				bind:value={xOffset}
-				class="range"
-			/>
-		</label>
 	</div>
 
-	<div id="input-wrapper" class="opacity-wrapper">
-		<label class="hovered">
-			Y Offset
-			<input
-				type="range"
-				min={-$screens[$currentScreenIndex].height / 3}
-				max={$screens[$currentScreenIndex].height / 3}
-				step="1"
-				bind:value={yOffset}
-				class="range"
-			/>
-		</label>
+	<div class="divider" />
+
+	<ColorPicker
+		key={'snapPoint'}
+		layer={'background'}
+		element={'Background'}
+		isOpen={false}
+		classObj={$screens[$currentScreenIndex].snapPoints}
+	/>
+
+	<div class="divider" />
+
+	<ColorPicker
+		key={'snapPoint'}
+		layer={'font'}
+		element={'Font'}
+		isOpen={false}
+		classObj={$screens[$currentScreenIndex].snapPoints}
+	/>
+
+	<div class="divider" />
+	<!-- {/if} -->
+
+	<div class="range-wrapper">
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<div class="label" on:click={resetXOffset}>X Offset</div>
+		<input
+			name="x"
+			type="range"
+			min={-$screens[$currentScreenIndex].width / 3}
+			max={$screens[$currentScreenIndex].width / 3}
+			step="1"
+			bind:value={xOffset}
+			class="range"
+		/>
+	</div>
+
+	<div class="range-wrapper">
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<div class="label" on:click={resetYOffset} title="Reset">Y Offset</div>
+		<input
+			name="y"
+			type="range"
+			min={-$screens[$currentScreenIndex].height / 3}
+			max={$screens[$currentScreenIndex].height / 3}
+			step="1"
+			bind:value={yOffset}
+			class="range"
+		/>
+	</div>
+
+	<div class="range-wrapper">
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<div class="label" on:click={resetRadiusMultiplier}>Radius</div>
+		<input
+			name="radius"
+			type="range"
+			min={0}
+			max={2}
+			step=".05"
+			bind:value={_radiusMultiplier}
+			class="range"
+		/>
 	</div>
 
 	<div class="divider" />
@@ -194,6 +236,16 @@
 <div class="margin" />
 
 <style>
+	.label {
+		cursor: pointer;
+	}
+	.range-wrapper {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex-direction: column;
+		margin-top: 10px;
+	}
 	.margin {
 		height: 20px;
 	}

@@ -101,7 +101,6 @@
 						const res = await fetch('../api/tiles');
 						const tiles = await res.json();
 						$tileTypes = tiles;
-						// update();
 					}
 				};
 			}}

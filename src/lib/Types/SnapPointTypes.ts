@@ -16,6 +16,12 @@ export interface LoadSnapPointObj {
 	label: string;
 }
 
+export type SnapPointOffsets = {
+	xOffset: number;
+	yOffset: number;
+	radiusMultiplier: number;
+};
+
 export type SnapPointCoordinates = {
 	snapPointIndex: number;
 	panelIndex: number;
@@ -25,6 +31,8 @@ export type SnapPointCoordinates = {
 export type SnapPointsType = {
 	array: SnapPointObj[];
 	selectedSnapPointIndexes: number[];
+	radiusMultiplier: number;
+	radius: number;
 	setArrayFromLoad: (array: LoadSnapPointObj[]) => void;
 	deSelect: () => void;
 	addSnapPoint: (
@@ -45,6 +53,9 @@ export type SnapPointsType = {
 	setIsTriangles: (isTriangle: boolean) => void;
 	setXOffsets: (value: number) => void;
 	setYOffsets: (value: number) => void;
+	setRadiusMultiplier: (value: number) => void;
+	setRadius: (value: number) => void;
+	selectEvenOrOdd: (evenOrOdd: number) => void;
 };
 
 export interface SnapPointObj {
