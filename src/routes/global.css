@@ -12,9 +12,14 @@ body {
 }
 
 * {
+	--color-bg-0: hsl(300, 2%, 13%);
+	--color-bg-1: hsl(240, 3%, 16%);
+	--color-bg-2: hsl(209, 36%, 86%);
 	--color-primary: rgba(108, 254, 169, 0.9);
 	--color-secondary: rgb(42, 109, 255);
 	--color-hover: rgba(108, 254, 169, 0.9);
+	--color-text-primary: rgba(231, 231, 231, 0.9);
+	--color-text-error: rgba(231, 231, 231, 0.9);
 }
 
 body {

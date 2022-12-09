@@ -93,7 +93,7 @@
 	#container {
 		width: 100vw;
 		height: 100vh;
-		background-color: rgb(37, 37, 37);
+		background-color: var(--color-bg-0);
 		display: flex;
 		overflow: hidden;
 	}
@@ -101,13 +101,13 @@
 		flex: 1;
 	}
 	.info {
-		background-color: rgb(58, 58, 58);
+		background-color: var(--color-bg-1);
 		width: 250px;
 		height: 100%;
 		position: absolute;
 	}
 	.toolbar {
-		background-color: rgb(58, 58, 58);
+		background-color: var(--color-bg-1);
 		width: 250px;
 		right: 0;
 		overflow: scroll;

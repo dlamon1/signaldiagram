@@ -32,7 +32,7 @@
 	};
 
 	const toastError = () => {
-		toast.push('No', {
+		toast.push('Errors in form', {
 			theme: {
 				'--toastColor': 'mintcream',
 				'--toastBackground': 'rgba(172,2,50,0.9)',
@@ -91,6 +91,9 @@
 			method="POST"
 			use:enhance={({ data }) => {
 				return async ({ result, update }) => {
+					form = result.data;
+					console.log(result);
+
 					if (result.status == 401) {
 						toastError();
 					} else {
@@ -98,7 +101,7 @@
 						const res = await fetch('../api/tiles');
 						const tiles = await res.json();
 						$tileTypes = tiles;
-						update();
+						// update();
 					}
 				};
 			}}
@@ -221,7 +224,7 @@
 		border: 1px solid red;
 	}
 	span {
-		color: rgb(255, 126, 126);
+		color: var(--color-text-error);
 	}
 	.key {
 		position: absolute;
@@ -253,6 +256,7 @@
 		font-weight: 600;
 		color: bisque;
 	}
+
 	button {
 		padding: 5px;
 		padding-inline: 50px;
@@ -260,7 +264,6 @@
 	input {
 		margin: 10px;
 		font-size: 1.1em;
-		/* width: 200px; */
 	}
 	form {
 		display: flex;

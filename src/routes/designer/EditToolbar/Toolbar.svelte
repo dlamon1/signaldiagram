@@ -57,22 +57,16 @@
 </div>
 
 <style>
-	.margin {
-		height: 10px;
-		width: 100%;
-	}
 	.selected {
 		color: #fff;
-		background-color: rgb(42, 109, 255);
+		background-color: var(--color-secondary);
 		padding: 5px;
-		/* font-weight: bold; */
 		transition: all 0.33s ease-in-out;
 	}
 	.title-container {
 		display: flex;
 		justify-content: space-around;
 		align-items: center;
-		/* margin-bottom: 10px; */
 	}
 	.title {
 		padding: 5px;

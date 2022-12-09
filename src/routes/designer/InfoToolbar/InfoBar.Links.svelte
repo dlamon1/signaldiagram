@@ -84,7 +84,7 @@
 	}
 
 	a {
-		color: #fff;
+		color: var(--color-text-primary);
 		text-decoration: none;
 	}
 

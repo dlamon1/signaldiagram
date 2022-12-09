@@ -51,8 +51,8 @@
 	}
 	.selected {
 		background-color: var(--color-secondary);
-		color: white;
-		border-color: chartreuse;
+		color: var(--color-text-primary);
+		border-color: var(--color-primary);
 		border-width: 1px;
 		border-style: solid;
 	}
@@ -72,7 +72,7 @@
 	.container {
 		width: calc(100% - 10px);
 		height: calc(100vh - 10px);
-		color: #f7f7f7;
+		color: var(--color-text-primary);
 		font-size: 1em;
 		font-weight: 500;
 		display: flex;

@@ -70,38 +70,35 @@ export const actions = {
 		dataObj.mmWidth = +dataObj.mmWidth;
 		dataObj.isApproved = false;
 
+		let result;
+
 		try {
-			let result = registerSchema.parse(dataObj);
-
-			let keyIsValid = checkKey(data.get('key'));
-
-			if (dataObj._id) {
-				// Update Existing Tile
-
-				if (!keyIsValid) {
-					return invalid(401);
-				}
-
-				let updateObj = { ...result, isApproved: true, _id: dataObj._id };
-
-				res = await updateTile(updateObj, fetch);
-			} else {
-				// Create New Tile
-				delete dataObj._id;
-
-				// result.isApproved = false;
-
-				res = await createNewTile(result, fetch);
-			}
-
-			return JSON.stringify(res);
+			result = registerSchema.parse(dataObj);
 		} catch (err) {
 			const { fieldErrors: errors } = err.flatten();
 
-			return {
+			return invalid(401, {
 				data: dataObj,
 				errors
-			};
+			});
 		}
+
+		let keyIsValid = checkKey(data.get('key'));
+
+		if (dataObj._id) {
+			if (!keyIsValid) {
+				return invalid(401);
+			}
+
+			let updateObj = { ...result, isApproved: true, _id: dataObj._id };
+
+			res = await updateTile(updateObj, fetch);
+		} else {
+			delete dataObj._id;
+
+			res = await createNewTile(result, fetch);
+		}
+
+		return JSON.stringify(res);
 	}
 };
