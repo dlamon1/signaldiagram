@@ -12,7 +12,7 @@
 	import { fade } from 'svelte/transition';
 
 	import ColorPicker from './components/ColorPicker.svelte';
-	import type { SnapPointObj } from '../Types/ClassTypes';
+	import type { SnapPointObj } from '$lib/types';
 
 	const selectOnes = () => {
 		$screens[$currentScreenIndex].snapPoints.array.forEach((p: SnapPointObj) => {

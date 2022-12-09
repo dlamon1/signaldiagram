@@ -18,7 +18,7 @@
 
 	import * as d3 from 'd3';
 
-	import type { SnapPointObj } from '../Types/ClassTypes';
+	import type { SnapPointObj } from '$lib/types';
 
 	$: {
 		let t = [

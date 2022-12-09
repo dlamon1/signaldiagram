@@ -18,7 +18,7 @@
 
 	import * as d3 from 'd3';
 
-	import type { SignalLineObj } from '../Types/ClassTypes';
+	import type { SignalLineObj } from '$lib/types';
 
 	$: {
 		let t = [

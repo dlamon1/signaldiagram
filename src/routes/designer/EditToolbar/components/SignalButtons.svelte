@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { signalDirectionButtons, screens, currentScreenIndex } from '../../store.designer';
 	import type { DirectionObj } from '../../store.designer';
-	import type { PanelObj } from '../../Types/ClassTypes';
+	import type { PanelObj } from '../$lib/types';
 
 	let selectedArray: PanelObj[] = [];
 

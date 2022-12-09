@@ -20,7 +20,7 @@ import type {
 	ColorObjKey,
 	PanelObj,
 	SnapPointObj
-} from '../Types/ClassTypes';
+} from '$lib/types';
 
 export class SignalLines implements SignalLinesType {
 	array = [];

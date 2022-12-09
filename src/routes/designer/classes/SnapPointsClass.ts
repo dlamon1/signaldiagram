@@ -5,7 +5,7 @@ import type {
 	SnapPointObj,
 	SnapPointsType,
 	ColorObjKey
-} from '../Types/ClassTypes';
+} from '$lib/types';
 
 import {
 	snapPointDirection,

@@ -1,12 +1,6 @@
 import { get } from 'svelte/store';
 
-import type {
-	PanelObj,
-	ColorObj,
-	LoadPanelObj,
-	ColorObjKey,
-	PanelsType
-} from '../Types/ClassTypes';
+import type { PanelObj, ColorObj, LoadPanelObj, ColorObjKey, PanelsType } from '$lib/types';
 
 import {
 	isCtrl,

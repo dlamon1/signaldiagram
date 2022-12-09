@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition';
 
 	import { updateScreens, screens, currentScreenIndex } from '../store.designer';
-	import type { PanelObj } from '../Types/ClassTypes';
+	import type { PanelObj } from '$lib/types';
 
 	import ColorPicker from './components/ColorPicker.svelte';
 	import SignalButtons from './components/SignalButtons.svelte';

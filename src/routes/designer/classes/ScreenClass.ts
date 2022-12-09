@@ -1,6 +1,6 @@
 import { get } from 'svelte/store';
 
-import type { ScreenObj } from '../Types/ClassTypes';
+import type { ScreenObj } from '$lib/types';
 
 import { Panels } from './PanelsClass';
 import { SignalLines } from './SignalLinesClass';

@@ -2,7 +2,7 @@
 	import { colorButtons, colorState } from '../../store.designer';
 	import { fly } from 'svelte/transition';
 
-	import type { ColorObjKey } from '../../Types/ClassTypes';
+	import type { ColorObjKey } from '../$lib/types';
 
 	type Key = 'panel' | 'signalLine' | 'snapPoint';
 	type Layer = ColorObjKey;
