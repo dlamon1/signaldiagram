@@ -45,13 +45,11 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		background-color: rgb(101, 101, 101);
+		background-color: var(--color-bg-1);
 		border-radius: 4px;
+		border-color: var(--color-secondary);
+		border-width: 1.5px;
+		border-style: solid;
 		padding: 30px;
-	}
-	.title input {
-		margin-top: 5px;
-		width: 100%;
-		font-size: 1.15em;
 	}
 </style>

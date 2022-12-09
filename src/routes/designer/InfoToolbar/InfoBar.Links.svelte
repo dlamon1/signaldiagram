@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { tooltip } from '../Tooltips/tooltip';
 
-	const REPO_URL = 'https://github.com/dlamon1/signaldiagram-fullstack/';
+	const REPO_URL = 'https://github.com/dlamon1/signaldiagram/';
 
-	const REPO_ISSUES_URL = 'https://github.com/dlamon1/signaldiagram-fullstack/issues';
+	const REPO_ISSUES_URL = 'https://github.com/dlamon1/signaldiagram/issues';
 
 	import { isExportDialogOpen } from '$lib/store.designer';
 
