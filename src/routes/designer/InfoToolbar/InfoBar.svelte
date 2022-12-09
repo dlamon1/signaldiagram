@@ -30,7 +30,9 @@
 		</button>
 	{/each}
 
-	<LineCounter />
+	{#if $screens.length > 0}
+		<LineCounter />
+	{/if}
 
 	<div class="spacer" />
 
