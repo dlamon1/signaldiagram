@@ -2,11 +2,9 @@ import { get } from 'svelte/store';
 
 import type { ScreenObj } from '$lib/types';
 
-import { Panels } from './PanelsClass';
-import { SignalLines } from './SignalLinesClass';
-import { SnapPoints } from './SnapPointsClass';
+import { Panels, SignalLines, SnapPoints } from '$lib/classes';
 
-import { screens } from '../store.designer';
+import { screens } from '$lib/store.designer';
 
 export class Screen implements ScreenObj {
 	panels = null;
@@ -38,8 +36,8 @@ export class Screen implements ScreenObj {
 		widthMM: number,
 		heightMM: number,
 		name: string,
-		make: string,
-		model: string
+		make?: string,
+		model?: string
 	) {
 		this.make = make;
 		this.model = model;
@@ -51,9 +49,7 @@ export class Screen implements ScreenObj {
 		this.widthMM = widthMM;
 		this.heightMM = heightMM;
 		this.snapPointDirection = 'vertical';
-
 		this.index = get(screens).length;
-
 		this.panels = new Panels(this.index);
 		this.snapPoints = new SnapPoints(this.index);
 		this.signalLines = new SignalLines(this.index);

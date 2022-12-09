@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { colorButtons, colorState } from '../../store.designer';
+	import { colorButtons, colorState } from '$lib/store.designer';
 	import { fly } from 'svelte/transition';
 
-	import type { ColorObjKey } from '../$lib/types';
+	import type { ColorObjKey } from '$lib/types';
 
 	type Key = 'panel' | 'signalLine' | 'snapPoint';
 	type Layer = ColorObjKey;
@@ -19,7 +19,7 @@
 	$: background = $colorState[key][layer];
 </script>
 
-<div class="subtitle" on:click={() => (isOpen = !isOpen)}>
+<div class="subtitle" on:click={() => (isOpen = !isOpen)} on:keypress={() => (isOpen = !isOpen)}>
 	{element}
 	<div class="color-id-box" style:flex style:background />
 </div>

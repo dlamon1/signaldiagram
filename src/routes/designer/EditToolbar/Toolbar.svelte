@@ -4,7 +4,7 @@
 	import SnapPoints from './Toolbar.SnapPoints.svelte';
 	import SignalLines from './Toolbar.SignalLines.svelte';
 
-	import { selection, currentScreenIndex } from '../store.designer';
+	import { selection, currentScreenIndex } from '$lib/store.designer';
 </script>
 
 <div id="container">
@@ -19,6 +19,7 @@
 			<div
 				class="title"
 				on:click={() => ($selection = 'panels')}
+				on:keypress={() => ($selection = 'panels')}
 				class:selected={$selection === 'panels'}
 			>
 				Panels
@@ -26,6 +27,7 @@
 			<div
 				class="title"
 				on:click={() => ($selection = 'snappoints')}
+				on:keypress={() => ($selection = 'snappoints')}
 				class:selected={$selection === 'snappoints'}
 			>
 				Snap Points
@@ -33,6 +35,7 @@
 			<div
 				class="title"
 				on:click={() => ($selection = 'signallines')}
+				on:keypress={() => ($selection = 'signallines')}
 				class:selected={$selection === 'signallines'}
 			>
 				Signal Lines

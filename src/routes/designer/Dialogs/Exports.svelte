@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import { isExportDialogOpen } from '../store.designer';
+	import { isExportDialogOpen } from '$lib/store.designer';
 	import { scale } from 'svelte/transition';
 	import FileButtons from './ExportComponents/Export.Save.svelte';
 	import ExportPNG from './ExportComponents/Export.PNG.svelte';
@@ -15,6 +14,7 @@
 	<div
 		class="container"
 		on:click|self={toggleDialog}
+		on:keypress|self={toggleDialog}
 		transition:scale={{
 			duration: 130
 		}}

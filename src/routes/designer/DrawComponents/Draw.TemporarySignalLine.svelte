@@ -10,11 +10,11 @@
 		mousePosition,
 		screens,
 		currentScreenIndex
-	} from '../store.designer';
+	} from '$lib/store.designer';
 
 	$: {
 		let t = [$screens, $mousePosition];
-		// console.log("draw temp signal line");
+
 		typeof $currentScreenIndex === 'number' && drawTemporarySignalLine();
 	}
 

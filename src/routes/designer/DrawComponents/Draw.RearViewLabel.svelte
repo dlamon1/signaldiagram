@@ -4,7 +4,7 @@
 		snapPointsGroupEnterRef,
 		screens,
 		currentScreenIndex
-	} from '../store.designer';
+	} from '$lib/store.designer';
 
 	$: {
 		let t = [$screens];

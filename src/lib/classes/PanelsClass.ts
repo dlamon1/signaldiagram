@@ -9,7 +9,7 @@ import {
 	screens,
 	updateScreens,
 	currentScreenIndex
-} from '../store.designer';
+} from '$lib/store.designer';
 
 export class Panels implements PanelsType {
 	screenIndex: number = undefined;

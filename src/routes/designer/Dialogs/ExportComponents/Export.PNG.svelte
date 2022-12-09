@@ -4,7 +4,7 @@
 
 	import * as d3 from 'd3';
 
-	import { mode, screens, currentScreenIndex } from '../../store.designer';
+	import { mode, screens, currentScreenIndex } from '$lib/store.designer';
 
 	const download = async () => {
 		$screens.forEach((s) => {

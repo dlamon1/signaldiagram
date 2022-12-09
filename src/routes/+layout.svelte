@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './global.css';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
-	import { requestedTileTypes, approvedTileTypes, tileTypes } from './store.global';
+	import { requestedTileTypes, approvedTileTypes, tileTypes } from '$lib/store.global';
 
 	export let data;
 

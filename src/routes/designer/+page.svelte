@@ -21,7 +21,7 @@
 		gZoomWrapperRef,
 		currentScreenIndex,
 		isMac
-	} from './store.designer';
+	} from '$lib/store.designer';
 
 	import HandleColorLabelUpdates from './Handlers/Handle.ColorLabelUpdates.svelte';
 	import HandleSelectionTab from './Handlers/Handle.SelectionTab.svelte';

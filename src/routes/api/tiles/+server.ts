@@ -1,5 +1,5 @@
 // @ts-ignore
-import clientPromise from '../../../lib/mongodb-client';
+import clientPromise from '$lib/mongodb-client';
 import { ObjectId } from 'mongodb';
 
 const COLLECTION = 'tile-types';

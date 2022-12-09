@@ -5,7 +5,7 @@
 		lineWidthState,
 		screens,
 		currentScreenIndex
-	} from '../store.designer';
+	} from '$lib/store.designer';
 
 	const updateSelectedSnapPointsLabel = (label: string) => {
 		const screen = $screens[$currentScreenIndex];

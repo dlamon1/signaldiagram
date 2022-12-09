@@ -11,7 +11,7 @@
 		snapPointsQuantity,
 		screens,
 		currentScreenIndex
-	} from '../store.designer';
+	} from '$lib/store.designer';
 
 	let hoveredColor = 'rgba(0, 255, 170, 1)';
 	let selectedColor = 'rgba(241, 89, 70, 1)';

@@ -5,13 +5,14 @@
 		selectedSnapPointIndexes,
 		screens,
 		currentScreenIndex
-	} from '../store.designer';
+	} from '$lib/store.designer';
 
 	import SnapPointOptions from '../InfoToolbar/InfoBar.SnapPointOptions.svelte';
 
 	import { fade } from 'svelte/transition';
 
 	import ColorPicker from './components/ColorPicker.svelte';
+
 	import type { SnapPointObj } from '$lib/types';
 
 	const selectOnes = () => {

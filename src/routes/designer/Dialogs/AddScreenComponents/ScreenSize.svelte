@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import { Screen } from '../../classes/ScreenClass';
+	import { Screen } from '$lib/classes';
 
-	import { isAddScreenDialogOpen, screens, currentScreenIndex } from '../../store.designer';
+	import { isAddScreenDialogOpen, screens, currentScreenIndex } from '$lib/store.designer';
 
-	import { approvedTileTypes } from '../../../store.global';
+	import { approvedTileTypes } from '$lib/store.global';
 
 	import Select from 'svelte-select';
 

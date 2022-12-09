@@ -7,9 +7,9 @@
 		topLevelSvgRef,
 		isDrawingSelectLine,
 		setIsDrawingSelectLine
-	} from '../store.designer';
+	} from '$lib/store.designer';
 
-	import { handleDragSelect } from '../functions/HandleSelect';
+	import { handleDragSelect } from '$lib/functions';
 
 	let selectBoxOutline: d3.Selection<SVGGElement, unknown, HTMLElement, any>;
 

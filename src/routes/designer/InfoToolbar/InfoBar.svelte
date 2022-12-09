@@ -2,7 +2,7 @@
 	import LineCounter from './InfoBar.LineCounter.svelte';
 	import Links from './InfoBar.Links.svelte';
 
-	import { isAddScreenDialogOpen, screens, currentScreenIndex } from '../store.designer';
+	import { isAddScreenDialogOpen, screens, currentScreenIndex } from '$lib/store.designer';
 
 	const selectPanel = (i: number) => {
 		$currentScreenIndex = i;

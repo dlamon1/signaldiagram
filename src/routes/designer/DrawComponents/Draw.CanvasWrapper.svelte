@@ -6,13 +6,12 @@
 		topLevelSvgRef,
 		setIsDrawingSignalLine,
 		isShifted,
-		screens,
-		currentScreenIndex
-	} from '../store.designer';
+		screens
+	} from '$lib/store.designer';
 
 	import * as d3 from 'd3';
 
-	import { handleKeyUp, handleKeyDown } from '../functions/events/keys';
+	import { handleKeyUp, handleKeyDown } from '$lib/functions';
 
 	import { onMount } from 'svelte';
 

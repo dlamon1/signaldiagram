@@ -3,7 +3,7 @@
 
 	const REPO_URL = 'https://github.com/dlamon1/signaldiagram-fullstack/issues';
 
-	import { isExportDialogOpen } from '../store.designer';
+	import { isExportDialogOpen } from '$lib/store.designer';
 
 	import { toast, SvelteToast } from '@zerodevx/svelte-toast';
 

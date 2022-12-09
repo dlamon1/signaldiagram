@@ -6,8 +6,11 @@ import type {
 	SnapPointObj,
 	SignalLineObj,
 	XYCoordinates,
-	ScreenObj
-} from './Types/ClassTypes';
+	ScreenObj,
+	DirectionObj,
+	XYandIndex,
+	PointCorner
+} from '$lib/types';
 
 import type * as d3 from 'd3';
 
@@ -194,24 +197,6 @@ export const colorButtons: Writable<string[]> = writable([
 	'#cbcbcb',
 	'#ffffff'
 ]);
-
-type XYandIndex = {
-	i: number[];
-	x: number;
-	y: number;
-};
-
-export type DirectionObj = {
-	initialDirection: 'vertical' | 'horizontal';
-	transform: string;
-	points: XYandIndex[];
-	pointOne: PointCorner;
-	pointTwo: PointCorner;
-	pointThree: PointCorner;
-	snapPointIndex: number;
-};
-
-type PointCorner = 'topleft' | 'topright' | 'bottomleft' | 'bottomright';
 
 export const signalDirectionButtons: Writable<DirectionObj[]> = writable([
 	{

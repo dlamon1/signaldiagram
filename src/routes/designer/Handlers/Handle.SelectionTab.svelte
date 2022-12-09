@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isDrawMode, selection, screens, currentScreenIndex } from '../store.designer';
+	import { isDrawMode, selection, screens, currentScreenIndex } from '$lib/store.designer';
 
 	$: {
 		$selection && typeof $currentScreenIndex === 'number' && deSelect();

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { screens, currentScreenIndex } from '../store.designer';
+	import { screens, currentScreenIndex } from '$lib/store.designer';
 </script>
 
 <div class="general">

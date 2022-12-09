@@ -1,13 +1,26 @@
-import type { PanelsType, PanelObj, LoadPanelObj } from './Types/PanelTypes';
-import type { SignalLinesType, SignalLineObj } from './Types/SignalLineTypes';
+import type { PanelsType, PanelObj, LoadPanelObj } from './types/PanelTypes';
+
+import type { SignalLinesType, SignalLineObj, LoadSignalLineObj } from './types/SignalLineTypes';
+
 import type {
 	SnapPointsType,
 	SnapPointObj,
 	SnapPointCoordinates,
 	SnapPointCoordinatesKey,
-	SnapPointDirection
-} from './Types/SnapPointTypes';
-import type { ColorObjKey, ColorObj, XYCoordinates } from './Types/MiscTypes';
+	SnapPointDirection,
+	LoadSnapPointObj
+} from './types/SnapPointTypes';
+
+import type {
+	ColorObjKey,
+	ColorObj,
+	XYCoordinates,
+	DirectionObj,
+	XYandIndex,
+	PointCorner
+} from './types/MiscTypes';
+
+import type { ScreenObj } from './types/ScreenTypes';
 
 export type {
 	PanelsType,
@@ -22,5 +35,11 @@ export type {
 	SnapPointCoordinates,
 	SnapPointCoordinatesKey,
 	SnapPointDirection,
-	LoadPanelObj
+	LoadPanelObj,
+	ScreenObj,
+	LoadSignalLineObj,
+	LoadSnapPointObj,
+	DirectionObj,
+	XYandIndex,
+	PointCorner
 };

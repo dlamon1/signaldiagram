@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { screens, currentScreenIndex } from '../store.designer';
+	import { screens, currentScreenIndex } from '$lib/store.designer';
 	import ColorPicker from './components/ColorPicker.svelte';
 
 	const removeLine = () => {

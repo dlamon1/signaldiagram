@@ -4,7 +4,7 @@
 
 	import { enhance } from '$app/forms';
 
-	import { requestedTileTypes, approvedTileTypes, tileTypes } from '../store.global';
+	import { requestedTileTypes, approvedTileTypes, tileTypes } from '$lib/store.global';
 
 	const toggleKey = () => {
 		key = !key;

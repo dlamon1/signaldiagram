@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import * as d3 from 'd3';
 
 	import {
@@ -9,7 +8,7 @@
 		transform as transformStore,
 		currentScreenIndex,
 		screens
-	} from '../store.designer';
+	} from '$lib/store.designer';
 
 	$: {
 		let t = [$currentScreenIndex];

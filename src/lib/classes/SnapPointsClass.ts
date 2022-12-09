@@ -17,7 +17,7 @@ import {
 	currentScreenIndex,
 	updateScreens,
 	isDrawMode
-} from '../store.designer';
+} from '$lib/store.designer';
 
 export class SnapPoints implements SnapPointsType {
 	array = [];

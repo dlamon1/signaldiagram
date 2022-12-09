@@ -1,5 +1,10 @@
 <script lang="ts">
-	import { distanceUnit, snapPointDirection, screens, currentScreenIndex } from '../store.designer';
+	import {
+		distanceUnit,
+		snapPointDirection,
+		screens,
+		currentScreenIndex
+	} from '$lib/store.designer';
 
 	import type { SignalLineObj } from '$lib/types';
 

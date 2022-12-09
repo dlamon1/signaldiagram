@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { mode, isSelectMode, isDrawMode, currentScreenIndex } from '../store.designer';
+	import { mode, isSelectMode, isDrawMode, currentScreenIndex } from '$lib/store.designer';
 
 	$: {
 		if ($mode === 'draw') {

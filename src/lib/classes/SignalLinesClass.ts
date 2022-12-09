@@ -8,7 +8,7 @@ import {
 	currentScreenIndex,
 	screens,
 	updateScreens
-} from '../store.designer';
+} from '$lib/store.designer';
 
 import type {
 	LoadSignalLineObj,

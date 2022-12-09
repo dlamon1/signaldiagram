@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isChrome } from '../store.designer';
+	import { isChrome } from '$lib/store.designer';
 	let isOpen = true;
 
 	const closeDialog = () => {
@@ -8,7 +8,7 @@
 </script>
 
 {#if isOpen && !$isChrome}
-	<div class="container" on:click|self={closeDialog}>
+	<div class="container" on:click|self={closeDialog} on:keypress|self={closeDialog}>
 		<div class="dialog-container">
 			<div>This website only works in Chrome.</div>
 			<div class="close">Click to close</div>

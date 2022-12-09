@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { currentScreenIndex, screens } from '../../store.designer';
+	import { currentScreenIndex, screens } from '$lib/store.designer';
 
 	const save = async () => {
 		let saveObj = {

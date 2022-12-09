@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
-	import { Screen } from '../../classes/ScreenClass';
-	import { screens, isExportDialogOpen, currentScreenIndex } from '../../store.designer';
+	import { Screen } from '$lib/classes';
+	import { screens, isExportDialogOpen, currentScreenIndex } from '$lib/store.designer';
 
 	onMount(() => {
 		(function () {
