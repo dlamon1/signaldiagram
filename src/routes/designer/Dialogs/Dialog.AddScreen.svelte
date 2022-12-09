@@ -1,15 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { isAddScreenDialogOpen } from '$lib/store.designer';
 	import { scale } from 'svelte/transition';
-	import FileButtons from './ExportComponents/Export.Save.svelte';
-	import ExportPNG from './ExportComponents/Export.PNG.svelte';
-	import Load from './ExportComponents/Export.LoadFile.svelte';
 	import ScreenSize from './AddScreenComponents/ScreenSize.svelte';
 
 	const toggleDialog = () => {
 		$isAddScreenDialogOpen = !$isAddScreenDialogOpen;
-		console.log('toggling');
 	};
 </script>
 
@@ -19,7 +14,7 @@
 		class="container"
 		on:click|self={toggleDialog}
 		transition:scale={{
-			duration: 130
+			duration: 70
 		}}
 	>
 		<div class="dialog-container">
@@ -51,5 +46,8 @@
 		border-width: 1.5px;
 		border-style: solid;
 		padding: 30px;
+		box-shadow: rgba(36, 36, 36, 0.48) 0px 54px 55px, rgba(37, 37, 37, 0.362) 0px -12px 30px,
+			rgba(37, 37, 37, 0.509) 0px 4px 6px, rgba(37, 37, 37, 0.518) 0px 12px 13px,
+			rgba(37, 37, 37, 0.415) 0px -3px 5px;
 	}
 </style>

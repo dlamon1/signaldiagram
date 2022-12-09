@@ -276,10 +276,11 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		background-color: var(--color-bg-1);
 	}
 	.container {
 		margin: 50px;
-		background-color: rgb(20, 20, 20);
+		background-color: var(--color-bg-0);
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

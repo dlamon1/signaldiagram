@@ -169,26 +169,29 @@
 		</div>
 	</div>
 
-	<div class="input-wrapper">
-		Width(px):
-		<input type="number" bind:value={width} min="1" on:focus={(event) => selectAll(event)} />
+	<div id="dimensions-container">
+		<div class="input-wrapper">
+			Width(px):
+			<input type="number" bind:value={width} min="1" on:focus={(event) => selectAll(event)} />
+		</div>
+
+		<div class="input-wrapper">
+			Height(px):
+			<input type="number" bind:value={height} min="1" on:focus={(event) => selectAll(event)} />
+		</div>
 	</div>
 
-	<div class="input-wrapper">
-		Height(px):
-		<input type="number" bind:value={height} min="1" on:focus={(event) => selectAll(event)} />
-	</div>
+	<div id="dimensions-container">
+		<div class="input-wrapper">
+			Width(mm):
+			<input type="number" bind:value={widthMM} min="1" on:focus={(event) => selectAll(event)} />
+		</div>
 
-	<div class="input-wrapper">
-		Width(mm):
-		<input type="number" bind:value={widthMM} min="1" on:focus={(event) => selectAll(event)} />
+		<div class="input-wrapper">
+			Height(mm):
+			<input type="number" bind:value={heightMM} min="1" on:focus={(event) => selectAll(event)} />
+		</div>
 	</div>
-
-	<div class="input-wrapper">
-		Height(mm):
-		<input type="number" bind:value={heightMM} min="1" on:focus={(event) => selectAll(event)} />
-	</div>
-
 	<div class="submit-wrapper">
 		<button on:click={addScreen}>Submit</button>
 	</div>
@@ -215,6 +218,7 @@
 
 	.submit-wrapper {
 		width: 100%;
+		margin-top: 20px;
 		display: flex;
 		justify-content: center;
 	}
