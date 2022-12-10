@@ -92,7 +92,6 @@
 			use:enhance={({ data }) => {
 				return async ({ result, update }) => {
 					form = result.data;
-					console.log(result);
 
 					if (result.status == 401) {
 						toastError();

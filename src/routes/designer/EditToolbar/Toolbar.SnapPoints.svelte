@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-
 	import {
 		textInputRef,
 		snapPointLabel,
@@ -26,11 +24,13 @@
 	const updateLocalOffsetValues = () => {
 		xOffset = 0;
 		yOffset = 0;
+		_radiusMultiplier = 1;
 
 		$screens[$currentScreenIndex].snapPoints.array.forEach((sp: SnapPointObj) => {
 			if (sp.isSelected) {
 				xOffset = sp.xOffset;
 				yOffset = -sp.yOffset;
+				_radiusMultiplier = sp.scale;
 			}
 		});
 	};
@@ -50,11 +50,22 @@
 		};
 	};
 
+	const currentScaleValue = () => {
+		$screens[$currentScreenIndex].snapPoints.array.forEach((sp: SnapPointObj) => {
+			if (sp.isSelected) {
+				console.log(sp.scale);
+
+				return sp.scale;
+			}
+		});
+		return 1;
+	};
+
 	let sd = [];
 
 	let xOffset = currentOffsetValues().xOffset;
 	let yOffset = currentOffsetValues().yOffset;
-	let _radiusMultiplier = $screens[$currentScreenIndex].snapPoints.radiusMultiplier;
+	let _radiusMultiplier = currentScaleValue();
 
 	$: {
 		setOffsets(xOffset, -yOffset);

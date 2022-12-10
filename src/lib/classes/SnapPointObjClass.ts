@@ -59,6 +59,8 @@ export class SnapPoint implements SnapPointObj {
 
 	screenIndex: number;
 
+	scale = 1;
+
 	constructor(
 		row: number,
 		column: number,
@@ -125,6 +127,14 @@ export class SnapPoint implements SnapPointObj {
 
 	setYOffset(value: number) {
 		this.yOffset = value;
+	}
+
+	setScale(value: number) {
+		this.scale = value;
+	}
+
+	getScaleString() {
+		return `scale(${this.scale})`;
 	}
 
 	getTranslateString() {

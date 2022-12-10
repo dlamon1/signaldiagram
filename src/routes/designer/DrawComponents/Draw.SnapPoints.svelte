@@ -61,8 +61,10 @@
 		// 4
 		$snapPointsGroupRef.exit().remove();
 
+		let scale = $snapPointsGroupEnterRef.append('g').attr('transform', (d) => d.getScaleString());
+
 		// 5
-		$snapPointPathRef = $snapPointsGroupEnterRef
+		$snapPointPathRef = scale
 			.append('path')
 			.merge($snapPointsGroupRef.select('path'))
 			.attr('d', (d) => {
@@ -262,6 +264,7 @@
 			' 0 1,0 ' +
 			-r * 2 +
 			',0';
+
 		return circlePath;
 	};
 </script>

@@ -31,9 +31,10 @@
 			.attr('x', (screen.columns * screen.width) / 2)
 			.attr('y', (screen.rows * screen.height) / 2)
 			.attr('fill', '#000')
-			.attr('font-size', () => {
-				let screenWidth = screen.columns * screen.width;
-				return screenWidth / 7 + 'px';
+			.attr('font-size', function (d) {
+				// let screenWidth = screen.columns * screen.width;
+				// return screenWidth / 7 + 'px';
+				return screen.getRearViewLabelFontSize();
 			})
 			.style('opacity', screen.opacity)
 			.attr('text-anchor', 'middle')

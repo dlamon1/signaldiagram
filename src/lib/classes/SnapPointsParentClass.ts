@@ -29,7 +29,12 @@ export class SnapPoints implements SnapPointsType {
 	}
 
 	setRadiusMultiplier(value: number) {
-		this.radiusMultiplier = value;
+		// this.radiusMultiplier = value;
+		this.array.forEach((sp) => {
+			if (sp.isSelected) {
+				sp.setScale(value);
+			}
+		});
 	}
 
 	setArrayFromLoad(snapPointsArray: LoadSnapPointObj[]) {

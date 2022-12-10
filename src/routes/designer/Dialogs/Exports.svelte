@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { isExportDialogOpen } from '$lib/store.designer';
 	import { scale } from 'svelte/transition';
+	import { cubicOut } from 'svelte/easing';
 	import FileButtons from './ExportComponents/Export.Save.svelte';
 	import ExportPNG from './ExportComponents/Export.PNG.svelte';
 	import Load from './ExportComponents/Export.LoadFile.svelte';
@@ -16,7 +17,8 @@
 		class="container"
 		on:click|self={toggleDialog}
 		transition:scale={{
-			duration: 130
+			duration: 100,
+			easing: cubicOut
 		}}
 	>
 		<div class="dialog-container">
@@ -44,13 +46,14 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		background-color: rgb(154, 154, 154);
-		border-radius: 4px;
+		background-color: var(--color-bg-1);
+		border-color: var(--color-secondary);
+		border-width: 4.5px;
+		border-style: solid;
+		border-radius: 3px;
 		padding: 30px;
-	}
-	.title input {
-		margin-top: 5px;
-		width: 165px;
-		font-size: 1.15em;
+		box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+			rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+			rgba(0, 0, 0, 0.09) 0px -3px 5px;
 	}
 </style>

@@ -102,13 +102,13 @@
 	}
 	.info {
 		background-color: var(--color-bg-1);
-		width: 250px;
+		width: var(--toolbar-width);
 		height: 100%;
 		position: absolute;
 	}
 	.toolbar {
 		background-color: var(--color-bg-1);
-		width: 250px;
+		width: var(--toolbar-width);
 		right: 0;
 		overflow: scroll;
 		position: absolute;

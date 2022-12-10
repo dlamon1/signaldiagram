@@ -20,5 +20,7 @@ export interface ScreenObj {
 	opacity: number;
 	make: string;
 	model: string;
+	rearViewLabelFontSize: number;
 	load: (obj: any) => void;
+	getRearViewLabelFontSize: () => string;
 }

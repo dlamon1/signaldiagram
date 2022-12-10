@@ -2,7 +2,7 @@
 </script>
 
 <div id="general">
-	<div id="dimensions-container" />
+	<div id="dimensions-container">Corners</div>
 </div>
 
 <style>

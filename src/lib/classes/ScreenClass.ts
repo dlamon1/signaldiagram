@@ -27,6 +27,7 @@ export class Screen implements ScreenObj {
 	opacity = 0.25;
 	make = '';
 	model = '';
+	rearViewLabelFontSize = 100;
 
 	constructor(
 		columns: number,
@@ -65,5 +66,9 @@ export class Screen implements ScreenObj {
 		this.panels.load(saveObj.panels);
 		this.snapPoints.load(saveObj.snapPoints);
 		this.signalLines.load(saveObj.signalLines.array);
+	}
+
+	getRearViewLabelFontSize() {
+		return `${this.rearViewLabelFontSize}px`;
 	}
 }

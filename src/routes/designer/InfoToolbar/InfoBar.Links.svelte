@@ -1,45 +1,10 @@
 <script lang="ts">
-	import { tooltip } from '../Tooltips/tooltip';
-
 	const REPO_URL = 'https://github.com/dlamon1/signaldiagram/';
 
 	const REPO_ISSUES_URL = 'https://github.com/dlamon1/signaldiagram/issues';
 
 	import { isExportDialogOpen } from '$lib/store.designer';
-
-	import { toast, SvelteToast } from '@zerodevx/svelte-toast';
-
-	import { onMount } from 'svelte';
-
-	let dbHTML = `
-    <div>
-      Signal Diagram now has a database of Tile Types.
-    </div>
-    <br>
-    <div>
-      If you would like a Tile Type added please click the button below.
-    </div>
-    `;
-
-	onMount(() => {
-		setTimeout(() => {
-			toast.push(dbHTML, {
-				target: 'new',
-				theme: {
-					'--toastColor': 'mintcream',
-					'--toastBackground': 'rgba(72,187,120,0.9)',
-					'--toastBarBackground': '#2F855A',
-					'--toastBarHeight': 0
-				},
-				duration: 10000
-			});
-		}, 1000);
-	});
 </script>
-
-<div class="toast-wrapper">
-	<SvelteToast target="new" />
-</div>
 
 <button class="dialog" on:click={() => ($isExportDialogOpen = true)}>Import / Export</button>
 
@@ -69,14 +34,6 @@
 	.tile-type {
 		color: var(--color-primary);
 		font-weight: 800;
-	}
-	.toast-wrapper {
-		--toastMinHeight: 5rem;
-		--toastPadding: 0 0.5rem;
-		--toastContainerTop: auto;
-		--toastContainerRight: auto;
-		--toastContainerBottom: calc(50vw - 8rem);
-		--toastContainerLeft: calc(50vw - 8rem);
 	}
 
 	.dialog {

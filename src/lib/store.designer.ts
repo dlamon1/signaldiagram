@@ -83,8 +83,6 @@ export const setIsDrawingSelectLine = (s: boolean) => {
 export const isExportDialogOpen: Writable<boolean> = writable(false);
 export const isAddScreenDialogOpen: Writable<boolean> = writable(false);
 
-export const toolbarWidth: Writable<number> = writable(250);
-
 type SnapPointDirection = 'vertical' | 'horizontal';
 export const snapPointsQuantity: Writable<number> = writable(2);
 export const snapPointDirection: Writable<SnapPointDirection> = writable('vertical');

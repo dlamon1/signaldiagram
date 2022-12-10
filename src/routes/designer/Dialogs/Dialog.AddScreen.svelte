@@ -14,7 +14,7 @@
 		class="container"
 		on:click|self={toggleDialog}
 		transition:scale={{
-			duration: 70
+			duration: 100
 		}}
 	>
 		<div class="dialog-container">
@@ -43,11 +43,11 @@
 		background-color: var(--color-bg-1);
 		border-radius: 4px;
 		border-color: var(--color-secondary);
-		border-width: 1.5px;
+		border-width: 4.5px;
 		border-style: solid;
 		padding: 30px;
-		box-shadow: rgba(36, 36, 36, 0.48) 0px 54px 55px, rgba(37, 37, 37, 0.362) 0px -12px 30px,
-			rgba(37, 37, 37, 0.509) 0px 4px 6px, rgba(37, 37, 37, 0.518) 0px 12px 13px,
-			rgba(37, 37, 37, 0.415) 0px -3px 5px;
+		box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+			rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px,
+			rgba(0, 0, 0, 0.09) 0px -3px 5px;
 	}
 </style>

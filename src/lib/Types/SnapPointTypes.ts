@@ -79,6 +79,7 @@ export interface SnapPointObj {
 	isHidden: boolean;
 	xOffset: number;
 	yOffset: number;
+	scale: number;
 	getX: () => number;
 	getY: () => number;
 	getRadius: () => number;
@@ -96,4 +97,5 @@ export interface SnapPointObj {
 	setIsHovered: (isHovered: boolean) => void;
 	setIsHidden: (isHidden: boolean) => void;
 	getLabelString: () => string;
+	getScaleString: () => string;
 }
