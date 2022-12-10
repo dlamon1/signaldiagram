@@ -41,6 +41,7 @@ export type SignalLinesType = {
 	selectSignalLines: (arrayOfIndexes: number[]) => void;
 	deSelect: () => void;
 	toggleSignalLine: (index: number) => void;
+	selectAll: () => void;
 };
 
 export interface LoadSignalLineObj {

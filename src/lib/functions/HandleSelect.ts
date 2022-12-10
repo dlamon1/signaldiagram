@@ -153,3 +153,20 @@ export const checkForSelectedSignalLines = (
 
 	return _signalLines;
 };
+
+export const handleSelectAll = () => {
+	if (get(selection) === 'panels') {
+		get(screens)[get(currentScreenIndex)].panels.selectAll();
+		return;
+	}
+
+	if (get(selection) === 'snappoints') {
+		get(screens)[get(currentScreenIndex)].snapPoints.selectAll();
+		return;
+	}
+
+	if (get(selection) === 'signallines') {
+		get(screens)[get(currentScreenIndex)].signalLines.selectAll();
+		return;
+	}
+};

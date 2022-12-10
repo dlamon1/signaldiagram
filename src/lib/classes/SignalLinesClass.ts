@@ -48,6 +48,13 @@ export class SignalLines implements SignalLinesType {
 		this.screenIndex = screenIndex;
 	}
 
+	selectAll() {
+		this.array.forEach((sl: SignalLineObj) => {
+			sl.setIsSelected(true);
+		});
+		updateScreens();
+	}
+
 	setArrayFromLoad(signaLineArray: LoadSignalLineObj[]) {
 		// this.array = [];
 		// signaLineArray.forEach((signalLine, i) => {

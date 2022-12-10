@@ -31,6 +31,15 @@ export class Panels implements PanelsType {
 		});
 	}
 
+	selectAll = () => {
+		this.array.forEach((p: PanelObj) => {
+			this.selectedIndexes = [];
+			this.selectedIndexes.push(p.i);
+			p.setIsSelected(true);
+		});
+		updateScreens();
+	};
+
 	deSelect = () => {
 		this.array.forEach((o) => o.setIsSelected(false));
 		updateScreens();

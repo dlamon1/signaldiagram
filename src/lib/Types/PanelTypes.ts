@@ -49,6 +49,7 @@ export type PanelsType = {
 	togglePanels: (arrayOfIndexes: number[]) => void;
 	toggleHidePanels: (arrayOfIndexes: number[]) => void;
 	load: (panel: any) => void;
+	selectAll: () => void;
 };
 
 export interface LoadPanelObj {

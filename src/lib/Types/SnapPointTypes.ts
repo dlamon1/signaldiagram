@@ -56,6 +56,7 @@ export type SnapPointsType = {
 	setRadiusMultiplier: (value: number) => void;
 	setRadius: (value: number) => void;
 	selectEvenOrOdd: (evenOrOdd: number) => void;
+	selectAll: () => void;
 };
 
 export interface SnapPointObj {

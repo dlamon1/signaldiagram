@@ -53,8 +53,6 @@
 	const currentScaleValue = () => {
 		$screens[$currentScreenIndex].snapPoints.array.forEach((sp: SnapPointObj) => {
 			if (sp.isSelected) {
-				console.log(sp.scale);
-
 				return sp.scale;
 			}
 		});

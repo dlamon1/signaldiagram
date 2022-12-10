@@ -37,6 +37,15 @@ export class SnapPoints implements SnapPointsType {
 		});
 	}
 
+	selectAll() {
+		this.array.forEach((sp: SnapPointObj) => {
+			sp.setIsSelected(true);
+			this.selectedSnapPointIndexes = [];
+			this.selectedSnapPointIndexes.push(sp.pointIndexFullArray);
+		});
+		updateScreens();
+	}
+
 	setArrayFromLoad(snapPointsArray: LoadSnapPointObj[]) {
 		// this.array = [];
 		// snapPointsArray.forEach((snapPoint, i) => {

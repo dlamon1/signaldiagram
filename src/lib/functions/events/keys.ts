@@ -14,18 +14,10 @@ import {
 	isAddScreenDialogOpen
 } from '$lib/store.designer';
 
+import { handleSelectAll } from '../HandleSelect';
+
 export const handleKeyDown = (e: any) => {
 	if (get(isAddScreenDialogOpen)) return;
-
-	if (e.keyCode === 16 && !get(isShifted)) {
-		setIsShifted(true);
-	}
-
-	if (e.keyCode === 16 && get(isShifted) && get(isSelectMode)) {
-		const body = document.getElementById('canvas-wrapper');
-		if (!body) return;
-		body.style.cursor = 'crosshair';
-	}
 
 	// if ctrl is pressed, set isCtrl to true
 	if (e.keyCode === 17 && !get(isCtrl) && !get(isMac) && get(isSelectMode)) {
@@ -34,6 +26,22 @@ export const handleKeyDown = (e: any) => {
 	// if command on mac is pressed
 	if (e.keyCode === 91 && get(isMac) && get(isSelectMode)) {
 		setIsCtrl(true);
+	}
+
+	// if shift is pressed, set isShifted to true
+	if (e.keyCode === 16 && !get(isShifted)) {
+		setIsShifted(true);
+	}
+
+	// if a is pressed on mac, select all
+	if (get(isMac) && e.keyCode === 65 && get(isSelectMode) && get(isCtrl)) {
+		handleSelectAll();
+	}
+
+	if (e.keyCode === 16 && get(isShifted) && get(isSelectMode)) {
+		const body = document.getElementById('canvas-wrapper');
+		if (!body) return;
+		body.style.cursor = 'crosshair';
 	}
 
 	if (e.keyCode === 68 && get(isShifted)) {
