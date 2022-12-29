@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
+	import {} from '$app/navigation';
 
 	import './global.css';
 	import { SvelteToast } from '@zerodevx/svelte-toast';
@@ -10,6 +12,12 @@
 	$tileTypes = data.tileTypes;
 
 	$: $tileTypes.length && updateTileLists($tileTypes);
+
+	function checkBrowser() {
+		if (!navigator.userAgent.includes('Chrome')) {
+			alert('This website only works in Chrome.');
+		}
+	}
 
 	const sortAndStoreTiles = (tiles) => {
 		tiles.sort((a, b) => {
@@ -46,6 +54,10 @@
 		$requestedTileTypes = $requestedTileTypes;
 		$approvedTileTypes = $approvedTileTypes;
 	};
+
+	onMount(() => {
+		checkBrowser();
+	});
 </script>
 
 <slot />
