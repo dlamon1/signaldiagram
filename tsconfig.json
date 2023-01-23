@@ -24,5 +24,6 @@
 		// "allowJs": true,
 		"target": "es6"
 	},
+	"ignoreDeprecations": true,
 	"extends": "./.svelte-kit/tsconfig.json"
 }
