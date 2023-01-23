@@ -22,7 +22,9 @@
 	"compilerOptions": {
 		"outDir": "./public",
 		// "allowJs": true,
+		"verbatimModuleSyntax": true,
 		"target": "es6"
 	},
+	"verbatimModuleSyntax": true,
 	"extends": "./.svelte-kit/tsconfig.json"
 }
