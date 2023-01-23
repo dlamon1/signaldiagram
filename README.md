@@ -18,6 +18,8 @@ Pull Requests are welcome! Contact me directly with questions at devon@leadled.i
 
 ## Notes abou the code structure
 
+Add <ENVIRONMENT=dev> to .env file
+
 The home page redirects to /designer, this is the drawing tool.
 
 Each svg object is derived from a class instance. The classes are defined in lib/classes
