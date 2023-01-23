@@ -15,3 +15,13 @@ Please post bugs to the forum on the issues tab above
 ### Pull Requests
 
 Pull Requests are welcome! Contact me directly with questions at devon@leadled.io
+
+## Notes abou the code structure
+
+Add <ENVIRONMENT=dev> to .env file
+
+The home page redirects to /designer, this is the drawing tool.
+
+Each svg object is derived from a class instance. The classes are defined in lib/classes
+
+Keypress events are in lib/functions/events/key.ts
