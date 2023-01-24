@@ -29,9 +29,9 @@ export const isChrome: Writable<boolean> = writable(false);
 export const screens: Writable<ScreenObj[]> = storeWithHistory([]);
 export const updateScreens = () => {
 	screens.update((value) => {
-		console.log('value', value);
-		return value;
-		// screens.save(value);
+		const s = screens.save(value);
+		console.log('value', value, s);
+		return s;
 	});
 };
 

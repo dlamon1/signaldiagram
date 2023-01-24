@@ -39,6 +39,7 @@ export const storeWithHistory = (value: any) => {
 				console.log('getfromhistory', history[indicator]);
 				return history[indicator];
 			});
+			return history[indicator];
 		},
 		indicator: () => indicator,
 		history: () => [...history],
