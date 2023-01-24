@@ -30,7 +30,7 @@ export const screens: Writable<ScreenObj[]> = storeWithHistory([]);
 export const updateScreens = () => {
 	screens.update((value) => {
 		const s = screens.save(value);
-		console.log('value', value, s);
+		// console.log('value', value, s);
 		return s;
 	});
 };
