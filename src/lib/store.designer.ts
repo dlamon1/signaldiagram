@@ -14,6 +14,7 @@ import type {
 import type * as d3 from 'd3';
 
 import type { Writable } from 'svelte/store';
+import { storeWithHistory } from './history.store';
 
 export const snapPointOffsets: Writable<SnapPointOffsets> = writable({
 	xOffset: 0,
@@ -25,9 +26,13 @@ export const isMac: Writable<boolean> = writable(false);
 
 export const isChrome: Writable<boolean> = writable(false);
 
-export const screens: Writable<ScreenObj[]> = writable([]);
+export const screens: Writable<ScreenObj[]> = storeWithHistory([]);
 export const updateScreens = () => {
-	screens.update(($value) => ($value = $value));
+	screens.update((value) => {
+		const s = screens.save(value);
+		console.log('value', value, s);
+		return s;
+	});
 };
 
 export const currentScreenIndex: Writable<number | null> = writable(null);
