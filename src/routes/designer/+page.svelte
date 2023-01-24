@@ -20,7 +20,8 @@
 		isChrome,
 		gZoomWrapperRef,
 		currentScreenIndex,
-		isMac
+		isMac,
+		screens
 	} from '$lib/store.designer';
 
 	import HandleColorLabelUpdates from './Handlers/Handle.ColorLabelUpdates.svelte';
@@ -46,6 +47,7 @@
 			$isMac = true;
 		}
 	});
+	$: console.log('screens', $screens);
 </script>
 
 <div id="container">
