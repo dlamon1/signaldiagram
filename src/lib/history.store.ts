@@ -31,7 +31,7 @@ export const storeWithHistory = (value: any) => {
 				}
 				console.log('n', n);
 				console.log('historyBefore', history);
-				history.push([...cloneDeep([...data])]);
+				history.push(cloneDeep(data));
 				indicator = history.length - 1;
 				console.log('historyAfter', history, indicator);
 				return cloneDeep(history[indicator]);
