@@ -6,14 +6,14 @@ import {
 	isCtrl,
 	setSelection,
 	snapPointsQuantity,
-	screens,
 	updateScreens,
-	currentScreenIndex
+	currentScreen,
+	board
 } from '$lib/store.designer';
 
 export class Panels implements PanelsType {
 	screenIndex: number = undefined;
-	array = [];
+	array: PanelObj[] = [];
 	selectedIndexes: number[] = [];
 
 	constructor(screenIndex: number) {
@@ -21,7 +21,7 @@ export class Panels implements PanelsType {
 	}
 
 	load(panels: any) {
-		panels.array.forEach((p, i) => {
+		panels.array.forEach((p: PanelObj, i: number) => {
 			this.addPanel(p.row, p.column, p.i, p.thisPanelsSnapPoints, null, p.reverseIndex);
 			this.array[i].setColor('background', p.color.background);
 			this.array[i].setColor('font', p.color.text);
@@ -37,16 +37,16 @@ export class Panels implements PanelsType {
 			this.selectedIndexes.push(p.i);
 			p.setIsSelected(true);
 		});
-		updateScreens();
+		// updateScreens();
 	};
 
 	deSelect = () => {
 		this.array.forEach((o) => o.setIsSelected(false));
-		updateScreens();
+		// updateScreens();
 	};
 
 	initArray = (rows: number, columns: number) => {
-		const snapPoints = get(screens)[this.screenIndex].snapPoints;
+		const snapPoints = get(board).screens[this.screenIndex]?.snapPoints;
 
 		let snapPointIndex = 0;
 
@@ -98,8 +98,8 @@ export class Panels implements PanelsType {
 	}
 
 	selectPanels = (arrayOfIndexes: number[]) => {
-		const snapPointsClass = get(screens)[get(currentScreenIndex)].snapPoints;
-		const signalLinesClass = get(screens)[get(currentScreenIndex)].signalLines;
+		const snapPointsClass = get(currentScreen)?.snapPoints;
+		const signalLinesClass = get(currentScreen)?.signalLines;
 		snapPointsClass.deSelect();
 		signalLinesClass.deSelect();
 
@@ -130,7 +130,7 @@ export class Panels implements PanelsType {
 	};
 
 	togglePanels = (arrayOfIndexes: number[]) => {
-		let screen = get(screens)[this.screenIndex];
+		let screen = get(board).screens[this.screenIndex];
 		const snapPointsClass = screen.snapPoints;
 		const signalLinesClass = screen.signalLines;
 
@@ -171,7 +171,7 @@ export class Panels implements PanelsType {
 				panel.setColor(key, color);
 			}
 		});
-		updateScreens();
+		// updateScreens();
 	}
 }
 
@@ -254,7 +254,7 @@ export class Panel implements PanelObj {
 	}
 
 	setDimensions() {
-		let screen = get(screens)[this.screenIndex];
+		let screen = get(board).screens[this.screenIndex];
 
 		this.width = screen.width;
 		this.height = screen.height;
@@ -266,7 +266,7 @@ export class Panel implements PanelObj {
 	}
 
 	getDimensions() {
-		let screen = get(screens)[this.screenIndex];
+		let screen = get(board).screens[this.screenIndex];
 
 		let x = screen.width * this.column;
 
@@ -280,7 +280,7 @@ export class Panel implements PanelObj {
 	}
 
 	getCoordinateText() {
-		let screen = get(screens)[this.screenIndex];
+		let screen = get(board).screens[this.screenIndex];
 
 		if (!screen.showCoordinates) {
 			return '';

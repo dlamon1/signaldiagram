@@ -4,10 +4,10 @@ import type { ColorObj, SnapPointObj, ColorObjKey } from '$lib/types';
 import {
 	snapPointDirection,
 	snapPointsQuantity,
-	screens,
-	currentScreenIndex,
 	updateScreens,
-	isDrawMode
+	isDrawMode,
+	currentScreen,
+	board
 } from '$lib/store.designer';
 
 export class SnapPoint implements SnapPointObj {
@@ -79,7 +79,7 @@ export class SnapPoint implements SnapPointObj {
 	}
 
 	getSnapPointsParentClass() {
-		return get(screens)[this.screenIndex].snapPoints;
+		return get(board).screens[this.screenIndex].snapPoints;
 	}
 
 	setIsHidden(isHidden: boolean) {
@@ -87,9 +87,9 @@ export class SnapPoint implements SnapPointObj {
 	}
 
 	getX() {
-		const parentPanel = get(screens)[get(currentScreenIndex)].panels.array[this.panelIndex];
+		const parentPanel = get(currentScreen)?.panels.array[this.panelIndex];
 
-		const screen = get(screens)[get(currentScreenIndex)];
+		const screen = get(currentScreen);
 
 		let x = screen.width / 2;
 
@@ -104,9 +104,9 @@ export class SnapPoint implements SnapPointObj {
 	}
 
 	getY() {
-		const parentPanel = get(screens)[get(currentScreenIndex)].panels.array[this.panelIndex];
+		const parentPanel = get(currentScreen)?.panels.array[this.panelIndex];
 
-		const screen = get(screens)[get(currentScreenIndex)];
+		const screen = get(currentScreen);
 
 		let y = (screen.height / 3) * this.pointIndexWithinPanel;
 
@@ -177,17 +177,17 @@ export class SnapPoint implements SnapPointObj {
 	setIsSquare(boolean: boolean) {
 		this.isTriangle = false;
 		this.isSquare = boolean;
-		updateScreens();
+		// updateScreens();
 	}
 
 	setIsTriangle(boolean: boolean) {
 		this.isSquare = false;
 		this.isTriangle = boolean;
-		updateScreens();
+		// updateScreens();
 	}
 
 	createDimensions(row: number, column: number, pointIndexWithinPanel: number) {
-		const screen = get(screens)[this.screenIndex];
+		const screen = get(board).screens[this.screenIndex];
 
 		const panelX = screen.width * column;
 		const panelY = screen.height * row;
@@ -218,10 +218,10 @@ export class SnapPoint implements SnapPointObj {
 	}
 
 	getRadius() {
-		let smallBound = get(screens)[get(currentScreenIndex)].width;
+		let smallBound = get(currentScreen)?.width;
 
-		if (get(screens)[get(currentScreenIndex)].height < smallBound) {
-			smallBound = get(screens)[get(currentScreenIndex)].height;
+		if (get(currentScreen)?.height < smallBound) {
+			smallBound = get(currentScreen)?.height;
 		}
 
 		this.radius = (smallBound / 8) * this.getSnapPointsParentClass().radiusMultiplier;

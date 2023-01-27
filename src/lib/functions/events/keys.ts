@@ -8,10 +8,9 @@ import {
 	setMode,
 	isSelectMode,
 	isMac,
-	screens,
-	currentScreenIndex,
 	updateScreens,
-	isAddScreenDialogOpen
+	isAddScreenDialogOpen,
+	currentScreen
 } from '$lib/store.designer';
 
 import { handleSelectAll } from '../HandleSelect';
@@ -77,14 +76,14 @@ export const handleKeyUp = (e: any) => {
 };
 
 const removeLine = () => {
-	const screen = get(screens)[get(currentScreenIndex)];
+	const screen = get(currentScreen);
 	screen.signalLines.array.forEach((line, i) => {
 		if (line.isSelected) {
 			screen.signalLines.removeSignalLine(line);
 		}
 	});
 
-	updateScreens();
+	// updateScreens();
 	// need to call panels update here to
 	// trigger redraw, can not use signal lines
 	// because of the way the draw updates

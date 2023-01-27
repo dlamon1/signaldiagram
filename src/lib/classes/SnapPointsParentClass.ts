@@ -6,9 +6,8 @@ import {
 	isCtrl,
 	setSelection,
 	setSelectedSnapPointIndexes,
-	screens,
-	currentScreenIndex,
-	updateScreens
+	updateScreens,
+	currentScreen
 } from '$lib/store.designer';
 
 import { SnapPoint } from '$lib/classes';
@@ -43,7 +42,7 @@ export class SnapPoints implements SnapPointsType {
 			this.selectedSnapPointIndexes = [];
 			this.selectedSnapPointIndexes.push(sp.pointIndexFullArray);
 		});
-		updateScreens();
+		// updateScreens();
 	}
 
 	setArrayFromLoad(snapPointsArray: LoadSnapPointObj[]) {
@@ -88,7 +87,7 @@ export class SnapPoints implements SnapPointsType {
 	deSelect = () => {
 		this.array.forEach((o) => o.setIsSelected(false));
 
-		updateScreens();
+		// updateScreens();
 	};
 
 	addSnapPoint(i: number, j: number, k: number, count: number, snapPointIndex: number) {
@@ -109,8 +108,8 @@ export class SnapPoints implements SnapPointsType {
 	}
 
 	selectSnapPoints = (arrayOfIndexes: number[]) => {
-		const snapPointsClass = get(screens)[get(currentScreenIndex)].snapPoints;
-		const signalLinesClass = get(screens)[get(currentScreenIndex)].signalLines;
+		const snapPointsClass = get(currentScreen)?.snapPoints;
+		const signalLinesClass = get(currentScreen)?.signalLines;
 		snapPointsClass.deSelect();
 		signalLinesClass.deSelect();
 
@@ -131,8 +130,8 @@ export class SnapPoints implements SnapPointsType {
 	};
 
 	toggleSnapPoints = (arrayOfIndexes: number[]) => {
-		const snapPointsClass = get(screens)[get(currentScreenIndex)].snapPoints;
-		const signalLinesClass = get(screens)[get(currentScreenIndex)].signalLines;
+		const snapPointsClass = get(currentScreen)?.snapPoints;
+		const signalLinesClass = get(currentScreen)?.signalLines;
 		snapPointsClass.deSelect();
 		signalLinesClass.deSelect();
 
@@ -155,8 +154,8 @@ export class SnapPoints implements SnapPointsType {
 	};
 
 	selectSnapPoint = (e) => {
-		const panelsClass = get(screens)[get(currentScreenIndex)].panels;
-		const signalLinesClass = get(screens)[get(currentScreenIndex)].signalLines;
+		const panelsClass = get(currentScreen)?.panels;
+		const signalLinesClass = get(currentScreen)?.signalLines;
 		panelsClass.deSelect();
 		signalLinesClass.deSelect();
 
@@ -178,7 +177,7 @@ export class SnapPoints implements SnapPointsType {
 
 		setSelection('snappoints');
 
-		updateScreens();
+		// updateScreens();
 	};
 
 	selectEvenOrOdd = (evenOrOdd) => {
@@ -190,7 +189,7 @@ export class SnapPoints implements SnapPointsType {
 				this.selectedSnapPointIndexes.push(p.pointIndexFullArray);
 			}
 			setSelectedSnapPointIndexes(this.selectedSnapPointIndexes);
-			updateScreens();
+			// updateScreens();
 		});
 	};
 
@@ -229,7 +228,7 @@ export class SnapPoints implements SnapPointsType {
 			}
 		});
 
-		updateScreens();
+		// updateScreens();
 	}
 
 	setXOffsets(value: number) {
