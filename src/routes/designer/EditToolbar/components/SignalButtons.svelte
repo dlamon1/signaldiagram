@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { signalDirectionButtons, screens, currentScreenIndex } from '$lib/store.designer';
+	import { signalDirectionButtons, currentScreen } from '$lib/store.designer';
 
 	import type { PanelObj, DirectionObj } from '$lib/types';
 
@@ -19,9 +19,9 @@
 			}
 		};
 
-		const panels = $screens[$currentScreenIndex].panels;
-		const snapPoints = $screens[$currentScreenIndex].snapPoints;
-		const signalLines = $screens[$currentScreenIndex].signalLines;
+		const panels = $currentScreen?.panels;
+		const snapPoints = $currentScreen?.snapPoints;
+		const signalLines = $currentScreen?.signalLines;
 
 		// Create array with all selected panels
 		panels.array.forEach((p) => {
@@ -136,7 +136,7 @@
 			bottomright: arrayOfPanels[0].i
 		};
 
-		const panels = $screens[$currentScreenIndex].panels;
+		const panels = $currentScreen?.panels;
 
 		arrayOfPanels.forEach((p) => {
 			if (

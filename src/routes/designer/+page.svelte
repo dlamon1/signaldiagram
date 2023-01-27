@@ -19,9 +19,9 @@
 		canvasWrapperWidth,
 		isChrome,
 		gZoomWrapperRef,
-		currentScreenIndex,
 		isMac,
-		screens
+		board,
+		currentScreen
 	} from '$lib/store.designer';
 
 	import HandleColorLabelUpdates from './Handlers/Handle.ColorLabelUpdates.svelte';
@@ -47,7 +47,7 @@
 			$isMac = true;
 		}
 	});
-	$: console.log('screens', $screens);
+	// $: console.log('board.screens', $board.screens);
 </script>
 
 <div id="container">
@@ -72,7 +72,7 @@
 		<Toolbar />
 	</div>
 
-	{#if $canvasWrapperWidth && $canvasWrapperHeight && typeof $currentScreenIndex === 'number'}
+	{#if $canvasWrapperWidth && $canvasWrapperHeight && $currentScreen}
 		<DrawCanvasWrapper />
 	{/if}
 

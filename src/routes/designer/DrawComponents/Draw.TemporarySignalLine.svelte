@@ -8,21 +8,19 @@
 		colorState,
 		snapPointsGroupEnterRef,
 		mousePosition,
-		screens,
-		currentScreenIndex
+		currentScreen,
+		board
 	} from '$lib/store.designer';
 
-	$: {
-		let t = [$screens, $mousePosition];
-
-		typeof $currentScreenIndex === 'number' && drawTemporarySignalLine();
+	$: if ($currentScreen && $board.screens && $mousePosition) {
+		drawTemporarySignalLine();
 	}
 
 	const drawTemporarySignalLine = () => {
 		if (!$topLevelSvgRef) return;
 		if (!$isDrawingSignalLine) return;
 
-		const signalLines = $screens[$currentScreenIndex].signalLines;
+		const signalLines = $currentScreen?.signalLines;
 
 		let origin = signalLines.origin;
 		let mouse = get(mousePosition);
@@ -32,8 +30,8 @@
 	};
 
 	const theAcutualDrawing = () => {
-		const snapPoints = $screens[$currentScreenIndex].snapPoints;
-		const signalLines = $screens[$currentScreenIndex].signalLines;
+		const snapPoints = $currentScreen?.snapPoints;
+		const signalLines = $currentScreen?.signalLines;
 
 		let destinationI = signalLines.destination.snapPointIndex;
 
@@ -55,9 +53,9 @@
 		}
 
 		let lineWidth =
-			$screens[$currentScreenIndex].width < $screens[$currentScreenIndex].height
-				? $screens[$currentScreenIndex].width / 20
-				: $screens[$currentScreenIndex].height;
+			$currentScreen?.width < $currentScreen?.height
+				? $currentScreen?.width / 20
+				: $currentScreen?.height;
 
 		d3.select('#temp-signal-line')
 			.attr('pointer-events', 'none')

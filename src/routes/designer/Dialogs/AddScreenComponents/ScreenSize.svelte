@@ -3,7 +3,7 @@
 
 	import { Screen } from '$lib/classes';
 
-	import { isAddScreenDialogOpen, screens, currentScreenIndex } from '$lib/store.designer';
+	import { isAddScreenDialogOpen, board } from '$lib/store.designer';
 
 	import { approvedTileTypes } from '$lib/store.global';
 
@@ -40,13 +40,10 @@
 				model
 			);
 
-			$screens.push(newScreen);
-
+			$board.screens.push(newScreen);
 			newScreen.panels.initArray(rows, columns);
-
-			$screens = $screens;
-
-			$currentScreenIndex = newScreen.index;
+			$board.currentScreenIndex = newScreen.index;
+			board.save($board);
 
 			$isAddScreenDialogOpen = false;
 		} else {

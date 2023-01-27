@@ -9,8 +9,8 @@
 		snapPointPathRef,
 		snapPointDirection,
 		snapPointsQuantity,
-		screens,
-		currentScreenIndex
+		currentScreen,
+		board
 	} from '$lib/store.designer';
 
 	let hoveredColor = 'rgba(0, 255, 170, 1)';
@@ -26,19 +26,19 @@
 			$isDrawingSignalLine,
 			$snapPointDirection,
 			$snapPointsQuantity,
-			$screens,
-			$currentScreenIndex
+			$board.screens,
+			$board.currentScreenIndex
 		];
 
 		$gZoomWrapperRef && drawSnapPointWrappers();
 	}
 
 	const drawSnapPointWrappers = () => {
-		if (typeof $currentScreenIndex != 'number') {
+		if (!$currentScreen) {
 			return;
 		}
 
-		let snapPoints = $screens[$currentScreenIndex].snapPoints.array;
+		let snapPoints = $currentScreen?.snapPoints.array;
 
 		// 1
 		$snapPointsGroupRef = $gZoomWrapperRef
@@ -82,7 +82,7 @@
 			.attr('stroke-alignment', 'inner')
 			.on('mouseover', function (d, i) {
 				if ($isDrawingSignalLine) {
-					$screens[$currentScreenIndex].signalLines.setDestinationSnapPointIndex(d.target.__data__);
+					$currentScreen?.signalLines.setDestinationSnapPointIndex(d.target.__data__);
 				}
 				d.stopPropagation();
 				d3.select(this).attr('fill', hoveredColor);
@@ -96,20 +96,20 @@
 				d.stopPropagation();
 				if (!$isDrawMode) return;
 
-				$screens[$currentScreenIndex].signalLines.setOriginSnapPointIndex(d.target.__data__);
+				$currentScreen?.signalLines.setOriginSnapPointIndex(d.target.__data__);
 				setIsDrawingSignalLine(true);
 			})
 			.on('mouseup', (d) => {
 				d.stopPropagation();
 				if ($isDrawMode && $isDrawingSignalLine) {
-					$screens[$currentScreenIndex].signalLines.addSignalLine();
+					$currentScreen?.signalLines.addSignalLine();
 				}
 				setIsDrawingSignalLine(false);
 			})
 			.on('click', (e) => {
 				e.stopPropagation();
 				if (!$isDrawMode) {
-					$screens[$currentScreenIndex].snapPoints.selectSnapPoint(e);
+					$currentScreen?.snapPoints.selectSnapPoint(e);
 				}
 			});
 
@@ -118,7 +118,7 @@
 		// Draw as Square is Square
 		$snapPointPathRef
 			.filter((d, i) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].isSquare;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].isSquare;
 			})
 			.attr('fill', (d) => {
 				return d.color.background;
@@ -128,8 +128,7 @@
 			.attr('d', '')
 			.attr('d', (d) => drawPathSquare(d.getRadius()))
 			.attr('fill', (d, i) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].color
-					.background;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].color.background;
 			});
 
 		// Draw as Triangle
@@ -137,7 +136,7 @@
 		// Draw as Triangle
 		$snapPointPathRef
 			.filter((d, i) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].isTriangle;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].isTriangle;
 			})
 			.attr('fill', (d) => {
 				return d.color.background;
@@ -147,8 +146,7 @@
 			.attr('d', '')
 			.attr('d', (d) => drawPathTriangle(d.getRadius()))
 			.attr('fill', (d, i) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].color
-					.background;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].color.background;
 			});
 
 		// Draw Snap Point Label
@@ -160,7 +158,7 @@
 
 		labels
 			.filter((d, i) => {
-				let obj = $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray];
+				let obj = $currentScreen?.snapPoints.array[d.pointIndexFullArray];
 				return obj.isSquare || obj.isTriangle;
 			})
 			.text((d) => {
@@ -168,13 +166,13 @@
 			})
 			.attr('dominant-baseline', 'middle')
 			.style('font-size', (d) =>
-				$screens[$currentScreenIndex].width < $screens[$currentScreenIndex].height
-					? $screens[$currentScreenIndex].width / 6 + 'px'
-					: $screens[$currentScreenIndex].height / 6 + 'px'
+				$currentScreen?.width < $currentScreen?.height
+					? $currentScreen?.width / 6 + 'px'
+					: $currentScreen?.height / 6 + 'px'
 			)
 			.style('pointer-events', 'none')
 			.attr('y', (d) => {
-				let obj = $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray];
+				let obj = $currentScreen?.snapPoints.array[d.pointIndexFullArray];
 				if (obj.isTriangle) {
 					return obj.getRadius();
 				}
@@ -184,10 +182,10 @@
 			.style('font-family', 'Heebo')
 			.attr('text-anchor', 'middle')
 			.attr('stroke', (d) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].color.font;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].color.font;
 			})
 			.attr('fill', (d) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].color.font;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].color.font;
 			});
 
 		// Draw as Selected if Selected
@@ -195,18 +193,17 @@
 		// Draw as Selected if Selected
 		$snapPointPathRef
 			.filter((d, i) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].isSelected;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].isSelected;
 			})
 			.attr('stroke', selectedColor)
 			.attr('stroke-width', (d) => d.strokeWidth)
 			.attr('fill', (d, i) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].color
-					.background;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].color.background;
 			});
 
 		$snapPointPathRef
 			.filter((d, i) => {
-				return $screens[$currentScreenIndex].snapPoints.array[d.pointIndexFullArray].isHidden;
+				return $currentScreen?.snapPoints.array[d.pointIndexFullArray].isHidden;
 			})
 			.attr('stroke', 'transparent')
 			.attr('fill', 'transparent');

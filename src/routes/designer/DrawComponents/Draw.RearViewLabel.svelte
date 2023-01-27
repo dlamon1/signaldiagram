@@ -2,12 +2,12 @@
 	import {
 		gZoomWrapperRef,
 		snapPointsGroupEnterRef,
-		screens,
-		currentScreenIndex
+		currentScreen,
+		board
 	} from '$lib/store.designer';
 
 	$: {
-		let t = [$screens];
+		let t = [$board.screens];
 
 		drawRearViewLabel();
 	}
@@ -17,7 +17,8 @@
 	let rearViewLabel = null;
 
 	const drawRearViewLabel = () => {
-		const screen = $screens[$currentScreenIndex];
+		const screen = $currentScreen;
+		if (!screen) return;
 		if (rearViewLabel) {
 			d3.select('#rear-view-label').text('').remove();
 		}
@@ -27,7 +28,7 @@
 		rearViewLabel = $gZoomWrapperRef
 			.append('text')
 			.attr('id', 'rear-view-label')
-			.text(() => ($screens[$currentScreenIndex].isRearView ? 'REAR VIEW' : ''))
+			.text(() => ($currentScreen?.isRearView ? 'REAR VIEW' : ''))
 			.attr('x', (screen.columns * screen.width) / 2)
 			.attr('y', (screen.rows * screen.height) / 2)
 			.attr('fill', '#000')

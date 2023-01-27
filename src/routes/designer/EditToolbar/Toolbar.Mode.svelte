@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { mode, isSelectMode, isDrawMode, currentScreenIndex } from '$lib/store.designer';
+	import { mode, isSelectMode, isDrawMode, currentScreen } from '$lib/store.designer';
 
 	$: {
 		if ($mode === 'draw') {
@@ -27,7 +27,7 @@
 					bind:group={$mode}
 					name="mode"
 					value="draw"
-					disabled={typeof $currentScreenIndex != 'number'}
+					disabled={!$currentScreen}
 				/>
 				Draw (SHFT+D)
 			</label>

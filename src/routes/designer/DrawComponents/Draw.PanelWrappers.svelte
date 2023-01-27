@@ -8,8 +8,8 @@
 		groupsEnter,
 		setIsDrawingSignalLine,
 		mousePosition,
-		screens,
-		currentScreenIndex
+		board,
+		currentScreen
 	} from '$lib/store.designer';
 
 	let hoveredColor = 'rgba(0, 255, 170, 1)';
@@ -18,17 +18,17 @@
 	import * as d3 from 'd3';
 
 	$: {
-		let t = [$isDrawMode, $isDrawingSignalLine, $currentScreenIndex, $screens];
+		let t = [$isDrawMode, $isDrawingSignalLine, $board.currentScreenIndex, $board.screens];
 
 		drawPanelWrappers();
 	}
 
 	const drawPanelWrappers = () => {
-		if (typeof $currentScreenIndex != 'number') {
+		if (!$currentScreen) {
 			return;
 		}
 
-		let panels = $screens[$currentScreenIndex].panels.array;
+		let panels = $currentScreen?.panels.array;
 
 		d3.select('#temp-signal-line').remove();
 
@@ -73,12 +73,12 @@
 			})
 			.on('mousemove', function (d) {
 				if (!$isDrawMode) return;
-				$screens[$currentScreenIndex].signalLines.nullDestinationSnapPointIndex();
+				$currentScreen?.signalLines.nullDestinationSnapPointIndex();
 				$mousePosition.x = d.x;
 				$mousePosition.y = d.y;
 			})
 			.on('mouseup', function () {
-				$screens[$currentScreenIndex].signalLines.nullDestinationSnapPointIndex();
+				$currentScreen?.signalLines.nullDestinationSnapPointIndex();
 				$mousePosition.x = 0;
 				$mousePosition.y = 0;
 
@@ -94,8 +94,8 @@
 				if ($isDrawMode) return;
 				e.stopPropagation();
 				if ($isSelectMode && !$isDrawingSignalLine) {
-					$screens[$currentScreenIndex].panels.togglePanels([e.target.__data__.i]);
-					$screens = $screens;
+					$currentScreen?.panels.togglePanels([e.target.__data__.i]);
+					// board.save($board);
 				}
 			});
 

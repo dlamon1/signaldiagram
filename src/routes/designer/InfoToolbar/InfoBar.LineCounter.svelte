@@ -1,10 +1,5 @@
 <script lang="ts">
-	import {
-		distanceUnit,
-		snapPointDirection,
-		screens,
-		currentScreenIndex
-	} from '$lib/store.designer';
+	import { distanceUnit, snapPointDirection, currentScreen } from '$lib/store.designer';
 
 	import type { SignalLineObj } from '$lib/types';
 
@@ -17,10 +12,8 @@
 	let topBottomCounts: Length[] = [];
 	let bottomBottomCounts: Length[] = [];
 
-	$: {
-		let t = [$screens];
-
-		typeof $currentScreenIndex === 'number' && getTotals();
+	$: if ($currentScreen) {
+		getTotals();
 	}
 
 	const getTotals = () => {
@@ -61,7 +54,7 @@
 			verticals: []
 		};
 
-		$screens[$currentScreenIndex].signalLines.array.forEach((sl: SignalLineObj) => {
+		$currentScreen?.signalLines.array.forEach((sl: SignalLineObj) => {
 			let originIndex = sl.origin.pointIndexWithinPanel;
 			let destinationIndex = sl.destination.pointIndexWithinPanel;
 

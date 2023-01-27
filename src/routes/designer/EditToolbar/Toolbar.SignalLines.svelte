@@ -1,17 +1,17 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	import { screens, currentScreenIndex } from '$lib/store.designer';
+	import { currentScreen, board } from '$lib/store.designer';
 	import ColorPicker from './components/ColorPicker.svelte';
 
 	const removeLine = () => {
-		const screen = $screens[$currentScreenIndex];
+		const screen = $currentScreen;
 		screen.signalLines.array.forEach((line, i) => {
 			if (line.isSelected) {
 				screen.signalLines.removeSignalLine(line);
 			}
 		});
 
-		$screens = $screens;
+		// board.save($board);
 		// need to call panels update here to
 		// trigger redraw, cannott use signal lines
 		// because of the way the draw updates
@@ -38,7 +38,7 @@
 <div id="signallines" in:fade={{ duration: 150 }} out:fade={{ duration: 40 }}>
 	<div class="input-wrapper">
 		<label class="hovered">
-			<input type="checkbox" bind:checked={$screens[$currentScreenIndex].showDirectionArrows} />
+			<input type="checkbox" bind:checked={$currentScreen.showDirectionArrows} />
 			Show Direction Arrows
 		</label>
 	</div>
@@ -49,7 +49,7 @@
 			layer={'background'}
 			element={'Signal Lines'}
 			isOpen={true}
-			classObj={$screens[$currentScreenIndex].signalLines}
+			classObj={$currentScreen?.signalLines}
 		/>
 	{/if}
 	<div class="remove-lines-container">

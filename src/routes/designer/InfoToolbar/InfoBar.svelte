@@ -2,23 +2,28 @@
 	import LineCounter from './InfoBar.LineCounter.svelte';
 	import Links from './InfoBar.Links.svelte';
 
-	import { isAddScreenDialogOpen, screens, currentScreenIndex } from '$lib/store.designer';
+	import { isAddScreenDialogOpen, board } from '$lib/store.designer';
 
 	const selectPanel = (i: number) => {
-		$currentScreenIndex = i;
+		$board.currentScreenIndex = i;
+		// board.save(board);
 	};
 </script>
 
 <div class="container">
+	<div>
+		<button on:click={() => board.undo()}>undo</button>
+		<button on:click={() => board.redo()}>red</button>
+	</div>
 	<button class="dialog" on:click={() => ($isAddScreenDialogOpen = true)}> Add Screen </button>
 
 	<div class="divider" />
 
-	{#each $screens as screen, i}
+	{#each $board.screens as screen, i}
 		<button
 			class="screen-button"
 			on:click={() => selectPanel(i)}
-			class:selected={i == $currentScreenIndex}
+			class:selected={i == $board.currentScreenIndex}
 		>
 			<div class="title">
 				{screen.name}
@@ -30,7 +35,7 @@
 		</button>
 	{/each}
 
-	{#if $screens.length > 0}
+	{#if $board.screens.length > 0}
 		<LineCounter />
 	{/if}
 
