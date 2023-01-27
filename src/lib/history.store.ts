@@ -11,32 +11,36 @@ export const storeWithHistory = (value: any) => {
 		subscribe,
 		update,
 		undo: () => {
-			update((n) => {
-				indicator = Math.max(0, --indicator);
-				if (indicator === 0) console.log('no more undo');
-				return cloneDeep(history[indicator]);
+			indicator = Math.max(0, --indicator);
+			if (indicator === 0) console.log('no more undo');
+			const h = cloneDeep(history[indicator]);
+			update(() => {
+				return h;
 			});
+			return h;
 		},
 		redo: () => {
-			update((n) => {
-				indicator = Math.min(history.length - 1, ++indicator);
-				if (indicator === history.length - 1) console.log('no more redo');
-				return cloneDeep(history[indicator]);
+			indicator = Math.min(history.length - 1, ++indicator);
+			if (indicator === history.length - 1) console.log('no more redo');
+			const h = cloneDeep(history[indicator]);
+			update(() => {
+				return h;
 			});
+			return h;
 		},
 		save: (data: any) => {
-			update((n) => {
-				if (indicator !== history.length - 1) {
-					history.splice(indicator + 1);
-				}
-				console.log('n', n);
-				console.log('historyBefore', history);
-				history.push(cloneDeep(data));
-				indicator = history.length - 1;
-				console.log('historyAfter', history, indicator);
-				return cloneDeep(history[indicator]);
+			if (indicator !== history.length - 1) {
+				history.splice(indicator + 1);
+			}
+			console.log('historyBefore', cloneDeep(history));
+			history.push(cloneDeep(data));
+			indicator = history.length - 1;
+			console.log('historyAfter', cloneDeep(history), indicator);
+			const v = cloneDeep(history[indicator]);
+			update(() => {
+				return v;
 			});
-			return cloneDeep(history[indicator]);
+			return v;
 		},
 		indicator: () => indicator,
 		history: () => [...history],

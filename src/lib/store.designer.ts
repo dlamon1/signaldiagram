@@ -1,5 +1,5 @@
 /* eslint-disable no-self-assign */
-import { get, writable } from 'svelte/store';
+import { derived, get, writable } from 'svelte/store';
 
 import type {
 	PanelObj,
@@ -26,16 +26,18 @@ export const isMac: Writable<boolean> = writable(false);
 
 export const isChrome: Writable<boolean> = writable(false);
 
-export const screens: Writable<ScreenObj[]> = storeWithHistory([]);
-export const updateScreens = () => {
-	screens.update((value) => {
-		const s = screens.save(value);
-		// console.log('value', value, s);
-		return s;
-	});
-};
+export const board = storeWithHistory({
+	screens: [],
+	currentScreenIndex: 0
+});
 
-export const currentScreenIndex: Writable<number | null> = writable(null);
+board.subscribe((value) => {
+	console.log("board's value", value);
+});
+
+export const currentScreen = derived(board, ($board) => {
+	return $board.screens[$board.currentScreenIndex];
+});
 
 export const topLevelSvgRef = writable(null);
 export const gZoomWrapperRef = writable(null);
