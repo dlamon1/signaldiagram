@@ -5,7 +5,6 @@ import {
 	isCtrl,
 	setSelection,
 	setSignalLineColor,
-	updateScreens,
 	currentScreen,
 	board
 } from '$lib/store.designer';

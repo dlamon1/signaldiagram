@@ -8,7 +8,6 @@ import {
 	setMode,
 	isSelectMode,
 	isMac,
-	updateScreens,
 	isAddScreenDialogOpen,
 	currentScreen
 } from '$lib/store.designer';

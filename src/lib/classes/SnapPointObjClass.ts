@@ -4,7 +4,6 @@ import type { ColorObj, SnapPointObj, ColorObjKey } from '$lib/types';
 import {
 	snapPointDirection,
 	snapPointsQuantity,
-	updateScreens,
 	isDrawMode,
 	currentScreen,
 	board

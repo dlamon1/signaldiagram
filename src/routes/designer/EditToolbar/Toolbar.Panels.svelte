@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
 
-	import { updateScreens, currentScreen, board } from '$lib/store.designer';
+	import { currentScreen, board } from '$lib/store.designer';
 	import type { PanelObj } from '$lib/types';
 
 	import ColorPicker from './components/ColorPicker.svelte';

@@ -6,7 +6,6 @@ import {
 	isCtrl,
 	setSelection,
 	setSelectedSnapPointIndexes,
-	updateScreens,
 	currentScreen
 } from '$lib/store.designer';
 
