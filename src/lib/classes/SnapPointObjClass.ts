@@ -121,6 +121,15 @@ export class SnapPoint implements SnapPointObj {
 		return y + parentPanel.getDimensions().y + this.yOffset;
 	}
 
+	getTranslateString() {
+		const x = this.getX();
+		const y = this.getY();
+
+		this.translateString = `translate(${x}, ${y})`;
+
+		return this.translateString;
+	}
+
 	setXOffset(value: number) {
 		this.xOffset = value;
 	}
@@ -135,15 +144,6 @@ export class SnapPoint implements SnapPointObj {
 
 	getScaleString() {
 		return `scale(${this.scale})`;
-	}
-
-	getTranslateString() {
-		const x = this.getX();
-		const y = this.getY();
-
-		this.translateString = `translate(${x}, ${y})`;
-
-		return this.translateString;
 	}
 
 	removeLabel = () => {

@@ -43,26 +43,40 @@
 		// 1
 		$snapPointsGroupRef = $gZoomWrapperRef
 			.selectAll('g.snap-point-wrapper')
-			.data(snapPoints, (d) => d.i);
+			.data(snapPoints, (d, i) => {
+				// console.log(d.pointIndexFullArray);
+				return d.pointIndexFullArray + 1;
+			});
 
 		// 2
-		// Raise the snap points over top the signal lines
+		// Raise the snap points above the signal lines
 		$snapPointsGroupEnterRef = $snapPointsGroupRef
 			.enter()
 			.append('g')
-			.attr('id', (_: SnapPointObj, i: number) => 'snap-point' + i)
+			.attr('id', (_: SnapPointObj, i: number) => {
+				console.log('i ', i);
+				return 'snap-point-' + i + 1;
+			})
 			.classed('snap-point-wrapper', true)
 			.raise();
 
 		// 3
-		$snapPointsGroupEnterRef.merge($snapPointsGroupRef).attr('transform', (d) => {
+		$snapPointsGroupEnterRef.merge($snapPointsGroupRef).attr('transform', (d, i) => {
+			// console.log('translate string, ', d);
+
 			return d.getTranslateString();
 		});
 
 		// 4
 		$snapPointsGroupRef.exit().remove();
 
-		let scale = $snapPointsGroupEnterRef.append('g').attr('transform', (d) => d.getScaleString());
+		let scale = $snapPointsGroupEnterRef.append('g').attr('transform', (d) => {
+			console.log('scale string ', d.getScaleString());
+
+			return d.getScaleString();
+		});
+
+		console.log(scale);
 
 		// 5
 		$snapPointPathRef = scale
@@ -70,6 +84,7 @@
 			.merge($snapPointsGroupRef.select('path'))
 			.attr('d', (d) => {
 				let r = d.getRadius();
+
 				return drawPathCircle(r);
 			})
 			.style('point-events', $isDrawingSignalLine && 'none')
@@ -239,30 +254,6 @@
 	};
 
 	const drawPathCircle = (r: number) => {
-		// let r = d.radius * 1.5;
-		let circlePath =
-			'M ' +
-			0 +
-			',' +
-			0 +
-			' m ' +
-			-r +
-			',0' +
-			' a ' +
-			r +
-			',' +
-			r +
-			' 0 1,0 ' +
-			r * 2 +
-			',0' +
-			' a ' +
-			r +
-			',' +
-			r +
-			' 0 1,0 ' +
-			-r * 2 +
-			',0';
-
-		return circlePath;
+		return `M 0,0 m -${r},0 a ${r},${r} 0 1,0 ${r * 2},0 a ${r},${r} 0 1,0 -${r * 2},0`;
 	};
 </script>
