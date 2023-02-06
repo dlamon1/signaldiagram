@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { currentScreenIndex, screens } from '$lib/store.designer';
+	import { board, currentScreen } from '$lib/store.designer';
 
 	const save = async () => {
 		let saveObj = {
-			screens: $screens
+			screens: $board.screens
 		};
 
 		let panelsJSON = JSON.stringify(saveObj);
@@ -22,7 +22,7 @@
 
 <svg id="print" width="0" height="0" />
 
-<button on:click={save} class="save" disabled={typeof $currentScreenIndex != 'number'}>Save</button>
+<button on:click={save} class="save" disabled={!$currentScreen}>Save</button>
 
 <style>
 	button {

@@ -4,29 +4,29 @@ import type { ScreenObj } from '$lib/types';
 
 import { Panels, SignalLines, SnapPoints } from '$lib/classes';
 
-import { screens } from '$lib/store.designer';
+import { board } from '$lib/store.designer';
 
 export class Screen implements ScreenObj {
-	panels = null;
-	snapPoints = null;
-	signalLines = null;
+	panels: Panels;
+	snapPoints: SnapPoints;
+	signalLines: SignalLines;
 	width = 0;
 	height = 0;
 	isRearView = false;
-	columns = null;
-	rows = null;
-	name = null;
-	isSelected = false;
-	index = undefined;
+	columns: number;
+	rows: number;
+	name: string;
+	isSelected: boolean = false;
+	index: number = 0;
 	widthMM: number;
 	heightMM: number;
-	snapPointDirection = null;
+	snapPointDirection: string | null = null;
 	snapPointQuantity = 2;
 	showCoordinates = true;
 	showDirectionArrows = true;
 	opacity = 0.25;
-	make = '';
-	model = '';
+	make: string | undefined = '';
+	model: string | undefined = '';
 	rearViewLabelFontSize = 100;
 
 	constructor(
@@ -50,7 +50,7 @@ export class Screen implements ScreenObj {
 		this.widthMM = widthMM;
 		this.heightMM = heightMM;
 		this.snapPointDirection = 'vertical';
-		this.index = get(screens).length;
+		this.index = get(board).screens.length;
 		this.panels = new Panels(this.index);
 		this.snapPoints = new SnapPoints(this.index);
 		this.signalLines = new SignalLines(this.index);

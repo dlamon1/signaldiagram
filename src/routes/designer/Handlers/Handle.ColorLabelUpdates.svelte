@@ -3,18 +3,18 @@
 		colorState,
 		snapPointLabel,
 		lineWidthState,
-		screens,
-		currentScreenIndex
+		currentScreen,
+		board
 	} from '$lib/store.designer';
 
 	const updateSelectedSnapPointsLabel = (label: string) => {
-		const screen = $screens[$currentScreenIndex];
+		const screen = $currentScreen;
 		screen?.snapPoints.array.forEach((snapPoint, i) => {
 			if (snapPoint.isSelected) {
 				snapPoint.label = label;
 			}
-		}),
-			($screens = $screens);
+		});
+		// board.save($board);
 	};
 
 	$: {
@@ -22,7 +22,7 @@
 	}
 
 	const updatePanelColorState = () => {
-		const screen = $screens[$currentScreenIndex];
+		const screen = $currentScreen;
 
 		screen?.panels.array.forEach((panel) => {
 			if (panel.isSelected) {
@@ -30,24 +30,24 @@
 				$lineWidthState = panel.lineWidth;
 			}
 		});
-		$screens = $screens;
+		// board.save($board);
 	};
 
 	$: {
-		let t = [$screens];
+		let t = [$board.screens];
 
 		updatePanelColorState();
 	}
 
 	const updateSnapPointColorState = () => {
-		const screen = $screens[$currentScreenIndex];
+		const screen = $currentScreen;
 
 		screen?.snapPoints.array.forEach((snapPoint, i) => {
 			if (snapPoint.isSelected) {
 				$colorState.snapPoint = snapPoint.color;
 			}
-		}),
-			($screens = $screens);
+		});
+		// board.save($board);
 	};
 
 	// $: {
@@ -56,14 +56,14 @@
 	// }
 
 	const updateSignalLineColorState = () => {
-		const screen = $screens[$currentScreenIndex];
+		const screen = $currentScreen;
 
 		screen?.signalLines.array.forEach((signalLine, i) => {
 			if (signalLine.isSelected) {
 				$colorState.signalLine = signalLine.color;
 			}
-		}),
-			($screens = $screens);
+		});
+		// board.save($board);
 	};
 
 	// $: {

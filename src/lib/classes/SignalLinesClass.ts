@@ -5,9 +5,8 @@ import {
 	isCtrl,
 	setSelection,
 	setSignalLineColor,
-	currentScreenIndex,
-	screens,
-	updateScreens
+	currentScreen,
+	board
 } from '$lib/store.designer';
 
 import type {
@@ -53,7 +52,7 @@ export class SignalLines implements SignalLinesType {
 		this.array.forEach((sl: SignalLineObj) => {
 			sl.setIsSelected(true);
 		});
-		updateScreens();
+		// updateScreens();
 	}
 
 	setArrayFromLoad(signaLineArray: LoadSignalLineObj[]) {
@@ -86,7 +85,7 @@ export class SignalLines implements SignalLinesType {
 
 	getSnapPointCoordinates(signalLineIndex: number, key: SnapPointCoordinatesKey) {
 		const signalLine = this.array[signalLineIndex];
-		const snapPointsClass = get(screens)[this.screenIndex].snapPoints;
+		const snapPointsClass = get(board).screens[this.screenIndex]?.snapPoints;
 
 		const snapPointIndex = signalLine[key].snapPointIndex;
 
@@ -105,7 +104,7 @@ export class SignalLines implements SignalLinesType {
 	}
 
 	getPanelIndex(row: number, column: number) {
-		const p = get(screens)[get(currentScreenIndex)].panels.array;
+		const p = get(currentScreen)?.panels.array;
 
 		for (let i = 0; i < p.length; i++) {
 			if (p[i].row === row && p[i].column === column) {
@@ -154,7 +153,7 @@ export class SignalLines implements SignalLinesType {
 
 			this.array.push(sl);
 
-			updateScreens();
+			// updateScreens();
 		}
 
 		this.nullOriginAndDestinationValues();
@@ -165,12 +164,12 @@ export class SignalLines implements SignalLinesType {
 			return signalLine.i !== line.i;
 		});
 
-		updateScreens();
+		// updateScreens();
 	}
 
 	selectSignalLine(i: number) {
-		const snapPointsClass = get(screens)[get(currentScreenIndex)].snapPoints;
-		const panelsClass = get(screens)[get(currentScreenIndex)].panels;
+		const snapPointsClass = get(currentScreen)?.snapPoints;
+		const panelsClass = get(currentScreen)?.panels;
 
 		snapPointsClass.deSelect();
 		panelsClass.deSelect();
@@ -187,8 +186,8 @@ export class SignalLines implements SignalLinesType {
 	}
 
 	toggleSignalLine(i: number) {
-		const snapPointsClass = get(screens)[get(currentScreenIndex)].snapPoints;
-		const panelsClass = get(screens)[get(currentScreenIndex)].panels;
+		const snapPointsClass = get(currentScreen)?.snapPoints;
+		const panelsClass = get(currentScreen)?.panels;
 
 		snapPointsClass.deSelect();
 		panelsClass.deSelect();
@@ -207,8 +206,8 @@ export class SignalLines implements SignalLinesType {
 	}
 
 	selectSignalLines(arrayOfIndexes: number[]) {
-		const snapPointsClass = get(screens)[get(currentScreenIndex)].snapPoints;
-		const signalLinesClass = get(screens)[get(currentScreenIndex)].signalLines;
+		const snapPointsClass = get(currentScreen)?.snapPoints;
+		const signalLinesClass = get(currentScreen)?.signalLines;
 		snapPointsClass.deSelect();
 		signalLinesClass.deSelect();
 
@@ -240,7 +239,7 @@ export class SignalLines implements SignalLinesType {
 		if (!isSignalLinesSelected) {
 			setSignalLineColor(color);
 		}
-		updateScreens();
+		// updateScreens();
 	}
 }
 
@@ -271,11 +270,11 @@ class SignalLine implements SignalLineObj {
 		screenIndex: number
 	) {
 		this.screenIndex = screenIndex;
-		let screen = get(screens)[screenIndex];
+		let screen = get(board).screens[screenIndex];
 		this.origin.snapPointIndex = origin.snapPointIndex;
 		this.origin.panelIndex = origin.panelIndex;
 		this.destination.snapPointIndex = destinationSnapPointIndex;
-		this.i = get(screens)[screenIndex].signalLines.array.length;
+		this.i = get(board).screens[screenIndex].signalLines.array.length;
 		this.color.background = get(colorState).signalLine.background;
 		this.lineWidth = screen.width < screen.height ? screen.width / 20 : screen.height / 20;
 		this.setDestinationPanelIndex();
@@ -283,24 +282,25 @@ class SignalLine implements SignalLineObj {
 	}
 
 	getLineWidth() {
-		let screen = get(screens)[this.screenIndex];
+		let screen = get(board).screens[this.screenIndex];
 
 		return screen.width < screen.height ? screen.width / 20 : screen.height / 20;
 	}
 
 	setIndexesWithInPanel() {
 		let oSp: SnapPointObj =
-			get(screens)[this.screenIndex].snapPoints.array[this.origin.snapPointIndex];
+			get(board).screens[this.screenIndex]?.snapPoints.array[this.origin.snapPointIndex];
 		let o = oSp.pointIndexWithinPanel;
 		let dSp: SnapPointObj =
-			get(screens)[this.screenIndex].snapPoints.array[this.destination.snapPointIndex];
+			get(board).screens[this.screenIndex]?.snapPoints.array[this.destination.snapPointIndex];
 		let d = dSp.pointIndexWithinPanel;
 		this.origin.pointIndexWithinPanel = o;
 		this.destination.pointIndexWithinPanel = d;
 	}
 
 	setDestinationPanelIndex() {
-		let sp = get(screens)[this.screenIndex].snapPoints.array[this.destination.snapPointIndex];
+		let sp =
+			get(board).screens[this.screenIndex]?.snapPoints.array[this.destination.snapPointIndex];
 		this.destination.panelIndex = sp.panelIndex;
 	}
 
@@ -329,12 +329,12 @@ class SignalLine implements SignalLineObj {
 
 	getLengthInMM() {
 		const originSnapPoint: SnapPointObj =
-			get(screens)[this.screenIndex].snapPoints.array[this.origin.snapPointIndex];
+			get(board).screens[this.screenIndex]?.snapPoints.array[this.origin.snapPointIndex];
 
 		const destinationSnapPoint: SnapPointObj =
-			get(screens)[this.screenIndex].snapPoints.array[this.destination.snapPointIndex];
+			get(board).screens[this.screenIndex]?.snapPoints.array[this.destination.snapPointIndex];
 
-		const screen = get(screens)[this.screenIndex];
+		const screen = get(board).screens[this.screenIndex];
 
 		const destinationX = (destinationSnapPoint.getX() / screen.width) * screen.widthMM;
 		const destinationY = (destinationSnapPoint.getY() / screen.height) * screen.heightMM;

@@ -1,20 +1,19 @@
 <script lang="ts">
-	import { isDrawMode, selection, screens, currentScreenIndex } from '$lib/store.designer';
+	import { isDrawMode, selection, currentScreen } from '$lib/store.designer';
 
 	$: {
-		$selection && typeof $currentScreenIndex === 'number' && deSelect();
+		$selection && $currentScreen && deSelect();
 	}
 
 	const deSelect = () => {
-		const screen = $screens[$currentScreenIndex];
 		if ($selection != 'panels') {
-			screen.panels.deSelect();
+			$currentScreen?.panels?.deSelect();
 		}
 		if ($selection != 'signallines') {
-			screen.signalLines.deSelect();
+			$currentScreen?.signalLines?.deSelect();
 		}
 		if ($selection != 'snappoints') {
-			screen.snapPoints.deSelect();
+			$currentScreen?.snapPoints?.deSelect();
 		}
 	};
 

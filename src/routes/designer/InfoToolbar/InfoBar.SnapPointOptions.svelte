@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { screens, currentScreenIndex } from '$lib/store.designer';
+	import { currentScreen } from '$lib/store.designer';
 </script>
 
-{#if typeof $currentScreenIndex === 'number'}
+{#if $currentScreen}
 	<div class="component-container">
 		<div>Snap Point Quantity</div>
 		<label>
 			<input
 				type="radio"
-				bind:group={$screens[$currentScreenIndex].snapPointQuantity}
+				bind:group={$currentScreen.snapPointQuantity}
 				name="snapPointsQuantity"
 				value={1}
 			/>
@@ -17,7 +17,7 @@
 		<label>
 			<input
 				type="radio"
-				bind:group={$screens[$currentScreenIndex].snapPointQuantity}
+				bind:group={$currentScreen.snapPointQuantity}
 				name="snapPointsQuantity"
 				value={2}
 			/>
@@ -25,26 +25,26 @@
 		</label>
 	</div>
 
-	<div class={$screens[$currentScreenIndex].snapPointQuantity == 2 ? 'twoPoints' : 'onePoint'}>
+	<div class={$currentScreen?.snapPointQuantity == 2 ? 'twoPoints' : 'onePoint'}>
 		<div>Snap Point Layout</div>
 
 		<label>
 			<input
 				type="radio"
-				bind:group={$screens[$currentScreenIndex].snapPointDirection}
+				bind:group={$currentScreen.snapPointDirection}
 				name="snapPointDirection"
 				value="horizontal"
-				disabled={$screens[$currentScreenIndex].snapPointQuantity != 2}
+				disabled={$currentScreen?.snapPointQuantity != 2}
 			/>
 			Horizontal
 		</label>
 		<label>
 			<input
 				type="radio"
-				bind:group={$screens[$currentScreenIndex].snapPointDirection}
+				bind:group={$currentScreen.snapPointDirection}
 				name="snapPointDirection"
 				value="vertical"
-				disabled={$screens[$currentScreenIndex].snapPointQuantity != 2}
+				disabled={$currentScreen?.snapPointQuantity != 2}
 			/>
 			Vertical
 		</label>

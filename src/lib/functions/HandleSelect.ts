@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { isCtrl, selection, transform, currentScreenIndex, screens } from '../store.designer';
+import { isCtrl, selection, transform, currentScreen } from '../store.designer';
 
 export const handleDragSelect = (event, xOrigin: number, yOrigin: number) => {
 	let x1 = event.x;
@@ -19,23 +19,19 @@ export const handleDragSelect = (event, xOrigin: number, yOrigin: number) => {
 	if (get(selection) === 'panels') {
 		const indexesOfPanelsInsideSelection = checkForSelectedPanels(x1, y1, x2, y2);
 
-		get(screens)[get(currentScreenIndex)].panels.selectPanels(indexesOfPanelsInsideSelection);
+		get(currentScreen)?.panels.selectPanels(indexesOfPanelsInsideSelection);
 		return;
 	}
 
 	if (get(selection) === 'snappoints') {
 		const indexesOfSnapPointsInsideSelection = checkForSelectedSnapPoints(x1, y1, x2, y2);
-		get(screens)[get(currentScreenIndex)].snapPoints.selectSnapPoints(
-			indexesOfSnapPointsInsideSelection
-		);
+		get(currentScreen)?.snapPoints.selectSnapPoints(indexesOfSnapPointsInsideSelection);
 		return;
 	}
 
 	if (get(selection) === 'signallines') {
 		const indexesOfSignalLinesInsideSelection = checkForSelectedSignalLines(x1, y1, x2, y2);
-		get(screens)[get(currentScreenIndex)].signalLines.selectSignalLines(
-			indexesOfSignalLinesInsideSelection
-		);
+		get(currentScreen)?.signalLines.selectSignalLines(indexesOfSignalLinesInsideSelection);
 		return;
 	}
 };
@@ -46,7 +42,7 @@ export const checkForSelectedPanels = (
 	xDestination: number,
 	yDestination: number
 ) => {
-	const p = get(screens)[get(currentScreenIndex)].panels;
+	const p = get(currentScreen)?.panels;
 	const panels = p.array;
 
 	let x1: number = null;
@@ -90,7 +86,7 @@ export const checkForSelectedSnapPoints = (
 
 	const indexesOfSnapPointsInsideSelection = [];
 
-	const sp = get(screens)[get(currentScreenIndex)].snapPoints;
+	const sp = get(currentScreen)?.snapPoints;
 	const snapPoints = sp.array;
 
 	snapPoints.forEach((snapPoint, i) => {
@@ -114,7 +110,7 @@ export const checkForSelectedSignalLines = (
 	yDestination: number
 ) => {
 	const checkIfPointIsWithinBounds = (snapPointIndex: number) => {
-		const snapPoint = get(screens)[get(currentScreenIndex)].snapPoints.array[snapPointIndex];
+		const snapPoint = get(currentScreen)?.snapPoints.array[snapPointIndex];
 
 		const point = {
 			x: snapPoint.x,
@@ -142,7 +138,7 @@ export const checkForSelectedSignalLines = (
 		// _signalLines.push(...get(selectedSignalLines));
 	}
 
-	get(screens)[get(currentScreenIndex)].signalLines.array.forEach((line, i) => {
+	get(currentScreen)?.signalLines.array.forEach((line, i) => {
 		if (
 			checkIfPointIsWithinBounds(line.origin.snapPointIndex) &&
 			checkIfPointIsWithinBounds(line.destination.snapPointIndex)
@@ -156,17 +152,17 @@ export const checkForSelectedSignalLines = (
 
 export const handleSelectAll = () => {
 	if (get(selection) === 'panels') {
-		get(screens)[get(currentScreenIndex)].panels.selectAll();
+		get(currentScreen)?.panels.selectAll();
 		return;
 	}
 
 	if (get(selection) === 'snappoints') {
-		get(screens)[get(currentScreenIndex)].snapPoints.selectAll();
+		get(currentScreen)?.snapPoints.selectAll();
 		return;
 	}
 
 	if (get(selection) === 'signallines') {
-		get(screens)[get(currentScreenIndex)].signalLines.selectAll();
+		get(currentScreen)?.signalLines.selectAll();
 		return;
 	}
 };

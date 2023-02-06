@@ -9,8 +9,8 @@
 		snapPointsQuantity,
 		snapPointDirection,
 		isDrawMode,
-		screens,
-		currentScreenIndex
+		currentScreen,
+		board
 	} from '$lib/store.designer';
 
 	let hoveredColor = 'rgba(0, 255, 170, 1)';
@@ -25,13 +25,13 @@
 			$isDrawingSignalLine,
 			$snapPointsQuantity,
 			$snapPointDirection,
-			$currentScreenIndex,
-			$screens
+			$board.currentScreenIndex,
+			$board.screens
 		];
 
-		let l = $screens[$currentScreenIndex].signalLines.array.length;
+		let l = $currentScreen?.signalLines.array.length;
 
-		typeof $currentScreenIndex === 'number' && drawSignalLines();
+		$currentScreen && drawSignalLines();
 	}
 
 	const drawSignalLines = () => {
@@ -41,7 +41,7 @@
 
 		$linesGroupRef = $gZoomWrapperRef
 			.selectAll('g.signal-line')
-			.data($screens[$currentScreenIndex].signalLines.array, (d: SignalLineObj) => {
+			.data($currentScreen?.signalLines.array, (d: SignalLineObj) => {
 				return d.i;
 			});
 
@@ -65,24 +65,10 @@
 			.merge($linesGroupRef.select('line.line-outline'))
 			.attr('id', (d) => 'line-outline' + d.i)
 			.classed('line-outline', true)
-			.attr(
-				'x1',
-				(d, i) => $screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'origin').x
-			)
-			.attr(
-				'y1',
-				(d, i) => $screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'origin').y
-			)
-			.attr(
-				'x2',
-				(d, i) =>
-					$screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'destination').x
-			)
-			.attr(
-				'y2',
-				(d, i) =>
-					$screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'destination').y
-			)
+			.attr('x1', (d, i) => $currentScreen?.signalLines.getSnapPointCoordinates(i, 'origin').x)
+			.attr('y1', (d, i) => $currentScreen?.signalLines.getSnapPointCoordinates(i, 'origin').y)
+			.attr('x2', (d, i) => $currentScreen?.signalLines.getSnapPointCoordinates(i, 'destination').x)
+			.attr('y2', (d, i) => $currentScreen?.signalLines.getSnapPointCoordinates(i, 'destination').y)
 			.attr('stroke', (d) => {
 				if (d.isSelected) {
 					return selectedColor;
@@ -117,7 +103,7 @@
 				let i = e.target.__data__.i;
 
 				if ($isSelectMode && !$isDrawingSignalLine) {
-					$screens[$currentScreenIndex].signalLines.toggleSignalLine(i);
+					$currentScreen?.signalLines.toggleSignalLine(i);
 					d3.select(this).attr('stroke', selectedColor);
 				}
 			});
@@ -130,24 +116,10 @@
 			.merge($linesGroupRef.select('line.line-base'))
 			.attr('id', (d) => 'line-base' + d.i)
 			.classed('line-base', true)
-			.attr(
-				'x1',
-				(d, i) => $screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'origin').x
-			)
-			.attr(
-				'y1',
-				(d, i) => $screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'origin').y
-			)
-			.attr(
-				'x2',
-				(d, i) =>
-					$screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'destination').x
-			)
-			.attr(
-				'y2',
-				(d, i) =>
-					$screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'destination').y
-			)
+			.attr('x1', (d, i) => $currentScreen?.signalLines.getSnapPointCoordinates(i, 'origin').x)
+			.attr('y1', (d, i) => $currentScreen?.signalLines.getSnapPointCoordinates(i, 'origin').y)
+			.attr('x2', (d, i) => $currentScreen?.signalLines.getSnapPointCoordinates(i, 'destination').x)
+			.attr('y2', (d, i) => $currentScreen?.signalLines.getSnapPointCoordinates(i, 'destination').y)
 			.attr('stroke', (d) => {
 				return d.color.background;
 			})
@@ -163,11 +135,8 @@
 				return '0,-6 7,10 -7,10';
 			})
 			.attr('transform', (d, i) => {
-				let origin = $screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(i, 'origin');
-				let destination = $screens[$currentScreenIndex].signalLines.getSnapPointCoordinates(
-					i,
-					'destination'
-				);
+				let origin = $currentScreen?.signalLines.getSnapPointCoordinates(i, 'origin');
+				let destination = $currentScreen?.signalLines.getSnapPointCoordinates(i, 'destination');
 				let midpoint = {
 					x: origin.x + (destination.x - origin.x) / 2,
 					y: origin.y + (destination.y - origin.y) / 2
@@ -189,7 +158,7 @@
 			})
 			.attr('pointer-events', 'none');
 
-		if (!$screens[$currentScreenIndex].showDirectionArrows) {
+		if (!$currentScreen?.showDirectionArrows) {
 			directionArrows.attr('points', (d, i) => {
 				return '0,0 0,0 0,0';
 			});
@@ -204,9 +173,9 @@
 			.attr('stroke', 'black')
 			.attr(
 				'stroke-width',
-				$screens[$currentScreenIndex].width < $screens[$currentScreenIndex].height
-					? $screens[$currentScreenIndex].width / 20
-					: $screens[$currentScreenIndex].height / 20
+				$currentScreen?.width < $currentScreen?.height
+					? $currentScreen?.width / 20
+					: $currentScreen?.height / 20
 			)
 			.raise();
 

@@ -4,7 +4,7 @@
 	import SnapPoints from './Toolbar.SnapPoints.svelte';
 	import SignalLines from './Toolbar.SignalLines.svelte';
 
-	import { selection, currentScreenIndex } from '$lib/store.designer';
+	import { selection, currentScreen } from '$lib/store.designer';
 </script>
 
 <div id="container">
@@ -12,7 +12,7 @@
 		<Mode />
 	</div>
 
-	{#if typeof $currentScreenIndex === 'number'}
+	{#if $currentScreen}
 		<div class="divider" />
 
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -39,21 +39,20 @@
 				Signal Lines
 			</div>
 		</div>
+		<div id="selectors">
+			{#if $selection === 'panels'}
+				<Panels />
+			{/if}
+
+			{#if $selection === 'snappoints'}
+				<SnapPoints />
+			{/if}
+
+			{#if $selection === 'signallines'}
+				<SignalLines />
+			{/if}
+		</div>
 	{/if}
-
-	<div id="selectors">
-		{#if $selection === 'panels'}
-			<Panels />
-		{/if}
-
-		{#if $selection === 'snappoints'}
-			<SnapPoints />
-		{/if}
-
-		{#if $selection === 'signallines'}
-			<SignalLines />
-		{/if}
-	</div>
 </div>
 
 <style>

@@ -4,10 +4,10 @@
 
 	import * as d3 from 'd3';
 
-	import { mode, screens, currentScreenIndex } from '$lib/store.designer';
+	import { mode, currentScreen, board } from '$lib/store.designer';
 
 	const download = async () => {
-		$screens.forEach((s) => {
+		$board.screens.forEach((s) => {
 			s.panels.deSelect();
 			s.signalLines.deSelect();
 			s.snapPoints.deSelect();
@@ -24,8 +24,8 @@
 			clonedZoomWrapper.attr('transform', e.transform);
 		}
 
-		let w = $screens[$currentScreenIndex].width * $screens[$currentScreenIndex].columns;
-		let h = $screens[$currentScreenIndex].height * $screens[$currentScreenIndex].rows;
+		let w = $currentScreen?.width * $currentScreen?.columns;
+		let h = $currentScreen?.height * $currentScreen?.rows;
 
 		let svg = d3.select('#svg');
 		let g = svg.select('g').clone(true).node();
@@ -46,7 +46,7 @@
 		svgString2Image(svgString, 2 * w, 2 * h, 'png', save); // passes Blob and filesize String to the callback
 
 		function save(dataBlob, filesize) {
-			saveAs(dataBlob, $screens[$currentScreenIndex].name + '.png'); // FileSaver.js function
+			saveAs(dataBlob, $currentScreen?.name + '.png'); // FileSaver.js function
 		}
 
 		// Below are the functions that handle actual exporting:
@@ -150,9 +150,7 @@
 
 <svg id="print" width="0" height="0" />
 
-<button on:click={download} class="download" disabled={typeof $currentScreenIndex != 'number'}>
-	Download .PNG
-</button>
+<button on:click={download} class="download" disabled={!$currentScreen}> Download .PNG </button>
 
 <style>
 	button {

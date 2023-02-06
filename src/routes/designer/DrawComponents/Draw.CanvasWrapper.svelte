@@ -6,7 +6,7 @@
 		topLevelSvgRef,
 		setIsDrawingSignalLine,
 		isShifted,
-		screens
+		board
 	} from '$lib/store.designer';
 
 	import * as d3 from 'd3';
@@ -19,7 +19,7 @@
 
 	const deSelectAll = (e) => {
 		if ($isShifted) return;
-		$screens.forEach((screen) => {
+		$board.screens.forEach((screen) => {
 			screen.panels.deSelect();
 			screen.signalLines.deSelect();
 			screen.snapPoints.deSelect();

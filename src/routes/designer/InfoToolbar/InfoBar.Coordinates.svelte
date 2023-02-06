@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { screens, currentScreenIndex } from '$lib/store.designer';
+	import { currentScreen } from '$lib/store.designer';
 </script>
 
 <div class="general">
 	<label class="hovered">
-		<input type="checkbox" bind:checked={$screens[$currentScreenIndex].showCoordinates} />
+		<input type="checkbox" bind:checked={$currentScreen.showCoordinates} />
 		Show Coordinates
 	</label>
 
@@ -12,30 +12,30 @@
 
 	<div id="input-wrapper" class="rear-view-options">
 		<label class="hovered">
-			<input type="checkbox" bind:checked={$screens[$currentScreenIndex].isRearView} />
+			<input type="checkbox" bind:checked={$currentScreen.isRearView} />
 			Rear View
 		</label>
 		<div class="input-row">
 			<div class="label">Opacity</div>
 			<input
-				disabled={!$screens[$currentScreenIndex].isRearView}
+				disabled={!$currentScreen?.isRearView}
 				type="range"
 				min="0"
 				max=".5"
 				step=".01"
-				bind:value={$screens[$currentScreenIndex].opacity}
+				bind:value={$currentScreen.opacity}
 				class="range"
 			/>
 		</div>
 		<div class="input-row">
 			<div class="label">Font Size</div>
 			<input
-				disabled={!$screens[$currentScreenIndex].isRearView}
+				disabled={!$currentScreen?.isRearView}
 				type="range"
 				min="0"
 				max="1000"
 				step="1"
-				bind:value={$screens[$currentScreenIndex].rearViewLabelFontSize}
+				bind:value={$currentScreen.rearViewLabelFontSize}
 				class="range"
 			/>
 		</div>

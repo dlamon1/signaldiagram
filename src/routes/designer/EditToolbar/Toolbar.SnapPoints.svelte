@@ -3,8 +3,8 @@
 		textInputRef,
 		snapPointLabel,
 		selectedSnapPointIndexes,
-		screens,
-		currentScreenIndex
+		currentScreen,
+		board
 	} from '$lib/store.designer';
 
 	import SnapPointOptions from '../InfoToolbar/InfoBar.SnapPointOptions.svelte';
@@ -26,7 +26,7 @@
 		yOffset = 0;
 		_radiusMultiplier = 1;
 
-		$screens[$currentScreenIndex].snapPoints.array.forEach((sp: SnapPointObj) => {
+		$currentScreen?.snapPoints.array.forEach((sp: SnapPointObj) => {
 			if (sp.isSelected) {
 				xOffset = sp.xOffset;
 				yOffset = -sp.yOffset;
@@ -36,7 +36,7 @@
 	};
 
 	const currentOffsetValues = () => {
-		$screens[$currentScreenIndex].snapPoints.array.forEach((sp: SnapPointObj) => {
+		$currentScreen?.snapPoints.array.forEach((sp: SnapPointObj) => {
 			if (sp.isSelected) {
 				return {
 					xOffset: sp.xOffset,
@@ -51,7 +51,7 @@
 	};
 
 	const currentScaleValue = () => {
-		$screens[$currentScreenIndex].snapPoints.array.forEach((sp: SnapPointObj) => {
+		$currentScreen?.snapPoints.array.forEach((sp: SnapPointObj) => {
 			if (sp.isSelected) {
 				return sp.scale;
 			}
@@ -84,21 +84,21 @@
 	};
 
 	const setRadiusMultiplier = (r: number) => {
-		$screens[$currentScreenIndex].snapPoints.setRadiusMultiplier(r);
-		$screens = $screens;
+		$currentScreen?.snapPoints.setRadiusMultiplier(r);
+		// board.save($board);
 	};
 
 	const setOffsets = (x: number, y: number) => {
-		$screens[$currentScreenIndex].snapPoints.setXOffsets(x);
-		$screens[$currentScreenIndex].snapPoints.setYOffsets(y);
+		$currentScreen?.snapPoints.setXOffsets(x);
+		$currentScreen?.snapPoints.setYOffsets(y);
 
-		$screens = $screens;
+		// board.save($board);
 	};
 
 	$: {
 		sd = [];
 
-		$screens[$currentScreenIndex].snapPoints.array?.forEach((p) => {
+		$currentScreen?.snapPoints.array?.forEach((p) => {
 			if ((p.isSquare && p.isSelected) || (p.isTriangle && p.isSelected)) {
 				sd.push(p);
 			}
@@ -106,25 +106,21 @@
 	}
 
 	const handleRemoveLabel = () => {
-		$screens[$currentScreenIndex].snapPoints.array.forEach((snapPoint) => {
+		$currentScreen?.snapPoints.array.forEach((snapPoint) => {
 			if (snapPoint.isSelected) {
-				$screens[$currentScreenIndex].snapPoints.removeLabel();
+				$currentScreen?.snapPoints.removeLabel();
 			}
 		});
-		$screens = $screens;
+		// board.save($board);
 	};
 </script>
 
 <div id="snappoints" class="snappoints" in:fade={{ duration: 150 }} out:fade={{ duration: 0 }}>
 	<div class="crisscross">
-		<button
-			class="criss-cross"
-			on:click={() => $screens[$currentScreenIndex].snapPoints.selectEvenOrOdd(1)}
+		<button class="criss-cross" on:click={() => $currentScreen?.snapPoints.selectEvenOrOdd(1)}
 			>Select [0]</button
 		>
-		<button
-			class="criss-cross"
-			on:click={() => $screens[$currentScreenIndex].snapPoints.selectEvenOrOdd(2)}
+		<button class="criss-cross" on:click={() => $currentScreen?.snapPoints.selectEvenOrOdd(2)}
 			>select [1]</button
 		>
 	</div>
@@ -160,7 +156,7 @@
 		layer={'background'}
 		element={'Background'}
 		isOpen={false}
-		classObj={$screens[$currentScreenIndex].snapPoints}
+		classObj={$currentScreen?.snapPoints}
 	/>
 
 	<div class="divider" />
@@ -170,7 +166,7 @@
 		layer={'font'}
 		element={'Font'}
 		isOpen={false}
-		classObj={$screens[$currentScreenIndex].snapPoints}
+		classObj={$currentScreen?.snapPoints}
 	/>
 
 	<div class="divider" />
@@ -182,8 +178,8 @@
 		<input
 			name="x"
 			type="range"
-			min={-$screens[$currentScreenIndex].width / 3}
-			max={$screens[$currentScreenIndex].width / 3}
+			min={-$currentScreen?.width / 3}
+			max={$currentScreen?.width / 3}
 			step="1"
 			bind:value={xOffset}
 			class="range"
@@ -196,8 +192,8 @@
 		<input
 			name="y"
 			type="range"
-			min={-$screens[$currentScreenIndex].height / 3}
-			max={$screens[$currentScreenIndex].height / 3}
+			min={-$currentScreen?.height / 3}
+			max={$currentScreen?.height / 3}
 			step="1"
 			bind:value={yOffset}
 			class="range"
@@ -221,14 +217,11 @@
 	<div class="divider" />
 
 	<div class="shape-button-container">
-		<button
-			id="shape-button"
-			on:click={() => $screens[$currentScreenIndex].snapPoints.setIsSquares(true)}>Square</button
+		<button id="shape-button" on:click={() => $currentScreen?.snapPoints.setIsSquares(true)}
+			>Square</button
 		>
 
-		<button
-			id="shape-button"
-			on:click={() => $screens[$currentScreenIndex].snapPoints.setIsTriangles(true)}
+		<button id="shape-button" on:click={() => $currentScreen?.snapPoints.setIsTriangles(true)}
 			>Triangle</button
 		>
 	</div>
